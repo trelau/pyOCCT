@@ -92,3 +92,13 @@ ENV/
 
 # Spyder project settings
 .spyderproject
+
+.kdev4/
+*.kdev4
+*.kate-swp
+
+log.txt
+
+# These are generated
+binder/generate/*.json
+binder/generate/*.h
