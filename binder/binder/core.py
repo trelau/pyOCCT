@@ -23,7 +23,7 @@ from ctypes import c_uint
 import re
 
 from binder import cymbal
-from binder.clang.cindex import (AccessSpecifier, Index, TranslationUnit,
+from clang.cindex import (AccessSpecifier, Index, TranslationUnit,
                                  CursorKind, TypeKind, Cursor)
 from binder.common import SRC_PREFIX, PY_OPERATORS
 

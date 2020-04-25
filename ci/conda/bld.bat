@@ -1,3 +1,6 @@
+python binder/generate/run.py
+if errorlevel 1 exit 1
+
 mkdir build
 cd build
 
@@ -16,4 +19,4 @@ ninja install
 if errorlevel 1 exit 1
 
 cd ..
-python setup.py install
+python setup.py install --prefix="%PREFIX%"

@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from binder import clang
+import clang
 
 __all__ = ['monkeypatch_type', 'monkeypatch_cursor', 'CymbalException']
 

@@ -18,6 +18,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import unittest
+from os.path import join, dirname
 
 from OCCT.TCollection import TCollection_ExtendedString
 from OCCT.TDF import TDF_LabelSequence
@@ -50,7 +51,8 @@ class Test_XCAFDoc_ShapeTool(unittest.TestCase):
 
         cls._app.InitDocument(doc)
 
-        fn = TCollection_ExtendedString('./test_io/named_box.xml')
+        filename = join(dirname(__file__), 'test_io', 'named_box.xml')
+        fn = TCollection_ExtendedString(filename)
         status, cls._doc = cls._app.Open(fn, doc)
 
         cls._tool = XCAFDoc_DocumentTool.ShapeTool_(cls._doc.Main())

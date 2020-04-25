@@ -3,7 +3,7 @@
 # Clang compiler arguments ----------------------------------------------------
 +arg -x
 +arg c++
-+arg -std=c++14
++arg -std=c++17
 +arg -fms-compatibility
 +arg -fms-extensions
 +arg -fms-compatibility-version=19
@@ -494,6 +494,9 @@
 
 -function ShapeFix_WireSegment::ShapeFix_WireSegment(const TopoDS_Wire &, const TopAbs_Orientation)
 
+# Undefined symbol on Linux
+-function ShapeFix_Edge::Context
+
 -function StdPersistent_DataXtd_Constraint::Import
 -function StdPersistent_DataXtd_PatternStd::Import
 -function StdPersistent_TopLoc::Translate_
@@ -503,6 +506,7 @@
 -function StdObject_Location::Import
 
 -function StdSelect_BRepOwner::Set
+#-function StdStorage_TypeData::Instantiator
 
 -function StepData_FreeFormEntity::StepData_FreeFormEntity
 -function StepData_StepReaderData::ReadEnumParam
@@ -567,6 +571,9 @@
 -function XSControl_Vars::GetPoint
 -function XSControl_Vars::GetPoint2d
 -function XSControl_Vars::GetShape
+
+# Unresolved symbol
+-function Xw_Window::DisplayConnection
 
 # Headers ---------------------------------------------------------------------
 -header* AdvApp2Var_Data_f2c.hxx
@@ -901,6 +908,9 @@
 +extra TopoDS_Shape-->cls_TopoDS_Shape.def("__hash__", [](TopoDS_Shape &self) {return self.HashCode(999999); });
 
 +extra XCAFDoc_ShapeTool-->cls_XCAFDoc_ShapeTool.def("FindSubShape", [](XCAFDoc_ShapeTool &self, const TDF_Label &shapeL, const TopoDS_Shape &sub) { TDF_Label L; Standard_Boolean status = self.FindSubShape(shapeL, sub, L); return std::tuple<Standard_Boolean, TDF_Label>(status, L); }, "Finds a label for subshape of shape stored on label shapeL Returns Null label if it is not found", py::arg("shapeL"), py::arg("sub"));
+
+# Add exception translator
++extra Standard_Failure-->py::register_exception_translator([](std::exception_ptr p) {try {if (p) std::rethrow_exception(p);} catch (const Standard_Failure &e) { PyErr_SetString(PyExc_RuntimeError, e.GetMessageString());}});
 
 # Patches -----------------------------------------------------------------
 

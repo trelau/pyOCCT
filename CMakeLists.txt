@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.10)
 project(pyOCCT VERSION 7.4.0.0 LANGUAGES CXX)
 
 
@@ -27,6 +27,7 @@ option(ENABLE_SMESH "Enable SMESH" OFF)
 option(ENABLE_NETGEN "Enable Netgen" OFF)
 option(ENABLE_WARNINGS "Disable warning output." OFF)
 option(ENABLE_FORCE "Force build even if unresolved externals are found" OFF)
+option(TEST_BUILD "Build a subset of modules for testing." OFF)
 
 # --------------------------------------------------------------------------- #
 # SETTINGS
@@ -59,6 +60,13 @@ if(ENABLE_FORCE AND MSVC)
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /FORCE")
 endif()
 
+if(NOT MSVC)
+    # TODO: Figure out how to handle methods that return functions
+    message(STATUS "Flags: ${CMAKE_CXX_FLAGS}")
+    message(STATUS "Linker flags: ${CMAKE_MODULE_LINKER_FLAGS}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,-z,defs")
+endif()
 
 # --------------------------------------------------------------------------- #
 # pyOCCT
@@ -100,25 +108,32 @@ message(STATUS "Searching for VTK...")
 find_package(VTK REQUIRED)
 
 message(STATUS "VTK include directory: ${VTK_INCLUDE_DIRS}")
+message(STATUS "VTK library directory: ${VTK_LIBRARIES}")
 include_directories(${VTK_INCLUDE_DIRS})
 
 # --------------------------------------------------------------------------- #
 # OpenGL
 # --------------------------------------------------------------------------- #
-if(NOT WIN32)
-    if (NOT DEFINED OPENGL_EGL_INCLUDE_DIRS)
-        message(STATUS "Searching for OpenGL...")
-        find_package(OpenGL REQUIRED GLX EGL)
-    endif()
-    if(NOT EXISTS ${OPENGL_EGL_INCLUDE_DIRS})
-        message(FATAL_ERROR "Failed to find OpenGL library directory.")
-    endif()
-    message(STATUS "EGL include directory: ${OPENGL_EGL_INCLUDE_DIRS}")
-    #message(STATUS "EGL include libs: ${OPENGL_egl_LIBRARY}")
-    include_directories(${OPENGL_EGL_INCLUDE_DIRS})
-    #link_directories(${OPENGL_egl_LIBRARY})
-
+message(STATUS "Searching for OpenGL...")
+if(WIN32)
+    find_package(OpenGL REQUIRED)
+elseif(APPLE)
+    find_package(OpenGL REQUIRED)
+    #find_package(Cocoa REQUIRED)
+else()
+    #if (DEFINED ENV{CONDA_BUILD})
+    #    #set(CONDA_SYSROOT "$ENV{PREFIX}/$ENV{HOST}/sysroot")
+    #    set(CONDA_SYSROOT "$ENV{PREFIX}/x86_64-conda_cos6-linux-gnu/sysroot")
+    #    set(OPENGL_INCLUDE_DIR "${CONDA_SYSROOT}/usr/include")
+    #    set(OPENGL_LIBRARIES "${CONDA_SYSROOT}/usr/lib64/libGL.so")
+    #else()
+    find_package(OpenGL REQUIRED GLX EGL)
+    #endif()
 endif()
+
+message(STATUS "OpenGL include directory: ${OPENGL_INCLUDE_DIR}")
+message(STATUS "OpenGL libraries: ${OPENGL_LIBRARIES}")
+include_directories(${OPENGL_INCLUDE_DIR})
 
 # --------------------------------------------------------------------------- #
 # SMESH
@@ -198,11 +213,9 @@ else()
     find_package(pybind11 REQUIRED)
 endif()
 
-
 # --------------------------------------------------------------------------- #
 # pyOCCT
 # --------------------------------------------------------------------------- #
-include_directories(inc)
 set(OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_PATH}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
@@ -214,18 +227,62 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 # Treat each .cxx file in src/modules as a module
 file(GLOB OCCT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/occt/*.cxx)
 
+
+# Subset of modules to build when TEST_BUILD is ON
+set(TEST_MODULES
+        AIS;
+        Aspect;
+        BRep;
+        #BRepBuilderAPI;
+        #BRepTools;
+        Font;
+        #Geom;
+        #gp;
+        Graphic3d;
+        #IGESControl;
+        #MeshVS;
+        #OpenGl;
+        #Quantity;
+        #SMESH;
+        #STEPControl;
+        #StdStorage;
+        Standard;
+        #IFSelect;
+        #TopoDS;
+        #IVtk;
+        #IVtkOCC;
+        #IVtkTools;
+        #IVtkVTK;
+        V3d;
+        Xw;
+    )
+
+# Issue warning if TEST_BUILD is ON
+if(TEST_BUILD)
+    message(WARNING "WARNING: TEST_BUILD mode. Not all modules will be generated.")
+endif()
+
 # OCCT modules
 foreach(SRC ${OCCT_SRCS})
 
     # Get module name
     get_filename_component(MOD ${SRC} NAME_WE)
 
-    if(NOT ${MOD} STREQUAL "Standard")
+    # Check for test modules
+    list(FIND TEST_MODULES ${MOD} _INDEX)
+    if(TEST_BUILD AND NOT ${_INDEX} GREATER -1)
+        message(STATUS "Skipping module ${MOD}")
+        continue()
+    endif()
+
+    # Disable Vtk for now
+    if(${MOD} MATCHES "IVtk.*")
+        message(STATUS "Skipping Vtk module ${MOD}")
         continue()
     endif()
 
     # Check for platform-specific modules
-    if(WIN32 AND ${MOD} STREQUAL "XwWindow")
+    if(WIN32 AND ${MOD} STREQUAL "Xw")
         message(STATUS "Skipping platform-specific module ${MOD}")
         continue()
     endif()
@@ -242,7 +299,18 @@ foreach(SRC ${OCCT_SRCS})
 
     # Add pybind11 module
     pybind11_add_module(${MOD} ${SRC})
-    target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES})
+    target_link_libraries(${MOD}
+        PUBLIC ${OpenCASCADE_LIBRARIES} ${PYTHON_LIBRARIES})
+
+    if(${MOD} STREQUAL "OpenGl")
+        target_link_libraries(${MOD} PRIVATE ${OPENGL_LIBRARIES})
+    endif()
+
+    if(${MOD} MATCHES "IVtk.*")
+        target_link_libraries(${MOD} PUBLIC ${VTK_LIBRARIES})
+    endif()
+
+
     set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
     target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/occt)
     install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
@@ -268,6 +336,7 @@ if(ENABLE_SMESH)
         # Add pybind11 module
         pybind11_add_module(${MOD} ${SRC})
         target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
+                                            ${PYTHON_LIBRARIES}
                                             ${SMESH_ABS_LIBS})
         set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
         target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/smesh)
