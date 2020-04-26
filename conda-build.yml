@@ -55,7 +55,7 @@ jobs:
     - task: PublishBuildArtifacts@1
       inputs:
         pathToPublish: './src/occt'
-        artifactName: 'pyocct_src'
+        artifactName: 'pyocct-src-${{ parameters.vmImage }}'
 
     - bash: |
         source activate pyOCCT && \
@@ -66,7 +66,7 @@ jobs:
     - task: PublishBuildArtifacts@1
       inputs:
         pathToPublish: './conda'
-        artifactName: 'pyocct_dev'
+        artifactName: 'pyocct-${{ parameters.python }}-${{ parameters.vmImage }}'
 
     - bash: |
         source activate pyOCCT && \
