@@ -43,7 +43,7 @@ jobs:
       displayName: 'Configure conda'
 
     - bash: |
-        conda install --yes --quiet python=${{ parameters.python }} conda-build conda-verify python-clang clang
+        conda install --yes --quiet python=${{ parameters.python }} conda-build conda-verify python-clang clang occt
       displayName: 'Create conda environment'
 
     # run binder and publish the results
