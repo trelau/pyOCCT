@@ -44,13 +44,7 @@ jobs:
 
     - bash: |
         conda create --yes --quiet --name pyOCCT \
-            python=${{ parameters.python }} \
-            conda-build \
-            conda-verify \
-            python-clang \
-            clang \
-            occt \
-            tbb-devel
+            python=${{ parameters.python }} conda-build
       displayName: 'Create conda environment'
 
     - bash: |

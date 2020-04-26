@@ -15,6 +15,9 @@ requirements:
     - ninja
     - pybind11
     - python
+    - python-clang
+    - libclang
+    - clang
 
   host:
     - python
