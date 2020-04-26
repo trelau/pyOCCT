@@ -43,11 +43,12 @@ jobs:
       displayName: 'Configure conda'
 
     - bash: |
-        conda install --yes --quiet python=${{ parameters.python }} conda-build conda-verify python-clang clang occt
+        conda create --yes --quiet --name pyOCCT python=${{ parameters.python }} conda-build conda-verify python-clang clang occt
       displayName: 'Create conda environment'
 
     # run binder and publish the results
     - bash: |
+        source activate pyOCCT && \
         python binder/generate/run.py
       displayName: 'Run binder'
 
@@ -57,6 +58,7 @@ jobs:
         artifactName: 'pyocct_src'
 
     - bash: |
+        source activate pyOCCT && \
         mkdir conda && \
         conda build  ci/conda --no-test --output-folder conda
       displayName: 'Run conda build'
@@ -67,5 +69,6 @@ jobs:
         artifactName: 'pyocct_dev'
 
     - bash: |
-        conda build  conda/*/pyocct-*.tar.bz2 --test --keep-going
+        source activate pyOCCT && \
+        conda build conda/*/pyocct-*.tar.bz2 --test --keep-going
       displayName: 'Run tests'
