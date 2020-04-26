@@ -15,7 +15,7 @@ jobs:
     - ${{ if contains(parameters.vmImage, 'ubuntu') }}:
       - bash: |
           sudo apt-get update && \
-          sudo apt-get -q -y install libglu1-mesa-dev libgl1-mesa-dev libxi-dev libglfw3-dev libgles2-mesa-dev
+          sudo apt-get -q -y install libglu1-mesa-dev libgl1-mesa-dev libxi-dev
         displayName: 'Install OpenGL headers'
 
     # add conda to the path
@@ -31,11 +31,6 @@ jobs:
         git clone https://github.com/pybind/pybind11.git pybind11
       displayName: 'Clone pybind11'
 
-    # clone binder
-    - bash: |
-        git clone https://github.com/LaughlinResearch/pyOCCT_binder.git binder
-      displayName: 'Clone binder'
-
     # configure conda and build
     - bash: |
         conda info -a && \
@@ -43,32 +38,16 @@ jobs:
       displayName: 'Configure conda'
 
     - bash: |
-        conda create --yes --quiet --name pyOCCT python=${{ parameters.python }} conda-build conda-verify python-clang clang occt
+        conda create --yes --quiet --name pyOCCT python=${{ parameters.python }} conda-build
       displayName: 'Create conda environment'
-
-    # run binder and publish the results
-    - bash: |
-        source activate pyOCCT && \
-        python binder/generate/run.py
-      displayName: 'Run binder'
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathToPublish: './src/occt'
-        artifactName: 'pyocct_src'
 
     - bash: |
         source activate pyOCCT && \
         mkdir conda && \
-        conda build  ci/conda --no-test --output-folder conda
+        conda build  ci/conda --build-only --output-folder conda
       displayName: 'Run conda build'
 
     - task: PublishBuildArtifacts@1
       inputs:
         pathToPublish: './conda'
         artifactName: 'pyocct_dev'
-
-    - bash: |
-        source activate pyOCCT && \
-        conda build conda/*/pyocct-*.tar.bz2 --test --keep-going
-      displayName: 'Run tests'

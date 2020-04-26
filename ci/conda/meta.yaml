@@ -10,10 +10,13 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }} # [win]
+    - {{ compiler('cxx') }}
+    - {{ cdt('libx11-devel') }}  # [linux]
+    - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
+    - {{ cdt('mesa-libgl-devel') }}  # [linux]
+    - {{ cdt('libxi-devel') }}  # [linux]
     - cmake
     - ninja
-    - pybind11
 
   host:
     - python
@@ -23,16 +26,13 @@ requirements:
 
   run:
     - python
+    - wxpython
     - occt ==7.4.0
     - smesh ==8.3.0.3  # [win]
 
 test:
-  requires:
-    - pytest
   source_files:
     - test
-  commands:
-    - pytest test -v
 
 about:
   home: https://github.com/LaughlinResearch/pyOCCT
