@@ -14,16 +14,13 @@ requirements:
     - cmake
     - ninja
     - pybind11
-    - python
     - python-clang
     - libclang
     - clang
     - tbb-devel
-
-  host:
-    - python
     - occt ==7.4.0
     - smesh ==8.3.0.3  # [win]
+    - python
 
   run:
     - python
