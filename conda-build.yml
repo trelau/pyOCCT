@@ -43,7 +43,14 @@ jobs:
       displayName: 'Configure conda'
 
     - bash: |
-        conda create --yes --quiet --name pyOCCT python=${{ parameters.python }} conda-build conda-verify python-clang clang occt
+        conda create --yes --quiet --name pyOCCT \
+            python=${{ parameters.python }} \
+            conda-build \
+            conda-verify \
+            python-clang \
+            clang \
+            occt \
+            tbb-devel
       displayName: 'Create conda environment'
 
     # run binder and publish the results
