@@ -18,6 +18,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import unittest
+from os.path import join, dirname
 
 from OCCT.PCDM import PCDM_ReaderStatus
 from OCCT.TCollection import TCollection_ExtendedString
@@ -48,7 +49,9 @@ class Test_TDocStd_Application(unittest.TestCase):
 
         self._app.InitDocument(doc)
 
-        fn = TCollection_ExtendedString('./test_io/named_box.xml')
+        filename = join(dirname(__file__), 'test_io', 'named_box.xml')
+
+        fn = TCollection_ExtendedString(filename)
         status, doc = self._app.Open(fn, doc)
 
         self.assertEqual(PCDM_ReaderStatus.PCDM_RS_OK, status)
