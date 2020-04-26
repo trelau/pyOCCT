@@ -1,3 +1,6 @@
+python binder/generate/run.py
+if errorlevel 1 exit 1
+
 mkdir build
 cd build
 

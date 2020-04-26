@@ -3,10 +3,7 @@
 # Fail on error
 set -e
 
-declare -a CMAKE_PLATFORM_FLAGS
-if [[ ${HOST} =~ .*linux.* ]]; then
-    CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
-fi
+python binder/generate/run.py
 
 rm -Rf build
 mkdir build

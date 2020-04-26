@@ -53,17 +53,6 @@ jobs:
             tbb-devel
       displayName: 'Create conda environment'
 
-    # run binder and publish the results
-    - bash: |
-        source activate pyOCCT && \
-        python binder/generate/run.py
-      displayName: 'Run binder'
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathToPublish: './src/occt'
-        artifactName: 'pyocct-src-${{ parameters.vmImage }}'
-
     - bash: |
         source activate pyOCCT && \
         mkdir conda && \
