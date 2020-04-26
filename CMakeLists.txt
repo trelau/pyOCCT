@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.10)
 project(pyOCCT VERSION 7.4.0.0 LANGUAGES CXX)
 
 
@@ -25,6 +25,7 @@ project(pyOCCT VERSION 7.4.0.0 LANGUAGES CXX)
 # --------------------------------------------------------------------------- #
 option(ENABLE_SMESH "Enable SMESH" OFF)
 option(ENABLE_NETGEN "Enable Netgen" OFF)
+option(ENABLE_VTK "Enable VTK" OFF)
 option(ENABLE_WARNINGS "Disable warning output." OFF)
 option(ENABLE_FORCE "Force build even if unresolved externals are found" OFF)
 
@@ -59,11 +60,43 @@ if(ENABLE_FORCE AND MSVC)
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /FORCE")
 endif()
 
+if(NOT MSVC)
+    # TODO: Figure out how to handle methods that return functions
+    message(STATUS "Flags: ${CMAKE_CXX_FLAGS}")
+    message(STATUS "Linker flags: ${CMAKE_MODULE_LINKER_FLAGS}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,-z,defs")
+endif()
+
+
+# --------------------------------------------------------------------------- #
+# pyOCCT
+# --------------------------------------------------------------------------- #
+# Must be included before opencascade so the InterfaceGraphic.hxx patch works
+include_directories(inc)
+
+
 # --------------------------------------------------------------------------- #
 # TBB (for BVH header)
 # --------------------------------------------------------------------------- #
 message(STATUS "Searching for TBB...")
 find_package(TBB REQUIRED)
+
+
+# --------------------------------------------------------------------------- #
+# OpenGL
+# --------------------------------------------------------------------------- #
+message(STATUS "Searching for OpenGL...")
+if(WIN32 OR APPLE)
+    find_package(OpenGL REQUIRED)
+else()
+    find_package(OpenGL REQUIRED GLX EGL)
+endif()
+
+message(STATUS "OpenGL include directory: ${OPENGL_INCLUDE_DIR}")
+message(STATUS "OpenGL libraries: ${OPENGL_LIBRARIES}")
+include_directories(${OPENGL_INCLUDE_DIR})
+
 
 # --------------------------------------------------------------------------- #
 # OpenCASCADE
@@ -85,6 +118,18 @@ message(STATUS "OpenCASCADE include directory: ${OpenCASCADE_INCLUDE_DIR}")
 message(STATUS "OpenCASCADE library directory: ${OpenCASCADE_LIBRARY_DIR}")
 include_directories(${OpenCASCADE_INCLUDE_DIR})
 link_directories(${OpenCASCADE_LIBRARY_DIR})
+
+
+# ----------------------------------------------------------------------- #
+# VTK
+# ----------------------------------------------------------------------- #
+if (ENABLE_VTK OR ENABLE_SMESH)
+    message(STATUS "Searching for VTK...")
+    find_package(VTK REQUIRED)
+
+    message(STATUS "VTK include directory: ${VTK_INCLUDE_DIRS}")
+    include_directories(${VTK_INCLUDE_DIRS})
+endif()
 
 # --------------------------------------------------------------------------- #
 # SMESH
@@ -111,17 +156,6 @@ if(ENABLE_SMESH)
     endforeach(LIB)
     unset(FOUND_LIB CACHE)
 
-
-    # ----------------------------------------------------------------------- #
-    # VTK
-    # ----------------------------------------------------------------------- #
-    message(STATUS "Searching for VTK...")
-    find_package(VTK REQUIRED)
-
-    message(STATUS "VTK include directory: ${VTK_INCLUDE_DIRS}")
-    include_directories(${VTK_INCLUDE_DIRS})
-
-
     # ----------------------------------------------------------------------- #
     # BOOST
     # ----------------------------------------------------------------------- #
@@ -135,7 +169,6 @@ if(ENABLE_SMESH)
 
     # message(STATUS "Boost include directory: ${Boost_INCLUDE_DIR}")
     # include_directories(${Boost_INCLUDE_DIR})
-
 
     # ----------------------------------------------------------------------- #
     # PTHREAD
@@ -167,19 +200,18 @@ endif(ENABLE_SMESH)
 # --------------------------------------------------------------------------- #
 # PYBIND11
 # --------------------------------------------------------------------------- #
-IF(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/pybind11")
+if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/pybind11")
     message(STATUS "Adding pybind11 subdirectory.")
     add_subdirectory(pybind11)
-ELSE()
+else()
     message(STATUS "Searching for pybind11...")
     find_package(pybind11 REQUIRED)
-ENDIF()
+endif()
 
 
 # --------------------------------------------------------------------------- #
 # pyOCCT
 # --------------------------------------------------------------------------- #
-include_directories(inc)
 set(OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_PATH}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
@@ -197,12 +229,13 @@ foreach(SRC ${OCCT_SRCS})
     # Get module name
     get_filename_component(MOD ${SRC} NAME_WE)
 
-    if(NOT ${MOD} STREQUAL "Standard")
+    if(NOT ENABLE_VTK AND ${MOD} MATCHES "IVtk.*")
+        message(STATUS "Skipping Vtk module ${MOD}")
         continue()
     endif()
 
     # Check for platform-specific modules
-    if(WIN32 AND ${MOD} STREQUAL "XwWindow")
+    if((WIN32 OR APPLE) AND ${MOD} STREQUAL "Xw")
         message(STATUS "Skipping platform-specific module ${MOD}")
         continue()
     endif()
@@ -212,14 +245,24 @@ foreach(SRC ${OCCT_SRCS})
         continue()
     endif()
 
-    if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux" AND ${MOD} STREQUAL "Cocoa")
+    if(NOT APPLE AND ${MOD} STREQUAL "Cocoa")
         message(STATUS "Skipping platform-specific module ${MOD}")
         continue()
     endif()
 
     # Add pybind11 module
     pybind11_add_module(${MOD} ${SRC})
-    target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES})
+    target_link_libraries(${MOD}
+        PUBLIC ${OpenCASCADE_LIBRARIES} ${PYTHON_LIBRARIES})
+
+    if(${MOD} STREQUAL "OpenGl")
+        target_link_libraries(${MOD} PRIVATE ${OPENGL_LIBRARIES})
+    endif()
+
+    if(${MOD} MATCHES "IVtk.*")
+        target_link_libraries(${MOD} PUBLIC ${VTK_LIBRARIES})
+    endif()
+
     set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
     target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/occt)
     install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
@@ -245,6 +288,7 @@ if(ENABLE_SMESH)
         # Add pybind11 module
         pybind11_add_module(${MOD} ${SRC})
         target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
+                                            ${PYTHON_LIBRARIES}
                                             ${SMESH_ABS_LIBS})
         set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
         target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/smesh)
