@@ -18,11 +18,11 @@ requirements:
     - python-clang
     - libclang
     - clang
+    - tbb-devel
 
   host:
     - python
     - occt ==7.4.0
-    - tbb-devel
     - smesh ==8.3.0.3  # [win]
 
   run:
