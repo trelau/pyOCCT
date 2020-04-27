@@ -47,6 +47,8 @@ jobs:
         mkdir conda && \
         conda build  ci/conda --no-test --output-folder conda
       displayName: 'Run conda build'
+      env:
+        PYTHON_VERSION: ${{ parameters.python }}
 
     - task: PublishBuildArtifacts@1
       inputs:
