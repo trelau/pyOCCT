@@ -70,6 +70,15 @@ endif()
 
 
 # --------------------------------------------------------------------------- #
+# Python
+# --------------------------------------------------------------------------- #
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+message(STATUS "Python interpreter:" ${Python3_EXECUTABLE})
+message(STATUS "Python include directory: ${Python3_INCLUDE_DIR}")
+message(STATUS "Python library release: ${Python3_LIBRARY_RELEASE}")
+
+
+# --------------------------------------------------------------------------- #
 # pyOCCT
 # --------------------------------------------------------------------------- #
 # Must be included before opencascade so the InterfaceGraphic.hxx patch works
@@ -252,8 +261,7 @@ foreach(SRC ${OCCT_SRCS})
 
     # Add pybind11 module
     pybind11_add_module(${MOD} ${SRC})
-    target_link_libraries(${MOD}
-        PUBLIC ${OpenCASCADE_LIBRARIES} ${PYTHON_LIBRARIES})
+    target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES})
 
     if(${MOD} STREQUAL "OpenGl")
         target_link_libraries(${MOD} PRIVATE ${OPENGL_LIBRARIES})
@@ -288,7 +296,6 @@ if(ENABLE_SMESH)
         # Add pybind11 module
         pybind11_add_module(${MOD} ${SRC})
         target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
-                                            ${PYTHON_LIBRARIES}
                                             ${SMESH_ABS_LIBS})
         set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
         target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/smesh)
