@@ -70,19 +70,24 @@ endif()
 
 
 # --------------------------------------------------------------------------- #
+# PYBIND11
+# --------------------------------------------------------------------------- #
+if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/pybind11")
+    message(STATUS "Adding pybind11 subdirectory.")
+    add_subdirectory(pybind11)
+else()
+    message(STATUS "Searching for pybind11...")
+    find_package(pybind11 REQUIRED)
+endif()
+
+
+# --------------------------------------------------------------------------- #
 # Python
 # --------------------------------------------------------------------------- #
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 message(STATUS "Python interpreter:" ${Python3_EXECUTABLE})
 message(STATUS "Python include directory: ${Python3_INCLUDE_DIR}")
 message(STATUS "Python library release: ${Python3_LIBRARY_RELEASE}")
-
-
-# --------------------------------------------------------------------------- #
-# pyOCCT
-# --------------------------------------------------------------------------- #
-# Must be included before opencascade so the InterfaceGraphic.hxx patch works
-include_directories(inc)
 
 
 # --------------------------------------------------------------------------- #
@@ -110,6 +115,8 @@ include_directories(${OPENGL_INCLUDE_DIR})
 # --------------------------------------------------------------------------- #
 # OpenCASCADE
 # --------------------------------------------------------------------------- #
+# Must be included before opencascade so the InterfaceGraphic.hxx patch works
+include_directories(inc)
 if(NOT DEFINED OpenCASCADE_INCLUDE_DIR OR NOT DEFINED OpenCASCADE_LIBRARY_DIR)
     message(STATUS "Searching for OpenCASCADE...")
     find_package(OpenCASCADE 7.4.0 REQUIRED)
@@ -207,18 +214,6 @@ endif(ENABLE_SMESH)
 
 
 # --------------------------------------------------------------------------- #
-# PYBIND11
-# --------------------------------------------------------------------------- #
-if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/pybind11")
-    message(STATUS "Adding pybind11 subdirectory.")
-    add_subdirectory(pybind11)
-else()
-    message(STATUS "Searching for pybind11...")
-    find_package(pybind11 REQUIRED)
-endif()
-
-
-# --------------------------------------------------------------------------- #
 # pyOCCT
 # --------------------------------------------------------------------------- #
 set(OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
@@ -261,7 +256,7 @@ foreach(SRC ${OCCT_SRCS})
 
     # Add pybind11 module
     pybind11_add_module(${MOD} ${SRC})
-    target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES})
+    target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES} ${PYTHON_LIBRARIES})
 
     if(${MOD} STREQUAL "OpenGl")
         target_link_libraries(${MOD} PRIVATE ${OPENGL_LIBRARIES})
@@ -295,7 +290,7 @@ if(ENABLE_SMESH)
 
         # Add pybind11 module
         pybind11_add_module(${MOD} ${SRC})
-        target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
+        target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES} ${PYTHON_IBRARIES}
                                             ${SMESH_ABS_LIBS})
         set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
         target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/smesh)
