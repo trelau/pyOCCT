@@ -70,24 +70,19 @@ endif()
 
 
 # --------------------------------------------------------------------------- #
-# PYBIND11
-# --------------------------------------------------------------------------- #
-if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/pybind11")
-    message(STATUS "Adding pybind11 subdirectory.")
-    add_subdirectory(pybind11)
-else()
-    message(STATUS "Searching for pybind11...")
-    find_package(pybind11 REQUIRED)
-endif()
-
-
-# --------------------------------------------------------------------------- #
 # Python
 # --------------------------------------------------------------------------- #
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 message(STATUS "Python interpreter:" ${Python3_EXECUTABLE})
 message(STATUS "Python include directory: ${Python3_INCLUDE_DIR}")
 message(STATUS "Python library release: ${Python3_LIBRARY_RELEASE}")
+
+
+# --------------------------------------------------------------------------- #
+# PYBIND11
+# --------------------------------------------------------------------------- #
+message(STATUS "Searching for pybind11...")
+find_package(pybind11 REQUIRED)
 
 
 # --------------------------------------------------------------------------- #
