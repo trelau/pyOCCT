@@ -27,7 +27,6 @@ option(ENABLE_SMESH "Enable SMESH" OFF)
 option(ENABLE_NETGEN "Enable Netgen" OFF)
 option(ENABLE_VTK "Enable VTK" OFF)
 option(ENABLE_WARNINGS "Disable warning output." OFF)
-option(ENABLE_FORCE "Force build even if unresolved externals are found" OFF)
 
 # --------------------------------------------------------------------------- #
 # SETTINGS
@@ -53,12 +52,6 @@ if(NOT ENABLE_WARNINGS)
 else(NOT ENABLE_WARNINGS)
     set(WARNINGS)
 endif(NOT ENABLE_WARNINGS)
-
-# Use /FORCE to ignore unresolved externals (known issue)
-if(ENABLE_FORCE AND MSVC)
-    message(STATUS "Using /FORCE linker option.")
-    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /FORCE")
-endif()
 
 if(NOT MSVC)
     # TODO: Figure out how to handle methods that return functions
@@ -216,10 +209,6 @@ foreach(SRC ${OCCT_SRCS})
 
     # Get module name
     get_filename_component(MOD ${SRC} NAME_WE)
-
-    if(NOT ${MOD} MATCHES "Standard")
-        continue()
-    endif()
 
     if(NOT ENABLE_VTK AND ${MOD} MATCHES "IVtk.*")
         message(STATUS "Skipping Vtk module ${MOD}")

@@ -12,8 +12,7 @@ cd build
 cmake .. -G "Ninja" \
     -DCMAKE_BUILD_TYPE="Release" \
     -DENABLE_SMESH=OFF \
-    -DENABLE_NETGEN=OFF \
-    -DENABLE_FORCE=OFF
+    -DENABLE_NETGEN=OFF
 
 ninja install
 

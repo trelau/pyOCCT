@@ -16,6 +16,8 @@ requirements:
     - pybind11
     - python-clang
     - clangdev
+
+  host:
     - python {{ python }}
     - tbb-devel
     - occt ==7.4.0
