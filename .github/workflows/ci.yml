@@ -38,7 +38,7 @@ jobs:
 
       - name: "Install conda build"
         run: |
-            conda install python=${{ matrix.python-version }} conda-build
+            conda install python=${{ matrix.python-version }} conda-build=3.16.3
 
       - name: "Clone binder"
         shell: bash -l {0}
