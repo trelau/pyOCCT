@@ -15,17 +15,16 @@ requirements:
     - ninja
     - pybind11
     - python-clang
-    - libclang
-    - clang
-    - python
+    - clangdev
+    - python {{ python }}
     - tbb-devel
     - occt ==7.4.0
-    - smesh ==8.3.0.3  # [win]
+    - smesh ==8.3.0.3
 
   run:
-    - python
+    - python {{ python }}
     - occt ==7.4.0
-    - smesh ==8.3.0.3  # [win]
+    - smesh ==8.3.0.3
 
 test:
   requires:

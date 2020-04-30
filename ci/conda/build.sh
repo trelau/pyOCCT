@@ -13,10 +13,9 @@ cmake .. -G "Ninja" \
     -DCMAKE_BUILD_TYPE="Release" \
     -DENABLE_SMESH=OFF \
     -DENABLE_NETGEN=OFF \
-    -DENABLE_FORCE=OFF \
-    -DPYBIND11_PYTHON_VERSION="$PYBIND11_PYTHON_VERSION"
+    -DENABLE_FORCE=OFF
 
 ninja install
 
 cd ..
-python setup.py install --prefix="$PREFIX"
+python setup.py install

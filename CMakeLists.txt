@@ -125,13 +125,11 @@ link_directories(${OpenCASCADE_LIBRARY_DIR})
 # ----------------------------------------------------------------------- #
 # VTK
 # ----------------------------------------------------------------------- #
-if (ENABLE_VTK OR ENABLE_SMESH)
-    message(STATUS "Searching for VTK...")
-    find_package(VTK REQUIRED)
+message(STATUS "Searching for VTK...")
+find_package(VTK REQUIRED)
 
-    message(STATUS "VTK include directory: ${VTK_INCLUDE_DIRS}")
-    include_directories(${VTK_INCLUDE_DIRS})
-endif()
+message(STATUS "VTK include directory: ${VTK_INCLUDE_DIRS}")
+include_directories(${VTK_INCLUDE_DIRS})
 
 # --------------------------------------------------------------------------- #
 # SMESH
@@ -246,14 +244,11 @@ foreach(SRC ${OCCT_SRCS})
 
     # Add pybind11 module
     pybind11_add_module(${MOD} ${SRC})
-    target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES})
+    target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
+                                        ${PYTHON_LIBRARIES})
 
     if(${MOD} STREQUAL "OpenGl")
         target_link_libraries(${MOD} PRIVATE ${OPENGL_LIBRARIES})
-    endif()
-
-    if(${MOD} MATCHES "IVtk.*")
-        target_link_libraries(${MOD} PUBLIC ${VTK_LIBRARIES})
     endif()
 
     set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
@@ -280,7 +275,9 @@ if(ENABLE_SMESH)
 
         # Add pybind11 module
         pybind11_add_module(${MOD} ${SRC})
-        target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES} ${SMESH_ABS_LIBS})
+        target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
+                                             ${PYTHON_LIBRARIES}
+                                             ${SMESH_ABS_LIBS})
         set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
         target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/smesh)
         install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
