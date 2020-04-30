@@ -17,6 +17,9 @@ requirements:
     - python-clang
     - clangdev
     - tbb-devel
+    - python {{ python }}
+    - occt ==7.4.0
+    - smesh ==8.3.0.3
 
   host:
     - python {{ python }}
