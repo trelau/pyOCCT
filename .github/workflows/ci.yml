@@ -39,8 +39,8 @@ jobs:
         run: |
             conda install python=${{ matrix.python-version }} conda-build
       - name: "Clone binder"
-          shell: bash -l {0}
-          run: |
+        shell: bash -l {0}
+        run: |
             git clone https://github.com/LaughlinResearch/pyOCCT_binder.git binder
       - name: "Build"
         shell: bash -l {0}
