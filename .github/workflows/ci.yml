@@ -2,7 +2,7 @@ name: Conda Package
 on:
   push:
     branches:
-    - '*'
+    - 'review/*'
   pull_request:
     branches:
     - '*'
