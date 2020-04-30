@@ -17,13 +17,8 @@ requirements:
     - python-clang
     - libclang
     - clang
+    - python
     - tbb-devel
-    - occt ==7.4.0
-    - smesh ==8.3.0.3  # [win]
-    - python
-
-  host:
-    - python
     - occt ==7.4.0
     - smesh ==8.3.0.3  # [win]
 
