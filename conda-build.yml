@@ -37,23 +37,20 @@ jobs:
         conda config --add channels conda-forge
       displayName: 'Configure conda'
 
+    # create conda environment
     - bash: |
         conda create --yes --quiet --name pyOCCT \
-            python=${{ parameters.python }} conda-build=3.16.3
+            python=${{ parameters.python }} conda-build
       displayName: 'Create conda environment'
 
+    # run conda build
     - bash: |
         source activate pyOCCT && \
         mkdir conda && \
-        conda build  ci/conda --no-test --output-folder conda
+        conda build  ci/conda --no-remove-work-dir --dirty --output-folder conda
       displayName: 'Run conda build'
 
     - task: PublishBuildArtifacts@1
       inputs:
         pathToPublish: './conda'
         artifactName: 'pyocct-${{ parameters.python }}-${{ parameters.vmImage }}'
-
-    - bash: |
-        source activate pyOCCT && \
-        conda build conda/*/pyocct-*.tar.bz2 --test --keep-going
-      displayName: 'Run tests'
