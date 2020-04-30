@@ -1,0 +1,50 @@
+name: Conda Package
+on:
+  push:
+    branches:
+    - '*'
+  #pull_request:
+  #  branches:
+  #  - '*'
+jobs:
+  build:
+    name: Build (${{ matrix.python-version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest', 'windows-latest']
+        python-version: ['3.6', '3.7', '3.8']
+    steps:
+      - name: "Clone pyOCCT"
+        uses: actions/checkout@v2
+
+      - name: "Install miniconda"
+        uses: goanpeca/setup-miniconda@v1
+        with:
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+      - name: "Install OpenGL"
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+            sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+            sudo apt update
+            sudo apt -q -y install g++-10 libglu1-mesa-dev libgl1-mesa-dev libxi-dev libglfw3-dev libgles2-mesa-dev
+            sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 90 --slave /usr/bin/g++ g++ /usr/bin/g++-10 --slave /usr/bin/gcov gcov /usr/bin/gcov-10
+      - name: "Configure conda"
+        run: |
+            conda info
+            conda config --add channels conda-forge
+      - name: "Install conda-build"
+        run: |
+            conda install python=${{ matrix.python-version }} conda-build
+      - name: "Build"
+        shell: bash -l {0}
+        run: |
+            mkdir conda
+            conda build  ci/conda --no-remove-work-dir --dirty --output-folder conda
+      - name: "Upload package"
+        uses: actions/upload-artifact@v1
+        with:
+            name: pyocct-py${{ matrix.python-version }}-(${{ matrix.os }})
+            path: conda
