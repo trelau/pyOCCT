@@ -13,7 +13,8 @@ cmake .. -G "Ninja" \
     -DCMAKE_BUILD_TYPE="Release" \
     -DENABLE_SMESH=OFF \
     -DENABLE_NETGEN=OFF \
-    -DENABLE_FORCE=OFF
+    -DENABLE_FORCE=OFF \
+    -DPYBIND11_PYTHON_VERSION="$PYBIND11_PYTHON_VERSION"
 
 ninja install
 

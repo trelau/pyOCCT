@@ -49,6 +49,8 @@ jobs:
         mkdir conda && \
         conda build  ci/conda --no-remove-work-dir --dirty --output-folder conda
       displayName: 'Run conda build'
+      env:
+         PYBIND11_PYTHON_VERSION=${{ parameters.python }}
 
     - task: PublishBuildArtifacts@1
       inputs:
