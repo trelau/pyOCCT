@@ -39,7 +39,7 @@ jobs:
 
     - bash: |
         conda create --yes --quiet --name pyOCCT \
-            python=${{ parameters.python }} conda-build
+            python=${{ parameters.python }} conda-build=3.16.3
       displayName: 'Create conda environment'
 
     - bash: |
