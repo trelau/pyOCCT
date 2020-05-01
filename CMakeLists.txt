@@ -210,10 +210,6 @@ foreach(SRC ${OCCT_SRCS})
     # Get module name
     get_filename_component(MOD ${SRC} NAME_WE)
 
-    if(NOT ${MOD} STREQUAL "Standard")
-        continue()
-    endif()
-
     if(NOT ENABLE_VTK AND ${MOD} MATCHES "IVtk.*")
         message(STATUS "Skipping Vtk module ${MOD}")
         continue()
