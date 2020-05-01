@@ -1,3 +1,5 @@
+set PreferredToolArchitecture=x64
+
 python binder/generate/run.py
 if errorlevel 1 exit 1
 
@@ -6,12 +8,12 @@ cd build
 
 cmake .. -G "Ninja" ^
     -DCMAKE_BUILD_TYPE="Release" ^
-    -DENABLE_SMESH=OFF ^
-    -DENABLE_NETGEN=OFF ^
+    -DENABLE_SMESH=ON ^
+    -DENABLE_NETGEN=ON ^
     -DPTHREAD_INCLUDE_DIRS:FILEPATH="%LIBRARY_PREFIX%/include"
 if errorlevel 1 exit 1
 
-ninja -j2
+ninja
 if errorlevel 1 exit 1
 
 ninja install
