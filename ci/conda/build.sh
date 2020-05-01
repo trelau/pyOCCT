@@ -17,4 +17,4 @@ cmake .. -G "Ninja" \
 ninja install
 
 cd ..
-python setup.py install
+python setup.py install --prefix="$PREFIX"
