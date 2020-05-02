@@ -36,7 +36,6 @@ jobs:
         shell: bash -l {0}
         run: |
           echo "::add-path::$CONDA/Scripts"
-          echo $PATH
 
       - name: "Configure conda"
         shell: bash -l {0}
@@ -54,6 +53,7 @@ jobs:
         shell: bash -l {0}
         run: |
           mkdir conda
+          source activate
           conda build  ci/conda --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
