@@ -20,8 +20,8 @@ jobs:
       - name: "Install OpenGL"
           if: matrix.os == 'ubuntu-latest'
           run: |
-            sudo apt-get update
-            sudo apt-get -q -y install libglu1-mesa-dev libgl1-mesa-dev libxi-dev libglfw3-dev libgles2-mesa-dev
+              sudo apt-get update
+              sudo apt-get -q -y install libglu1-mesa-dev libgl1-mesa-dev libxi-dev libglfw3-dev libgles2-mesa-dev
 
       - name: "Clone pyOCCT"
         uses: actions/checkout@v2
@@ -29,7 +29,7 @@ jobs:
       - name: "Clone binder"
           shell: bash -l {0}
           run: |
-            git clone https://github.com/LaughlinResearch/pyOCCT_binder.git binder
+              git clone https://github.com/LaughlinResearch/pyOCCT_binder.git binder
 
       - name: "Configure conda"
         run: |
@@ -38,8 +38,8 @@ jobs:
 
       - name: "Check conda"
           run: |
-            conda info
-            conda list
+              conda info
+              conda list
 
       - name: "Run conda build"
         shell: bash -l {0}
