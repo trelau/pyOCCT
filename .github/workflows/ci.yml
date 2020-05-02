@@ -32,11 +32,13 @@ jobs:
             git clone https://github.com/LaughlinResearch/pyOCCT_binder.git binder
 
       - name: "Configure conda"
+        shell: bash -l {0}
         run: |
             conda config --add channels conda-forge
             conda install conda-build
 
       - name: "Check conda"
+        shell: bash -l {0}
         run: |
             conda info
             conda list
