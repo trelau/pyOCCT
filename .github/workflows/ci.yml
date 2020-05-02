@@ -34,7 +34,9 @@ jobs:
       - name: "Add conda to PATH"
         if: matrix.os == 'windows-latest'
         shell: pwsh
-        run: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+        run: |
+            Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+            echo ${env:PATH}
 
       - name: "Configure conda"
         shell: bash -l {0}
