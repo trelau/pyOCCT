@@ -37,7 +37,7 @@ py::class_<TheHArray2Type, opencascade::handle<TheHArray2Type>, Standard_Transie
 
 // Constructors
 cls.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const TheArray2Type::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
+cls.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const typename TheArray2Type::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
 cls.def(py::init<const TheArray2Type &>(), py::arg("theOther"));
 
 // Methods
@@ -48,7 +48,7 @@ cls.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type>
 cls.def("DynamicType", (const opencascade::handle<Standard_Type> & (TheHArray2Type::*)() const) &TheHArray2Type::DynamicType, "None");
 
 // Methods for excluded base of TheArray2Type which is the NCollection_Array2<TheItemType> class template
-cls.def("Init", (void (TheHArray2Type::*)(const TheArray2Type::value_type &)) &TheHArray2Type::Init, "Initialise the values", py::arg("theValue"));
+cls.def("Init", (void (TheHArray2Type::*)(const typename TheArray2Type::value_type &)) &TheHArray2Type::Init, "Initialise the values", py::arg("theValue"));
 cls.def("Size", (Standard_Integer(TheHArray2Type::*)() const) &TheHArray2Type::Size, "Size (number of items)");
 cls.def("Length", (Standard_Integer(TheHArray2Type::*)() const) &TheHArray2Type::Length, "Length (number of items)");
 cls.def("NbRows", (Standard_Integer(TheHArray2Type::*)() const) &TheHArray2Type::NbRows, "Returns number of rows");
@@ -64,11 +64,11 @@ cls.def("Assign", (TheArray2Type & (TheHArray2Type::*)(const TheArray2Type &)) &
 cls.def("Move", (TheArray2Type & (TheHArray2Type::*)(TheArray2Type &)) &TheHArray2Type::Move, "Move assignment. This array will borrow all the data from theOther. The moved object will be left unitialized and should not be used anymore.", py::arg("theOther"));
 // cls.def("operator=", (TheArray2Type & (TheHArray2Type::*)(const TheArray2Type &)) &TheHArray2Type::operator=, "Assignment operator", py::arg("theOther"));
 // cls.def("operator=", (TheArray2Type & (TheHArray2Type::*)(TheArray2Type &&)) &TheHArray2Type::operator=, "Move assignment operator;", py::arg("theOther"));
-cls.def("Value", (const TheArray2Type::value_type & (TheHArray2Type::*)(const Standard_Integer, const Standard_Integer) const) &TheHArray2Type::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
-cls.def("__call__", (const TheArray2Type::value_type & (TheHArray2Type::*)(const Standard_Integer, const Standard_Integer) const) &TheHArray2Type::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-cls.def("ChangeValue", (TheArray2Type::value_type & (TheHArray2Type::*)(const Standard_Integer, const Standard_Integer)) &TheHArray2Type::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
-cls.def("__call__", (TheArray2Type::value_type & (TheHArray2Type::*)(const Standard_Integer, const Standard_Integer)) &TheHArray2Type::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-cls.def("SetValue", (void (TheHArray2Type::*)(const Standard_Integer, const Standard_Integer, const TheArray2Type::value_type &)) &TheHArray2Type::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
+cls.def("Value", (const typename TheArray2Type::value_type & (TheHArray2Type::*)(const Standard_Integer, const Standard_Integer) const) &TheHArray2Type::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
+cls.def("__call__", (const typename TheArray2Type::value_type & (TheHArray2Type::*)(const Standard_Integer, const Standard_Integer) const) &TheHArray2Type::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
+cls.def("ChangeValue", (typename TheArray2Type::value_type & (TheHArray2Type::*)(const Standard_Integer, const Standard_Integer)) &TheHArray2Type::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
+cls.def("__call__", (typename TheArray2Type::value_type & (TheHArray2Type::*)(const Standard_Integer, const Standard_Integer)) &TheHArray2Type::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
+cls.def("SetValue", (void (TheHArray2Type::*)(const Standard_Integer, const Standard_Integer, const typename TheArray2Type::value_type &)) &TheHArray2Type::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
 cls.def("Resize", (void (TheHArray2Type::*)(Standard_Integer, Standard_Integer, Standard_Integer, Standard_Integer, Standard_Boolean)) &TheHArray2Type::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"), py::arg("theToCopyData"));
 
 

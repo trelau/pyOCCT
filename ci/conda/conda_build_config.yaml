@@ -1,0 +1,13 @@
+CONDA_BUILD_SYSROOT:
+ - /opt # [osx]
+
+c_compiler:
+ - vs2015 # [win]
+
+cxx_compiler:
+ - vs2015 # [win]
+
+python:
+ - 3.6
+ - 3.7
+ - 3.8

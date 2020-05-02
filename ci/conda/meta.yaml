@@ -1,36 +1,44 @@
 package:
   name: pyocct
-  version: "7.4.0.0"
+  version: 7.4.0.0
 
 source:
   path: ../..
 
 build:
   number: 0
-  features:
-    - vc14 # [win and py35]
-    - vc14 # [win and py36]
 
 requirements:
   build:
-    - python
-    - vc 14 # [win]
+    - {{ compiler('cxx') }} # [win]
     - cmake
     - ninja
-    - occt ==7.4.0
+    - pybind11
+    - python-clang
+    - clangdev
     - tbb-devel
+    - python {{ python }}
+    - occt ==7.4.0
+    - smesh ==8.3.0.3
+
+  host:
+    - tbb-devel
+    - python {{ python }}
+    - occt ==7.4.0
     - smesh ==8.3.0.3
 
   run:
-    - python
-    - wxpython
-    - vc 14 # [win]
+    - python {{ python }}
     - occt ==7.4.0
     - smesh ==8.3.0.3
 
 test:
+  requires:
+    - pytest
   source_files:
     - test
+  commands:
+    - pytest test -v
 
 about:
   home: https://github.com/LaughlinResearch/pyOCCT
