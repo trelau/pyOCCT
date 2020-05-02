@@ -27,9 +27,14 @@ jobs:
         uses: actions/checkout@v2
 
       - name: "Clone binder"
-        shell: bash
+        shell: cmd
         run: |
           git clone https://github.com/LaughlinResearch/pyOCCT_binder.git binder
+
+      - name: "Add conda to PATH"
+        if: matrix.os == 'windows-latest'
+        shell: cmd
+        run: echo "::add-path::%CONDA%\Scripts"
 
       - name: "Configure conda"
         shell: bash -l {0}
