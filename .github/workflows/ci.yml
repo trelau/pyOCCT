@@ -13,8 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['ubuntu-latest', 'windows-latest']
-        python-version: ['3.6', '3.7', '3.8']
+        os: ['windows-latest']
+        python-version: ['3.6']
     steps:
 
       - name: "Install OpenGL"
@@ -33,7 +33,7 @@ jobs:
 
       - name: "Add conda to PATH"
         if: matrix.os == 'windows-latest'
-        run: echo ::add-path::$CONDA\Scripts"
+        run: echo ::add-path::%CONDA%\Scripts"
 
       - name: "Configure conda"
         shell: bash -l {0}
