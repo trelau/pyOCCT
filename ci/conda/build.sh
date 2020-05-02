@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
 
-declare -a CMAKE_PLATFORM_FLAGS
-if [[ ${HOST} =~ .*linux.* ]]; then
-    CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
-fi
+# Fail on error
+set -e
 
+python binder/generate/run.py
+
+rm -Rf build
 mkdir build
 cd build
 
 cmake .. -G "Ninja" \
     -DCMAKE_BUILD_TYPE="Release" \
-    -DENABLE_SMESH=OFF \
-    -DENABLE_NETGEN=OFF \
-    -DENABLE_FORCE=OFF
+    -DENABLE_SMESH=ON \
+    -DENABLE_NETGEN=ON \
+    -DPTHREAD_INCLUDE_DIRS="$PREFIX"
 
 ninja install
 
 cd ..
-python setup.py install
+python setup.py install --prefix="$PREFIX"
