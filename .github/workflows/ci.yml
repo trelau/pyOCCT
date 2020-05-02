@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['windows-latest']
+        os: ['ubuntu-latest', 'windows-latest']
         python-version: ['3.6']
     steps:
 
@@ -40,13 +40,14 @@ jobs:
       - name: "Configure conda"
         shell: bash -l {0}
         run: |
+          conda update -n base -c defaults conda
           conda config --add channels conda-forge
           conda install conda-build
 
       - name: "Check conda"
         shell: bash -l {0}
         run: |
-          conda info
+          conda info -a
           conda list
 
       - name: "Run conda build"
