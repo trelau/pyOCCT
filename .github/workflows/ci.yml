@@ -2,7 +2,7 @@ name: Conda Package
 on:
   push:
     branches:
-    - 'review/*'
+    - '*'
   pull_request:
     branches:
     - '*'
@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ['ubuntu-latest', 'windows-latest']
-        python-version: ['3.6']
+        python-version: ['3.5', '3.6', '3.7', '3.8']
     steps:
       - name: "Clone pyOCCT"
         uses: actions/checkout@v2
