@@ -33,7 +33,8 @@ jobs:
 
       - name: "Add conda to PATH"
         if: matrix.os == 'windows-latest'
-        run: echo "##[add-path]%CONDA%/Scripts"
+        shell: cmd
+        run: set PATH=%PATH%;%CONDA%/Scripts/
 
       - name: "Configure conda"
         shell: bash -l {0}
