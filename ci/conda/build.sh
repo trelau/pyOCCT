@@ -3,7 +3,7 @@
 # Fail on error
 set -e
 
-python binder/generate/run.py
+python binder/run.py -c binder/config.txt -o src/occt
 
 rm -Rf build
 mkdir build

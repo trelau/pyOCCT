@@ -25,9 +25,8 @@ jobs:
 
       - name: "Clone pyOCCT"
         uses: actions/checkout@v2
-
-      - name: "Clone binder"
-        run: git clone https://github.com/LaughlinResearch/pyOCCT_binder.git binder
+        with:
+          submodules: 'recursive'
 
       - name: "Add conda to PATH"
         if: matrix.os == 'windows-latest'
