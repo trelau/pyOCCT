@@ -1,4 +1,4 @@
-python binder/generate/run.py
+python binder/run.py -c binder/config.txt -o src/occt
 if errorlevel 1 exit 1
 
 mkdir build

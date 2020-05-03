@@ -1,0 +1,938 @@
+# Include directories ---------------------------------------------------------
+
+# Clang compiler arguments ----------------------------------------------------
++arg any: -x
++arg any: c++
++arg any: -std=c++17
++arg any: -D__CODE_GENERATOR__
++arg any: -Wno-deprecated-declarations
++arg any: -ferror-limit=0
++arg win32: -fms-compatibility
++arg win32: -fms-extensions
++arg win32: -fms-compatibility-version=19
++arg win32: -fdelayed-template-parsing
++arg linux: -D_INC_WINDOWS
++arg linux: -D__WINDOWS_H_INCLUDED
+
+# Immutable types -------------------------------------------------------------
++immutable Standard_Boolean
++immutable Standard_CString
++immutable Standard_Integer
++immutable Standard_Real
+
+# Excluded classes ------------------------------------------------------------
+-class AIS_LocalStatus
+
+-class BRepMesh_ConeRangeSplitter
+-class BRepMesh_CylinderRangeSplitter
+-class BRepMesh_DefaultRangeSplitter
+-class BRepMesh_SphereRangeSplitter
+-class BRepMesh_TorusRangeSplitter
+-class BRepMesh_UVParamRangeSplitter
+-class BRepMesh_NURBSRangeSplitter
+-class BRepMesh_BoundaryParamsRangeSplitter
+
+-class Cocoa_LocalPool
+
+-class Font_BRepFont
+
+-class FT_Vector
+
+-class Graphic3d_BvhCStructureSet
+-class Graphic3d_BvhCStructureSetTrsfPers
+-class Graphic3d_Layer
+
+-class OpenGl_GraduatedTrihedron
+-class OpenGl_LayerList
+-class OpenGl_RaytraceGeometry
+-class OpenGl_RaytraceMaterial
+-class OpenGl_StencilTest
+-class OpenGl_Structure
+-class OpenGl_StructureShadow
+-class OpenGl_View
+-class OpenGl_ShaderProgram
+-class OpenGl_Workspace
+-class OpenGl_VariableSetterSelector
+-class OpenGl_LineAttributes
+
+-class PCDM_DOMHeaderParser
+
+-class RWObj_MtlReader
+
+-class ShapePersistent_BRep
+-class ShapePersistent_Geom
+-class ShapePersistent_Geom_Curve
+-class ShapePersistent_Geom_Surface
+-class ShapePersistent_Geom2d
+-class ShapePersistent_Geom2d_Curve
+-class ShapePersistent_Poly
+-class ShapePersistent_TopoDS
+
+-class StdStorage_Bucket
+-class StdStorage_BucketIterator
+-class StdStorage_BucketOfPersistent
+
+-class Storage_Bucket
+-class Storage_BucketIterator
+-class Storage_BucketOfPersistent
+
+# Excluded typedefs -----------------------------------------------------------
+-typedef BinMDF_TypeIdMap
+
+-typedef BinObjMgt_PByte
+
+-typedef BRepBuilderAPI_CellFilter
+
+-typedef BOPTools_Box2dPairSelector
+-typedef BOPTools_BoxPairSelector
+-typedef BOPTools_BoxTree
+-typedef BOPTools_BoxTreeSelector
+
+-typedef BVH_EncodedLink
+
+-typedef FSD_FStream
+
+-typedef gp_TrsfNLerp
+
+-typedef Graphic3d_HighlightStyle
+-typedef Graphic3d_IndexedMapOfAddress
+-typedef Graphic3d_NMapOfTransient
+
+-typedef IntSurf_Allocator
+
+-typedef Media_HMutex
+
+-typedef MeshVS_TwoColors
+-typedef MeshVS_NodePair
+
+-typedef QuadBvhHandle
+
+-typedef OpenGl_Layer
+-typedef OpenGl_ListOfStructure
+-typedef OpenGl_SetterList
+
+-typedef Plugin_MapOfFunctions
+
+-typedef SelectMgr_IndexedMapOfOwner
+
+-typedef Standard_Byte
+-typedef Standard_PByte
+-typedef Standard_OStream
+-typedef Standard_SStream
+-typedef Standard_IStream
+
+-typedef TDF_AttributeDoubleMap
+-typedef TDF_HAllocator
+
+-typedef TNaming_DataMapOfShapePtrRefShape
+
+-typedef TopOpeBRepTool_IndexedDataMapOfSolidClassifier
+
+-typedef XmlObjMgt_DOMString
+
+# Excluded functions ----------------------------------------------------------
+-function* operator new_
+-function* operator delete_
+-function* operator new[]_
+-function* operator delete[]_
+-function* operator=
+-function* operator->
+-function* begin
+-function* end
+-function* cbegin
+-function* cend
+
+-function AIS_Line::Points
+
+-function AppDef_MultiLine::SetParameter
+-function AppDef_ResConstraintOfMyGradientbisOfBSplineCompute::Error
+-function AppDef_ResConstraintOfMyGradientOfCompute::Error
+-function AppDef_ResConstraintOfTheGradient::Error
+-function AppDef_TheResol::Error
+
+-function AdvApp2Var_Iso::AdvApp2Var_Iso(const GeomAbs_IsoType, const Standard_Integer, const Standard_Integer)
+
+-function BinTools_Curve2dSet::Dump
+
+-function BlendFunc::Knots_
+-function BlendFunc::Mults_
+
+-function BOPAlgo_PaveFiller::Iterator
+-function BOPAlgo_Tools::PerformCommonBlocks_
+
+-function BRepAlgo_DSAccess::IsDeleted
+
+-function BRepMeshData_Curve::BRepMeshData_Curve
+-function BRepMeshData_Edge::BRepMeshData_Edge
+-function BRepMeshData_Face::BRepMeshData_Face
+-function BRepMeshData_PCurve::BRepMeshData_PCurve
+-function BRepMeshData_Wire::BRepMeshData_Wire
+
+-function BRepApprox_Approx::Perform()
+-function BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox::Error
+-function BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox::Error
+-function BRepApprox_TheImpPrmSvSurfacesOfApprox::FillInitialVectorOfSolution
+
+-function BRepClass3d_BndBoxTreeSelectorLine::BRepClass3d_BndBoxTreeSelectorLine
+-function BRepClass3d_BndBoxTreeSelectorPoint::BRepClass3d_BndBoxTreeSelectorPoint
+
+-function BRepExtrema_OverlapTool::BRepExtrema_OverlapTool
+-function BRepExtrema_OverlapTool::LoadTriangleSets
+-function BRepExtrema_OverlapTool::Perform
+
+-function BRepFeat::IsInOut_
+-function BRepFeat_MakeLinearForm::TransformShapeFU
+
+-function BRepGProp_VinertGK::GetAbsolutError
+
+-function BRepMesh_ConeRangeSplitter::GetSplitSteps
+
+-function BRepMesh_ConstrainedBaseMeshAlgo::BRepMesh_ConstrainedBaseMeshAlgo
+-function BRepMesh_ConstrainedBaseMeshAlgo::getCellsCount
+
+-function BRepMesh_DataStructureOfDelaun::ElementNodes
+-function BRepMesh_Delaun::Frontier
+-function BRepMesh_Delaun::InternalEdges
+-function BRepMesh_Delaun::FreeEdges
+-function BRepMesh_Delaun::ProcessConstraints
+-function BRepMesh_EdgeDiscret::operator()
+-function BRepMesh_EdgeParameterProvider::BRepMesh_EdgeParameterProvider
+-function BRepMesh_EdgeParameterProvider::Parameter
+-function BRepMesh_EdgeTessellator::BRepMesh_EdgeTessellator
+-function BRepMesh_EdgeTessellationExtractor::BRepMesh_EdgeTessellationExtractor
+-function BRepMesh_FaceChecker::operator()
+-function BRepMesh_FaceDiscret::operator()
+-function BRepMesh_IncrementalMesh::Discret_
+-function BRepMesh_GeomTool::IntLinLin_
+-function BRepMesh_MeshTool::AddTriangle
+-function BRepMesh_MeshTool::DumpTriangles
+-function BRepMesh_MeshTool::EraseTriangles(const IMeshData::MapOfInteger &, IMeshData::MapOfIntegerInteger &)
+-function BRepMesh_ModelHealer::operator()
+-function BRepMesh_Triangle::BRepMesh_Triangle(const Standard_Integer (&)[3], const Standard_Boolean (&)[3], const BRepMesh_DegreeOfFreedom)
+-function BRepMesh_Triangle::Initialize
+-function BRepMesh_Triangle::Edges
+-function BRepMesh_WireInterferenceChecker::BRepMesh_WireInterferenceChecker
+-function BRepMesh_WireInterferenceChecker::operator()
+
+-function BRepOffset_MakeOffset::GetAnalyse
+-function BRepOffset_MakeSimpleOffset::GetSafeOffset
+
+-function BRepOffsetAPI_FindContigousEdges::NbEdges
+
+-function BSplCLib::DN(const Standard_Real, const Standard_Integer, const TColgp_Array1OfPnt &, const TColStd_Array1OfReal &, gp_Pnt &, gp_Vec &)
+-function BSplCLib::DN(const Standard_Real, const Standard_Integer, const TColgp_Array1OfPnt2d &, const TColStd_Array1OfReal &, gp_Pnt2d &, gp_Vec2d &)
+
+-function BVH_Object<T, N>::BVH_Object<T, N>
+-function BVH_PrimitiveSet<T, N>::BVH_PrimitiveSet<T, N>
+-function BVH_Set<T, N>::BVH_Set<T, N>
+-function BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>::BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>
+
+-function CDM_Document::operator<<
+-function CDM_MetaData::operator<<
+
+-function Cocoa_Window::Cocoa_Window
+-function Cocoa_Window::HView
+-function Cocoa_Window::SetHView
+-function Cocoa_Window::get_type_descriptor_
+-function Cocoa_Window::VirtualKeyFromNative_
+
+-function DsgPrs_RadiusPresentation::Add(const opencascade::handle<Prs3d_Presentation> &, const opencascade::handle<Prs3d_Drawer> &, const TCollection_ExtendedString &, const gp_Pnt &, const gp_Circ &, const Standard_Real, const Standard_Real, const DsgPrs_ArrowSide, const Standard_Boolean, const Standard_Boolean)
+
+# Abstract
+#-function Expr_UnaryExpression::Expr_UnaryExpression
+#-function Expr_BinaryExpression::Expr_BinaryExpression
+#-function Expr_SingleRelation::Expr_SingleRelation
+
+-function FilletPoint::FilletPoint
+-function FilletPoint::appendValue
+-function FilletPoint::calculateDiff
+-function FilletPoint::FilterPoints
+-function FilletPoint::Copy
+-function FilletPoint::hasSolution
+-function FilletPoint::remove
+
+-function Font_FTLibrary::Instance
+
+-function GCPnts_DistFunction::GCPnts_DistFunction(const GCPnts_DistFunction &)
+-function GCPnts_DistFunction2d::GCPnts_DistFunction2d(const GCPnts_DistFunction2d &)
+
+-function Geom2dAPI_Interpolate::ClearTangents
+
+-function Geom2dGcc_FunctionTanCuCuCu::Geom2dGcc_FunctionTanCuCuCu(const gp_Circ2d &, const Geom2dAdaptor_Curve &, const gp_Pnt2d &)
+-function Geom2dGcc_FunctionTanCuCuCu::Geom2dGcc_FunctionTanCuCuCu(const gp_Lin2d &, const Geom2dAdaptor_Curve &, const gp_Pnt2d &)
+-function Geom2dGcc_FunctionTanCuCuCu::Geom2dGcc_FunctionTanCuCuCu(const Geom2dAdaptor_Curve &, const gp_Pnt2d &, const gp_Pnt2d &)
+-function Geom2dGcc_Lin2dTanObl::IsParallel2
+
+-function Geom2dHatch_Hatcher::IsDone()
+
+-function Geom2dInt_Geom2dCurveTool::IsComposite_
+-function Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter::Locate(const Adaptor2d_Curve2d &, const Adaptor2d_Curve2d &, const Standard_Integer, const Standard_Integer, Extrema_POnCurv2d &, Extrema_POnCurv2d &)
+
+-function GeomAPI_Interpolate::ClearTangents
+
+-function GeomFill_FunctionGuide::Deriv2T
+-function GeomFill_NSections::GeomFill_NSections(const TColGeom_SequenceOfCurve &, const TColStd_SequenceOfReal &, const Standard_Real, const Standard_Real)
+-function GeomFill_SweepSectionGenerator::GeomFill_SweepSectionGenerator(const opencascade::handle<Geom_Curve> &, const opencascade::handle<Geom_Curve> &, const opencascade::handle<Geom_Curve> &, const Standard_Real)
+-function GeomFill_SweepSectionGenerator::Init(const opencascade::handle<Geom_Curve> &, const opencascade::handle<Geom_Curve> &, const opencascade::handle<Geom_Curve> &, const Standard_Real)
+
+-function GeomInt_IntSS::SetTolFixTangents
+-function GeomInt_IntSS::TolFixTangents
+-function GeomInt_ResConstraintOfMyGradientOfTheComputeLineBezierOfWLApprox::Error
+-function GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox::Error
+-function GeomInt_TheImpPrmSvSurfacesOfWLApprox::FillInitialVectorOfSolution
+-function GeomInt_WLApprox::Perform()
+
+-function Graphic3d_AspectText3d::Values
+
+-function HLRAlgo_PolyInternalData::UpdateLinks
+-function HLRAlgo_PolyInternalData::AddNode
+-function HLRAlgo_PolyInternalData::IncTData
+-function HLRAlgo_PolyInternalData::IncPISeg
+-function HLRAlgo_PolyInternalData::IncPINod
+
+-function HLRBRep_BSurfaceTool::Axis_
+
+-function HLRBRep_CLProps::HLRBRep_CLProps(const HLRBRep_Curve *&, const Standard_Integer, const Standard_Real)
+-function HLRBRep_CLProps::HLRBRep_CLProps(const HLRBRep_Curve *&, const Standard_Real, const Standard_Integer, const Standard_Real)
+-function HLRBRep_CLProps::SetCurve
+
+-function HLRBRep_Surface::UIntervalContinuity
+-function HLRBRep_Surface::VIntervalContinuity
+
+-function HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter::Locate(const Standard_Address &, const Standard_Address &, const Standard_Integer, const Standard_Integer, Extrema_POnCurv2d &, Extrema_POnCurv2d &)
+
+-function HLRBRep_ThePolyhedronOfInterCSurf::UMinSingularity
+-function HLRBRep_ThePolyhedronOfInterCSurf::UMaxSingularity
+-function HLRBRep_ThePolyhedronOfInterCSurf::VMinSingularity
+-function HLRBRep_ThePolyhedronOfInterCSurf::VMaxSingularity
+-function HLRBRep_ThePolyhedronOfInterCSurf::HasUMinSingularity
+-function HLRBRep_ThePolyhedronOfInterCSurf::HasUMaxSingularity
+-function HLRBRep_ThePolyhedronOfInterCSurf::HasVMinSingularity
+-function HLRBRep_ThePolyhedronOfInterCSurf::HasVMaxSingularity
+
+
+# Abstract
+#-function IFSelect_SelectDeduct:IFSelect_SelectDeduct
+#-function IFSelect_Selection::IFSelect_Selection
+#-function IFSelect_SelectControl::IFSelect_SelectControl
+-function IFSelect_ContextModif::Search
+-function IFSelect_EditForm::NbTouched
+-function IFSelect_IntParam::StaticName
+
+-function Interface_STAT::Description
+-function Interface_STAT::Phase
+
+-function IGESData_IGESReaderData::DirValues
+
+-function IGESSelect_SelectBasicGeom::CurvesOnly
+
+-function IGESToBRep_TopoSurface::TransferPlaneSurface
+
+-function Media_BufferPool::GetBuffer
+-function Media_CodecContext::Init
+-function Media_CodecContext::Context
+-function Media_FormatContext::Context
+-function Media_FormatContext::SecondsToUnits_
+-function Media_FormatContext::Stream
+-function Media_FormatContext::StreamInfo
+-function Media_FormatContext::StreamSecondsToUnits_
+-function Media_FormatContext::StreamUnitsToSeconds_
+-function Media_FormatContext::UnitsToSeconds_
+-function Media_Frame::ChangeFrame
+-function Media_Frame::Frame
+-function Media_Packet::ChangePacket
+-function Media_Packet::Packet
+
+-function MyDirectPolynomialRoots::MyDirectPolynomialRoots
+
+-function Interval::Interval
+-function Interval::IntersectionWithBounded
+-function Interval::Length
+
+-function PeriodicInterval::FirstIntersection
+-function PeriodicInterval::SecondIntersection
+
+
+-function IntCurveSurface_ThePolyhedronOfHInter::HasUMinSingularity
+-function IntCurveSurface_ThePolyhedronOfHInter::HasUMaxSingularity
+-function IntCurveSurface_ThePolyhedronOfHInter::HasVMinSingularity
+-function IntCurveSurface_ThePolyhedronOfHInter::HasVMaxSingularity
+-function IntCurveSurface_ThePolyhedronOfHInter::UMinSingularity
+-function IntCurveSurface_ThePolyhedronOfHInter::UMaxSingularity
+-function IntCurveSurface_ThePolyhedronOfHInter::VMinSingularity
+-function IntCurveSurface_ThePolyhedronOfHInter::VMaxSingularity
+
+-function IntImpParGen_ImpTool::Value
+-function IntImpParGen_ImpTool::D1
+-function IntImpParGen_ImpTool::D2
+-function IntImpParGen_ImpTool::Distance
+-function IntImpParGen_ImpTool::GradDistance
+-function IntImpParGen_ImpTool::FindParameter
+
+-function IntPatch_Polyhedron::Perform
+-function IntPatch_Polyhedron::HasUMinSingularity
+-function IntPatch_Polyhedron::HasUMaxSingularity
+-function IntPatch_Polyhedron::HasVMinSingularity
+-function IntPatch_Polyhedron::HasVMaxSingularity
+-function IntPatch_Polyhedron::UMinSingularity
+-function IntPatch_Polyhedron::UMaxSingularity
+-function IntPatch_Polyhedron::VMinSingularity
+-function IntPatch_Polyhedron::VMaxSingularity
+-function IntPatch_RLine::SetParamOnS1
+-function IntPatch_RLine::SetParamOnS2
+
+-function IntPolyh_Array<Type>::Dump
+-function IntPolyh_Array<Type>::IntPolyh_Array<Type>
+-function IntPolyh_MaillageAffinage::GetFinTE
+-function IntPolyh_MaillageAffinage::GetFinTT
+
+-function IntTools_PntOnFace::IsValid
+
+
+-function IVtkTools_SubPolyDataFilter::vtkTypeMacro
+-function IVtkTools_DisplayModeFilter::vtkTypeMacro
+-function IVtkTools_ShapeDataSource::vtkTypeMacro
+-function IVtkTools_ShapeObject::vtkTypeMacro
+-function IVtkTools_ShapePicker::vtkTypeMacro
+
+# IDK
+-function IVtkTools_ShapeObject::GetShapeSource_
+-function IVtkTools_ShapeObject::getKey_
+-function IVtkTools_ShapePicker::GetSelectionModes(const IVtk_IShape::Handle &)
+
+# TODO: How can doubl** be cast?
+-function IVtkOCC_ViewerSelector::Pick(double **, const int, const IVtk_IView::Handle &)
+-function IVtkOCC_ShapePickerAlgo::Pick(double **, const int)
+
+-function Law_Interpolate::ClearTangents
+
+-function LDOM_BasicAttribute::SetValue
+-function LDOM_BasicElement::Create_
+-function LDOM_BasicText::SetData
+-function LDOM_CharReference::Decode_
+-function LDOM_CharReference::Encode_
+-function LDOM_Document::operator==
+-function LDOM_Document::operator!=
+-function LDOM_MemManager::HashedAllocate
+-function LDOM_MemManager::Hash_
+-function LDOM_MemManager::CompareStrings_
+-function LDOM_Node::operator==
+-function LDOM_Node::operator!=
+-function LDOM_NodeList::operator==
+-function LDOM_NodeList::operator!=
+-function LDOM_XmlReader::LDOM_XmlReader
+-function LDOM_XmlReader::ReadRecord
+-function LDOM_XmlReader::CreateElement
+-function LDOM_XmlReader::getInteger_
+
+-function LDOMBasicString::operator==
+-function LDOMBasicString::operator!=
+
+-function LDOMString::LDOMString(const LDOMString &)
+
+-function LocOpe_Revol::LocOpe_Revol(const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real, const Standard_Real)
+-function LocOpe_Revol::LocOpe_Revol(const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real)
+-function LocOpe_RevolutionForm::LocOpe_RevolutionForm(const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real)
+
+-function math_NewtonFunctionSetRoot::StateNumber
+-function math_NewtonMinimum::IsConvex
+
+-function MAT2d_CutCurve::Perform(const opencascade::handle<Geom2d_Curve> &, const MAT_Side)
+-function MAT2d_CutCurve::PerformInf
+
+-function MeshVS_DataSource3D::MeshVS_DataSource3D
+
+-function MoniTool_AttrList::GetStringAttribute
+-function MoniTool_CaseData::Text
+-function MoniTool_TypedValue::Internals
+
+-function NCollection_DataMap<TheKeyType, TheItemType, Hasher>::Bound
+-function NCollection_DataMap<TheKeyType, TheItemType, Hasher>::Seek
+-function NCollection_DataMap<TheKeyType, TheItemType, Hasher>::ChangeSeek
+-function NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::Seek
+-function NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::ChangeSeek
+-function NCollection_ListNode::NCollection_ListNode
+-function NCollection_SeqNode::NCollection_SeqNode
+-function NCollection_Vec2<Element_t>::cwiseAbs
+-function NCollection_Vec3<Element_t>::cwiseAbs
+-function NCollection_Vec4<Element_t>::cwiseAbs
+
+-function OSD::RealToCString_
+-function OSD_Path::LocateExecFile
+
+-function OpenGl_GlCore11::glGetPointerv
+-function OpenGl_Material::Init
+-function OpenGl_RaytraceLight::OpenGl_RaytraceLight
+-function OpenGl_ShaderManager::PushMaterialState
+-function OpenGl_TriangleSet::OpenGl_TriangleSet
+-function OpenGl_TriangleSet::QuadBVH
+-function OpenGl_TriangleSet::Box
+-function OpenGl_Workspace::BufferDump
+-function OpenGl_Workspace::ResetAppliedAspect
+-function OpenGl_Group::GlStruct
+
+-function PCDM::FileDriverType_
+-function PCDM_DOMHeaderParser::SetStartElementName
+-function PCDM_DOMHeaderParser::SetEndElementName
+-function PCDM_DOMHeaderParser::startElement
+-function PCDM_DOMHeaderParser::endElement
+
+-function Poly_CoherentTriPtr::Poly_CoherentTriPtr
+
+-function ProjLib_ProjectOnSurface::Load(const opencascade::handle<Adaptor3d_HSurface> &)
+
+-function Resource_Unicode::ConvertUnicodeToSJIS_
+-function Resource_Unicode::ConvertUnicodeToEUC_
+-function Resource_Unicode::ConvertUnicodeToGB_
+-function Resource_Unicode::ConvertUnicodeToANSI_
+-function Resource_Unicode::ConvertUnicodeToFormat_
+
+-function ShapeAnalysis_BoxBndTreeSelector::ShapeAnalysis_BoxBndTreeSelector
+-function ShapeAnalysis_FreeBounds::ConnectEdgesToWires_
+-function ShapeAnalysis_FreeBounds::ConnectWiresToWires_
+
+# Abstract ctor
+-function ShapeCustom_Modification
+
+-function ShapeFix_WireSegment::ShapeFix_WireSegment(const TopoDS_Wire &, const TopAbs_Orientation)
+
+# Undefined symbol on Linux
+-function ShapeFix_Edge::Context
+
+-function StdPersistent_DataXtd_Constraint::Import
+-function StdPersistent_DataXtd_PatternStd::Import
+-function StdPersistent_TopLoc::Translate_
+
+-function StdLPersistent_NamedData::Import
+
+-function StdObject_Location::Import
+
+-function StdSelect_BRepOwner::Set
+#-function StdStorage_TypeData::Instantiator
+
+-function StepData_FreeFormEntity::StepData_FreeFormEntity
+-function StepData_StepReaderData::ReadEnumParam
+-function StepData_UndefinedEntity::Super
+
+-function StepFEA_SymmetricTensor43d::SetFeaIsotropicSymmetricTensor43d
+
+-function STEPSelections_Counter::POP
+-function STEPSelections_Counter::POP2
+
+-function StepToTopoDS_Builder::StepToTopoDS_Builder(const opencascade::handle<StepShape_GeometricSet> &, const opencascade::handle<Transfer_TransientProcess> &)
+
+-function TCollection_ExtendedString::ToUTF8CString
+-function TCollection_ExtendedString::ToWideString
+
+-function TDF_Label::FindAttribute
+
+-function TDocStd_Application::Open
+
+-function TNaming_RefShape::FirstUse
+
+-function Transfer_Finder::GetStringAttribute
+
+-function TransferBRep::BRepCheck_
+
+-function TopOpeBRepBuild_Builder1::GFillSplitsPVS
+
+-function VrmlData_IndexedFaceSet::GetNormal
+-function VrmlData_IndexedFaceSet::Polygons
+-function VrmlData_IndexedFaceSet::Polygon
+-function VrmlData_IndexedFaceSet::SetPolygons
+-function VrmlData_IndexedFaceSet::ArrayNormalInd
+-function VrmlData_IndexedFaceSet::IndiceNormals
+-function VrmlData_IndexedFaceSet::SetNormalInd
+-function VrmlData_IndexedFaceSet::ArrayColorInd
+-function VrmlData_IndexedFaceSet::SetColorInd
+-function VrmlData_IndexedFaceSet::ArrayTextureCoordInd
+-function VrmlData_IndexedFaceSet::SetTextureCoordInd
+
+-function VrmlData_IndexedLineSet::Polygons
+-function VrmlData_IndexedLineSet::Polygon
+-function VrmlData_IndexedLineSet::SetPolygons
+-function VrmlData_IndexedLineSet::ArrayColorInd
+-function VrmlData_IndexedLineSet::SetColorInd
+
+-function VrmlData_Scene::ReadArrIndex
+-function VrmlData_Scene::WriteArrIndex
+
+-function XCAFDoc_GeomTolerance::XCAFDoc_GeomTolerance(const opencascade::handle<XCAFDoc_GeomTolerance> &)
+-function XCAFDoc_ShapeTool::FindSubShape
+
+-function XBRepMesh::Discret_
+
+-function XmlObjMgt::GetInteger_
+-function XmlObjMgt::GetReal_
+
+-function XSControl_Vars::Get
+-function XSControl_Vars::GetGeom
+-function XSControl_Vars::GetCurve2d
+-function XSControl_Vars::GetCurve
+-function XSControl_Vars::GetSurface
+-function XSControl_Vars::GetPoint
+-function XSControl_Vars::GetPoint2d
+-function XSControl_Vars::GetShape
+
+# Unresolved symbol
+-function Xw_Window::DisplayConnection
+
+# Headers ---------------------------------------------------------------------
+-header* AdvApp2Var_Data_f2c.hxx
+-header* AIS_LocalStatus.hxx
+-header* AIS_DataMapOfSelStat.hxx
+-header* BRepMesh_CustomBaseMeshAlgo.hxx
+-header* glext.h
+-header* NCollection_Shared.hxx
+
++header Aspect: xTypes.h
+
++header BinMXCAFDoc: BinTools_LocationSet.hxx
+
++header BRepMesh: IMeshData_Wire.hxx
+
++header BOPAlgo: BOPDS_DS.hxx
++header BOPAlgo: BOPDS_Iterator.hxx
+
++header BOPDS: BOPDS_PaveBlock.hxx
+
++header BOPTools_BoxSet<NumType, Dimension, DataType>: bind_BVH_BoxSet.hxx
++header BOPTools_BoxSelector<Dimension>: bind_BVH_Traverse.hxx
+
++header BRepAlgoAPI: BOPAlgo_Builder.hxx
++header BRepAlgoAPI: Message_ProgressIndicator.hxx
+
++header BRepBlend: math_Matrix.hxx
++header BRepBlend: gp_Lin.hxx
++header BRepBlend: Blend_Point.hxx
++header BRepBlend: Adaptor3d_HSurface.hxx
++header BRepBlend: Adaptor3d_HCurve.hxx
++header BRepBlend: Adaptor2d_HCurve2d.hxx
++header BRepBlend: gp_Ax1.hxx
++header BRepBlend: gp_Circ.hxx
++header BRepBlend: Law_Function.hxx
+
++header BRepBuilderAPI: gp_XY.hxx
++header BRepBuilderAPI: gp_XYZ.hxx
+
++header BRepFill: TopTools_HArray1OfShape.hxx
+
++header BRepGProp: BRepGProp_Face.hxx
++header BRepGProp: BRepGProp_Domain.hxx
+
++header BRepMesh: gp_XY.hxx
++header BRepMesh: gp_XYZ.hxx
+
++header BRepOffsetAPI: TopoDS_Edge.hxx
++header BRepOffsetAPI: TopoDS_Face.hxx
++header BRepOffsetAPI: BRepTools_ReShape.hxx
+
++header BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>: bind_BVH_BaseTraverse.hxx
++header BVH_BoxSet<NumType, Dimension, DataType>: bind_BVH_PrimitiveSet.hxx
++header BVH_Geometry<T, N>: bind_BVH_ObjectSet.hxx
++header BVH_ObjectSet<T, N>: bind_BVH_Set.hxx
++header BVH_PrimitiveSet<T, N>: bind_BVH_Object.hxx
++header BVH_Triangulation<T, N>: bind_BVH_PrimitiveSet.hxx
+
++header Graphic3d: bind_BVH_Set.hxx
++header Graphic3d: Precision.hxx
+
++header HLRAlgo: gp_XYZ.hxx
+
++header IMeshTools: IMeshData_Face.hxx
+
++header IntPatch: Intf_Polygon2d.hxx
+
++header IntPolyh: IntPolyh_Triangle.hxx
+
++header MMgt: Standard_Type.hxx
+
++header NCollection: gp_Pnt.hxx
++header NCollection: gp_XYZ.hxx
++header NCollection: gp_XY.hxx
+
++header OpenGl: Precision.hxx
++header OpenGl: bind_BVH_Geometry.hxx
++header OpenGl: bind_BVH_Set.hxx
+
++header PCDM: Storage_BaseDriver.hxx
++header PCDM: Standard_IStream.hxx
+
++header ProjLib: Adaptor3d_Surface.hxx
++header ProjLib: Adaptor3d_Curve.hxx
+
++header PrsMgr: PrsMgr_Presentation.hxx
+
++header SelectMgr: bind_SelectMgr_Frustum.hxx
+
++header ShapeFix: TColStd_HArray1OfReal.hxx
+
+-header Standard: NCollection_SparseArrayBase.hxx
+-header Standard: NCollection_SparseArrayBase.hxx
+-header Standard: NCollection_SparseArrayBase.hxx
+-header Standard: NCollection_SparseArrayBase.hxx
+-header Standard: Storage_Schema.hxx
+
++header StdLPersistent: bind_StdObjMgt_Attribute.hxx
+
++header StdPersistent: bind_StdObjMgt_Attribute.hxx
+
++header TDocStd: TDocStd_XLink.hxx
+
++header TNaming: TopoDS_Shape.hxx
++header TNaming: TNaming_RefShape.hxx
+
++header TObj: TObj_Object.hxx
+
++header TopOpeBRep: TopOpeBRepTool_ShapeClassifier.hxx
++header TopOpeBRep: TopOpeBRep_FacesFiller.hxx
+
++header TopOpeBRepBuild: TopOpeBRepBuild_WireEdgeSet.hxx
++header TopOpeBRepBuild: TopOpeBRepBuild_GTopo.hxx
++header TopOpeBRepBuild: TopOpeBRepBuild_Builder.hxx
+
++header TopOpeBRepDS: TopOpeBRepDS_DataStructure.hxx
++header TopOpeBRepDS: TopOpeBRepTool_ShapeClassifier.hxx
+
++header V3d: V3d_Viewer.hxx
++header V3d: V3d_View.hxx
+
++header IVtkTools: vtkActor.h
++header IVtkTools: vtkRenderer.h
++header IVtkVTK: vtkRenderer.h
+
++header XCAFDoc: TCollection_ExtendedString.hxx
+
++header XmlMXCAFDoc: TopTools_LocationSet.hxx
+
++header XmlObjMgt: LDOM_MemManager.hxx
++header Xw: xTypes.h
+
+# Python names ----------------------------------------------------------------
++pname AIS_PointCloud::DisplayMode-->enumDisplayMode
++pname NCollection_Lerp<gp_Trsf>-->gp_TrsfNLerp
+
+# nodelete option -------------------------------------------------------------
++nodelete TDF_LabelNode
++nodelete Poly_CoherentTriPtr
++nodelete NCollection_SeqNode
++nodelete NCollection_ListNode
+
+# Excluded base classes -------------------------------------------------------
+-base BRepExtrema_OverlapTool: BVH_PairTraverse<Standard_Real, 3>
+-base LDOM_OSStream: Standard_OStream
+-base LDOM_SBuffer: std::streambuf
+-base OpenGl_GlCore13: OpenGl_GlCore12
+-base OpenGl_GlCore13Fwd: OpenGl_GlCore12Fwd
+-base OpenGl_TriangleSet: OpenGl_BVHTriangulation3f
+-base Poly_BaseIteratorOfCoherentLink: NCollection_BaseVector::Iterator
+-base Poly_BaseIteratorOfCoherentNode: NCollection_BaseVector::Iterator
+-base Poly_BaseIteratorOfCoherentTriangle: NCollection_BaseVector::Iterator
+-base NCollection_Handle<T>: opencascade::handle<Standard_Transient>
+-base Standard_ArrayStreamBuffer: std::streambuf
+-base StdObjMgt_MapOfInstantiators: NCollection_DataMap<TCollection_AsciiString, StdObjMgt_Persistent::Instantiator, TCollection_AsciiString>
+-base StdLPersistent_TreeNode: StdObjMgt_Attribute<TDataStd_TreeNode>::Static
+
+# Excluded fields -------------------------------------------------------------
+-field Graphic3d_CStructure::IsInfinite
+-field Graphic3d_CStructure::stick
+-field Graphic3d_CStructure::highlight
+-field Graphic3d_CStructure::visible
+-field Graphic3d_CStructure::HLRValidation
+-field Graphic3d_CStructure::IsForHighlight
+-field Graphic3d_CStructure::IsMutable
+-field Graphic3d_CStructure::Is2dText
+
+-field OpenGl_Context::core11
+-field OpenGl_Context::core11fwd
+-field OpenGl_Context::core15
+-field OpenGl_Context::core15fwd
+-field OpenGl_Context::core20
+-field OpenGl_Context::core20fwd
+-field OpenGl_Context::core32
+-field OpenGl_Context::core32back
+-field OpenGl_Context::core33
+-field OpenGl_Context::core33back
+-field OpenGl_Context::core41
+-field OpenGl_Context::core41back
+-field OpenGl_Context::core42
+-field OpenGl_Context::core42back
+-field OpenGl_Context::core43
+-field OpenGl_Context::core43back
+-field OpenGl_Context::core44
+-field OpenGl_Context::core44back
+
+-field RWGltf_GltfSharedIStream::Stream
+
+-field VrmlData_InBuffer::Input
+
+# Excluded imports ------------------------------------------------------------
+-import Geom: GeomEvaluator
+-import Geom2d: Geom2dEvaluator
+-import GeomAdaptor: GeomEvaluator
+-import Geom2dAdaptor: Geom2dEvaluator
+-import NCollection: gp
+-import Prs3d: PrsMgr
+-import Select3D: SelectMgr
+-import StdObject: StdPersistent
+-import StdObject: ShapePersistent
+-import StdPersistent: ShapePersistent
+-import XCAFDimTolObjects: XCAFDoc
+
+# Import guards ---------------------------------------------------------------
++iguard Font: Graphic3d
++iguard Graphic3d: Select3D
++iguard LDOMBasicString: LDOM
++iguard LDOMString: LDOM
++iguard LDOMParser: LDOM
++iguard Media: Graphic3d
++iguard SelectBasics: Select3D
++iguard Standard: TCollection
++iguard StepRepr: StepShape
+
+# Call guards -----------------------------------------------------------------
++cguard Font_TextFormatter::SetupAlignment-->Graphic3d
++cguard Font_BRepTextBuilder::Perform-->Graphic3d
+
++cguard Graphic3d_BvhCStructureSetTrsfPers::Graphic3d_BvhCStructureSetTrsfPers-->Select3D
++cguard Graphic3d_BvhCStructureSetTrsfPers::Builder-->Select3D
++cguard Graphic3d_BvhCStructureSetTrsfPers::SetBuilder-->Select3D
++cguard Graphic3d_Layer::Graphic3d_Layer-->Select3D
++cguard Graphic3d_Layer::FrustumCullingBVHBuilder-->Select3D
++cguard Graphic3d_Layer::SetFrustumCullingBVHBuilder-->Select3D
+
++cguard LDOMBasicString::LDOMBasicString-->LDOM
+
++cguard LDOMString::getOwnerDocument-->LDOM
+
++cguard LDOMParser::getDocument-->LDOM
+
++cguard Media_Frame::Size-->Graphic3d
++cguard Media_Scaler::Init-->Graphic3d
+
++cguard SelectBasics_SensitiveEntity::BoundingBox-->Select3D
+
++cguard Standard_Dump::Text-->TCollection
++cguard Standard_Dump::FormatJson-->TCollection
++cguard Standard_Dump::GetPointerPrefix-->TCollection
++cguard Standard_Dump::GetPointerInfo-->TCollection
++cguard Standard_Dump::DumpKeyToClass-->TCollection
+
++cguard StepRepr_ReprItemAndMeasureWithUnitAndQRI-->StepShape
++cguard StepRepr_ReprItemAndMeasureWithUnitAndQRI::SetQualifiedRepresentationItem-->StepShape
++cguard StepRepr_ReprItemAndMeasureWithUnitAndQRI::GetQualifiedRepresentationItem-->StepShape
+
+# Nested classes --------------------------------------------------------------
++nested NCollection_BaseList::Iterator
++nested NCollection_BaseMap::Iterator
++nested NCollection_UBTree<TheObjType, TheBndType>::Selector
+
+# Classes that need downcasted  -----------------------------------------------
+#+downcast BRepMesh_CurveTessellator
+
+# Skipped types ---------------------------------------------------------------
++skip AIS_LocalStatus
++skip AIS_DataMapOfSelStat
+
++skip Graphic3d_UniformValueTypeID<Graphic3d_Vec2>
++skip Graphic3d_UniformValueTypeID<Graphic3d_Vec2i>
++skip Graphic3d_UniformValueTypeID<Graphic3d_Vec3>
++skip Graphic3d_UniformValueTypeID<Graphic3d_Vec3i>
++skip Graphic3d_UniformValueTypeID<Graphic3d_Vec4>
++skip Graphic3d_UniformValueTypeID<Graphic3d_Vec4i>
++skip Graphic3d_UniformValueTypeID<Standard_Integer>
++skip Graphic3d_UniformValueTypeID<Standard_ShortReal>
++skip OpenGl_TextureFormatSelector<GLbyte>
++skip OpenGl_TextureFormatSelector<GLfloat>
++skip OpenGl_TextureFormatSelector<GLint>
++skip OpenGl_TextureFormatSelector<GLshort>
++skip OpenGl_TextureFormatSelector<GLubyte>
++skip OpenGl_TextureFormatSelector<GLuint>
++skip OpenGl_TextureFormatSelector<GLushort>
+
+# Manual text -----------------------------------------------------------------
++manual BOPTools_BoxSet<NumType, Dimension, DataType>-->bind_BVH_BoxSet<NumType, Dimension, DataType>(mod, "BOPTools_BoxSet_Base", py::module_local());
++manual BOPTools_BoxSelector<Dimension>-->bind_BVH_Traverse<Standard_Real, Dimension, BVH_BoxSet<Standard_Real, Dimension, Standard_Integer>, Standard_Boolean>(mod, "BOPTools_BoxSelector_Base", py::module_local());
+
++manual BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>-->bind_BVH_BaseTraverse<MetricType>(mod, "BVH_Traverse_Base", py::module_local());
++manual BVH_BoxSet<NumType, Dimension, DataType>-->bind_BVH_PrimitiveSet<NumType, Dimension>(mod, "BVH_BoxSet_Base", py::module_local());
++manual BVH_Geometry<T, N>-->bind_BVH_ObjectSet<T, N>(mod, "BVH_Geometry_Base", py::module_local());
++manual BVH_ObjectSet<T, N>-->bind_BVH_Set<T, N>(mod, "BVH_ObjectSet_Base", py::module_local());
++manual BVH_PrimitiveSet<T, N>-->bind_BVH_Object<T, N>(mod, "BVH_PrimitiveSet_Base", py::module_local());
++manual BVH_Triangulation<T, N>-->bind_BVH_PrimitiveSet<T, N>(mod, "BVH_Triangulation_Base", py::module_local());
+
++manual Graphic3d_BvhCStructureSetTrsfPers-->bind_BVH_Set<Standard_Real, 3>(mod, "BVH_Set_Standard_Real3", py::module_local());
+
++manual OpenGl_BVHClipPrimitiveTrsfPersSet-->bind_BVH_Set<Standard_Real, 3>(mod, "BVH_Set_Standard_Real3", py::module_local());
++manual OpenGl_RaytraceGeometry-->bind_BVH_Geometry<Standard_ShortReal, 3>(mod, "BVH_Geometry_Standard_ShortReal3", py::module_local());
+
++manual SelectMgr_RectangularFrustum-->bind_SelectMgr_Frustum<4>(mod, "Select_Mgr_Frustum4", py::module_local());
++manual SelectMgr_TriangularFrustum-->bind_SelectMgr_Frustum<3>(mod, "Select_Mgr_Frustum3", py::module_local());
+
++manual StdLPersistent_Function-->bind_StdObjMgt_Attribute<TFunction_Function>(mod, "StdObjMgt_Attribute_TFunction_Function", py::module_local());
++manual StdLPersistent_NamedData-->bind_StdObjMgt_Attribute<TDataStd_NamedData>(mod, "StdObjMgt_Attribute_TDataStd_NamedData", py::module_local());
++manual StdLPersistent_Real-->bind_StdObjMgt_Attribute<TDataStd_Real>(mod, "StdObjMgt_Attribute_TDataStd_Real", py::module_local());
++manual StdLPersistent_Variable-->bind_StdObjMgt_Attribute<TDataStd_Variable>(mod, "StdObjMgt_Attribute_TDataStd_Variable", py::module_local());
++manual StdLPersistent_XLink-->bind_StdObjMgt_Attribute<TDocStd_XLink>(mod, "StdObjMgt_Attribute_TDocStd_XLink", py::module_local());
+
++manual StdPersistent_DataXtd_Constraint-->bind_StdObjMgt_Attribute<TDataXtd_Constraint>(mod, "StdObjMgt_Attribute_TDataXtd_Constraint", py::module_local());
++manual StdPersistent_DataXtd_PatternStd-->bind_StdObjMgt_Attribute<TDataXtd_PatternStd>(mod, "StdObjMgt_Attribute_TDataXtd_PatternStd", py::module_local());
+
+# Extra text ------------------------------------------------------------------
++extra AIS_Line-->cls_AIS_Line.def("Points", [](AIS_Line &self, opencascade::handle<Geom_Point> & thePStart, opencascade::handle<Geom_Point> & thePEnd) {self.Points(thePStart, thePEnd); return std::tuple<opencascade::handle<Geom_Point>, opencascade::handle<Geom_Point>>(thePStart, thePEnd); }, "Returns the starting point thePStart and the end point thePEnd of the line set by SetPoints.", py::arg("thePStart"), py::arg("thePEnd"));
+
++extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("Clear", [](BRepAlgoAPI_Algo &self) {return self.Clear(); }, "Clears all warnings and errors, and any data cached by the algorithm. User defined options are not cleared.");
++extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetRunParallel", [](BRepAlgoAPI_Algo &self, const Standard_Boolean theFlag) { return self.SetRunParallel(theFlag); }, "Set the flag of parallel processing if <theFlag> is true the parallel processing is switched on if <theFlag> is false the parallel processing is switched off", py::arg("theFlag"));
++extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("RunParallel", [](BRepAlgoAPI_Algo &self) {return self.RunParallel(); }, "Returns the flag of parallel processing");
++extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetFuzzyValue", [](BRepAlgoAPI_Algo &self, const Standard_Real theFuzz) { return self.SetFuzzyValue(theFuzz); }, "Sets the additional tolerance", py::arg("theFuzz"));
++extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("FuzzyValue", [](BRepAlgoAPI_Algo &self) { return self.FuzzyValue(); }, "Returns the additional tolerance");
++extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasErrors", [](BRepAlgoAPI_Algo &self) { return self.HasErrors(); }, "Returns true if algorithm has failed");
++extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasWarnings", [](BRepAlgoAPI_Algo &self) { return self.HasWarnings(); }, "Returns true if algorithm has generated some warning alerts");
++extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasError", [](BRepAlgoAPI_Algo &self, Handle(Standard_Type) &theType) { return self.HasError(theType); }, "Returns true if algorithm has generated error of specified type", py::arg("theType"));
++extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasWarning", [](BRepAlgoAPI_Algo &self, Handle(Standard_Type) &theType) { return self.HasWarning(theType); }, "Returns true if algorithm has generated warning of specified type", py::arg("theType"));
++extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("ClearWarnings", [](BRepAlgoAPI_Algo &self) { self.ClearWarnings(); }, "Clears the warnings of the algorithm");
++extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("GetReport", [](BRepAlgoAPI_Algo &self) { const Handle(Message_Report) r = self.GetReport(); return r; }, "Returns report collecting all errors and warnings");
++extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetProgressIndicator", [](BRepAlgoAPI_Algo &self, const Handle(Message_ProgressIndicator) &pi) {return self.SetProgressIndicator(pi); }, "Set the Progress Indicator object.", py::arg("theObj"));
+
++extra Geom_Surface-->cls_Geom_Surface.def("U1", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return U1; }, "Returns the parametric bound U1.");
++extra Geom_Surface-->cls_Geom_Surface.def("U2", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return U2; }, "Returns the parametric bound U2.");
++extra Geom_Surface-->cls_Geom_Surface.def("V1", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return V1; }, "Returns the parametric bound V1.");
++extra Geom_Surface-->cls_Geom_Surface.def("V2", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return V2; }, "Returns the parametric bound V2.");
+
++extra ShapeAnalysis_FreeBounds-->cls_ShapeAnalysis_FreeBounds.def_static("ConnectEdgesToWires_", [](opencascade::handle<TopTools_HSequenceOfShape> &edges, const Standard_Real toler, const Standard_Boolean shared) { opencascade::handle<TopTools_HSequenceOfShape> wires = new TopTools_HSequenceOfShape; ShapeAnalysis_FreeBounds::ConnectEdgesToWires(edges, toler, shared, wires); return wires; }, "Builds sequnce of <wires> out of sequence of not sorted <edges>. Tries to build wires of maximum length. Building a wire is stopped when no edges can be connected to it at its head or at its tail.", py::arg("edges"), py::arg("toler"), py::arg("shared"));
++extra ShapeAnalysis_FreeBounds-->cls_ShapeAnalysis_FreeBounds.def_static("ConnectWiresToWires_", [](opencascade::handle<TopTools_HSequenceOfShape> &iwires, const Standard_Real toler, const Standard_Boolean shared) { opencascade::handle<TopTools_HSequenceOfShape> owires = new TopTools_HSequenceOfShape; ShapeAnalysis_FreeBounds::ConnectWiresToWires(iwires, toler, shared, owires); return owires; }, "Builds sequnce of <owires> out of sequence of not sorted <iwires>.Tries to build wires of maximum length.Building a wire is stopped when no wires can be connected to it at its head or at its tail.", py::arg("iwires"), py::arg("toler"), py::arg("shared"));
++extra ShapeAnalysis_FreeBounds-->cls_ShapeAnalysis_FreeBounds.def_static("ConnectWiresToWires_", [](opencascade::handle<TopTools_HSequenceOfShape> &iwires, const Standard_Real toler, const Standard_Boolean shared, TopTools_DataMapOfShapeShape &vertices) { opencascade::handle<TopTools_HSequenceOfShape> owires = new TopTools_HSequenceOfShape; ShapeAnalysis_FreeBounds::ConnectWiresToWires(iwires, toler, shared, owires, vertices); return owires; }, "Builds sequnce of <owires> out of sequence of not sorted <iwires>. Tries to build wires of maximum length. Building a wire is stopped when no wires can be connected to it at its head or at its tail.", py::arg("iwires"), py::arg("toler"), py::arg("shared"), py::arg("vertices"));
+
++extra TDF_Label-->cls_TDF_Label.def("FindAttribute", [](TDF_Label &self, const Standard_GUID &anID, opencascade::handle<TDF_Attribute> &anAttribute) {Standard_Boolean status = self.FindAttribute(anID, anAttribute); return std::tuple<Standard_Boolean, opencascade::handle<TDF_Attribute>>(status, anAttribute); }, "Finds an attribute of the current label, according to <anID>. If anAttribute is not a valid one, false is returned.", py::arg("anID"), py::arg("anAttribute"));
+
++extra TDocStd_Application-->cls_TDocStd_Application.def("Open", [](TDocStd_Application &self, const TCollection_ExtendedString &path, opencascade::handle<TDocStd_Document> &aDoc) {PCDM_ReaderStatus status = self.Open(path, aDoc);  return std::tuple<PCDM_ReaderStatus, opencascade::handle<TDocStd_Document>>(status, aDoc); }, "Retrieves the document aDoc stored under the name aName in the directory directory. In order not to override a version of aDoc which is already in memory, this method can be made to depend on the value returned by IsInSession.", py::arg("path"), py::arg("aDoc"));
+
++extra TopoDS_Shape-->cls_TopoDS_Shape.def("__hash__", [](TopoDS_Shape &self) {return self.HashCode(999999); });
+
++extra XCAFDoc_ShapeTool-->cls_XCAFDoc_ShapeTool.def("FindSubShape", [](XCAFDoc_ShapeTool &self, const TDF_Label &shapeL, const TopoDS_Shape &sub) { TDF_Label L; Standard_Boolean status = self.FindSubShape(shapeL, sub, L); return std::tuple<Standard_Boolean, TDF_Label>(status, L); }, "Finds a label for subshape of shape stored on label shapeL Returns Null label if it is not found", py::arg("shapeL"), py::arg("sub"));
+
+# Add exception translator
++extra Standard_Failure-->py::register_exception_translator([](std::exception_ptr p) {try {if (p) std::rethrow_exception(p);} catch (const Standard_Failure &e) { PyErr_SetString(PyExc_RuntimeError, e.GetMessageString());}});
+
+# Patches -----------------------------------------------------------------
+
+# Patch parameter for AIS_ManipulatorObjectSequence::Append
++patch AIS: (AIS_ManipulatorObjectSequence::*)(const int &)-->(AIS_ManipulatorObjectSequence::*)(const typename AIS_ManipulatorObjectSequence::value_type &)
+
++patch bind_BOPTools_PairSelector: std::vector<PairIDs>-->std::vector<typename BOPTools_PairSelector<Dimension>::PairIDs>
+
++patch bind_BVH_Traverse: (const int &)-->(const opencascade::handle<BVH_Tree <NumType, Dimension>>&)
+
++patch IVtkTools: (IVtkOCC_Shape::Handle (-->(opencascade::handle<IVtkOCC_Shape> (
+
+# TDataXtd_ConstraintEnum seems to be missing
++patch TDataXtd: (const int, const opencascade::handle<TNaming_NamedShape> &-->(const TDataXtd_ConstraintEnum, const opencascade::handle<TNaming_NamedShape> &
++patch TDataXtd: (const int, Standard_OStream &)-->(const TDataXtd_ConstraintEnum, Standard_OStream &)
+
+# Standard_UUID is messed up
++patch Standard: py::class_<> cls_GUID(mod, "GUID", "None");-->py::class_<Standard_UUID> cls_Standard_UUID(mod, "Standard_UUID", "None");
++patch Standard: cls_GUID.def(py::init<>());-->cls_Standard_UUID.def(py::init<>());
++patch Standard: cls_GUID.def_readwrite("Data1", &Data1, "None");-->cls_Standard_UUID.def_readwrite("Data1", &Standard_UUID::Data1, "None");
++patch Standard: cls_GUID.def_readwrite("Data2", &Data2, "None");-->cls_Standard_UUID.def_readwrite("Data2", &Standard_UUID::Data2, "None");
++patch Standard: cls_GUID.def_readwrite("Data3", &Data3, "None");-->cls_Standard_UUID.def_readwrite("Data3", &Standard_UUID::Data3, "None");
+
