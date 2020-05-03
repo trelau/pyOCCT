@@ -32,10 +32,6 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: echo "::add-path::$CONDA/Scripts"
 
-      - name: "Initialize conda"
-        shell: bash -l {0}
-        run: conda init --all
-
       - name: "Configure conda"
         shell: bash -l {0}
         run: conda env create -f environment.yml
@@ -43,6 +39,7 @@ jobs:
       - name: "Check conda"
         shell: bash -l {0}
         run: |
+          conda init --all &&
           conda activate pyOCCT &&
           conda info -a &&
           conda list
