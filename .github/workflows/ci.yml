@@ -35,7 +35,8 @@ jobs:
       - name: "Configure conda"
         run: |
           conda env create -f environment.yml &&
-          conda init --all
+          conda init bash
+          conda init powershell
 
       - name: "Check conda"
         run: |
