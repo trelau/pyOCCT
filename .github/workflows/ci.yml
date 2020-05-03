@@ -32,30 +32,25 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: echo "::add-path::$CONDA/Scripts"
 
-      - name: "Initialize conda"
-        if: matrix.os != 'windows-latest'
-        shell: pwsh
-        run: conda init powershell
-
       - name: "Configure conda"
-        shell: pwsh
+        shell: bash -l {0}
         run: conda env create -f environment.yml
 
       - name: "Check conda"
-        shell: pwsh
+        shell: bash -l {0}
         run: |
           conda activate pyOCCT &&
           conda info -a &&
           conda list
 
       - name: "Generate bindings"
-        shell: pwsh
+        shell: bash -l {0}
         run: |
           conda activate pyOCCT &&
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Run conda build"
-        shell: pwsh
+        shell: bash -l {0}
         run: |
           mkdir conda
           conda activate pyOCCT &&
