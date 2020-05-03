@@ -35,28 +35,29 @@ jobs:
           echo "::add-path::$CONDA/Scripts"
 
       - name: "Configure conda"
-        shell: pwsh
+        shell: bash -l {0}
         run: |
           conda env create -f environment.yml
+          conda init powershell
 
       - name: "Check conda"
         shell: pwsh
         run: |
-          source activate pyOCCT && \
+          conda activate pyOCCT && \
           conda info -a && \
           conda list
 
       - name: "Generate bindings"
         shell: pwsh
         run: |
-          source activate pyOCCT && \
+          conda activate pyOCCT && \
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Run conda build"
         shell: pwsh
         run: |
           mkdir conda
-          source activate pyOCCT && \
+          conda activate pyOCCT && \
           conda build  ci/conda --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
