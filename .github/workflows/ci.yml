@@ -28,31 +28,24 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - name: "Add conda to PATH"
-        if: matrix.os == 'windows-latest'
-        run: echo "::add-path::$CONDA/Scripts"
-
       - name: "Configure conda"
-        run: |
-          conda env create -f environment.yml &&
-          conda init bash
-          conda init powershell
+        run: conda env create -f environment.yml &&
 
       - name: "Check conda"
         run: |
-          conda activate pyOCCT &&
+          source activate pyOCCT &&
           conda info -a &&
           conda list
 
       - name: "Generate bindings"
         run: |
-          conda activate pyOCCT &&
+          source activate pyOCCT &&
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Run conda build"
         run: |
           mkdir conda
-          conda activate pyOCCT &&
+          source activate pyOCCT &&
           conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
