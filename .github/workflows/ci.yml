@@ -32,20 +32,22 @@ jobs:
         uses: goanpeca/setup-miniconda@v1
         with:
           environment-file: 'environment.yml'
-          activate-environment: 'pyOCCT'
 
       - name: "Check conda"
         run: |
+          conda activate pyOCCT &&
           conda info -a &&
           conda list
 
       - name: "Generate bindings"
         run: |
+          conda activate pyOCCT &&
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Run conda build"
         run: |
           mkdir conda
+          conda activate pyOCCT &&
           conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
