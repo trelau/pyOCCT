@@ -35,17 +35,20 @@ jobs:
           activate-environment: pyOCCT
 
       - name: "Check conda"
+        shell: bash -l {0}
         run: |
           conda activate pyOCCT &&
           conda info -a &&
           conda list
 
       - name: "Generate bindings"
+        shell: bash -l {0}
         run: |
           conda activate pyOCCT &&
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Run conda build"
+        shell: bash -l {0}
         run: |
           mkdir conda
           conda activate pyOCCT &&
