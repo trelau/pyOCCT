@@ -33,6 +33,7 @@ jobs:
         run: echo "::add-path::$CONDA/Scripts"
 
       - name: "Configure conda"
+        shell: bash
         run: conda env create -f environment.yml
 
       - name: "Initialize conda"
