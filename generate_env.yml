@@ -1,9 +1,8 @@
-name: pyOCCT
+name: binder
 channels:
   - conda-forge
 dependencies:
   - python=3.7
-  - conda-build
   - clangdev
   - python-clang
   - occt=7.4.0
