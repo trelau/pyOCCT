@@ -31,6 +31,7 @@ jobs:
       - name: "Configure conda"
         uses: goanpeca/setup-miniconda@v1
         with:
+          auto-update-conda: true
           environment-file: environment.yml
           activate-environment: pyOCCT
 
