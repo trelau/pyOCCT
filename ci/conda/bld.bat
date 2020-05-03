@@ -1,4 +1,4 @@
-python binder/generate/run.py
+python binder/generate/run.py -c config.txt
 if errorlevel 1 exit 1
 
 mkdir build
