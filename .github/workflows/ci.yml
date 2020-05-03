@@ -42,21 +42,21 @@ jobs:
       - name: "Check conda"
         shell: pwsh
         run: |
-          source activate pyOCCT
-          conda info -a
+          source activate pyOCCT && \
+          conda info -a && \
           conda list
 
       - name: "Generate bindings"
         shell: pwsh
         run: |
-          source activate pyOCCT
+          source activate pyOCCT && \
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Run conda build"
         shell: pwsh
         run: |
           mkdir conda
-          source activate pyOCCT
+          source activate pyOCCT && \
           conda build  ci/conda --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
