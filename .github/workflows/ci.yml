@@ -37,12 +37,12 @@ jobs:
       - name: "Configure conda"
         shell: bash -l {0}
         run: |
-          conda update -n base -c defaults conda
           conda env create -f environment.yml
 
       - name: "Check conda"
         shell: bash -l {0}
         run: |
+          conda init bash && \
           conda activate pyOCCT && \
           conda info -a && \
           conda list
@@ -50,6 +50,7 @@ jobs:
       - name: "Generate bindings"
         shell: bash -l {0}
         run: |
+          conda init bash && \
           conda activate pyOCCT && \
           python binder/run.py -c binder/config.txt -o src/occt
 
@@ -57,6 +58,7 @@ jobs:
         shell: bash -l {0}
         run: |
           mkdir conda
+          conda init bash && \
           conda activate pyOCCT && \
           conda build  ci/conda --python ${{ matrix.python-version }} --output-folder conda
 
