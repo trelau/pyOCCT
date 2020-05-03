@@ -33,6 +33,7 @@ jobs:
         run: echo "::add-path::$CONDA/Scripts"
 
       - name: "Initialize conda"
+        shell: pwsh
         run: conda init powershell
 
       - name: "Configure conda"
