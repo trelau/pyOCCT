@@ -91,6 +91,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: pyocct_src_${{ matrix.os }}
+          path: src/occt
 
       - name: "Run conda build"
         shell: bash -l {0}
