@@ -2,7 +2,7 @@
 This file is part of pyOCCT which provides Python bindings to the OpenCASCADE
 geometry kernel.
 
-Copyright (C) 2018 Keith Preston
+Copyright (C) 2016-2018  Laughlin Research, LLC (info@laughlinresearch.com)
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -18,39 +18,13 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#include <pyOCCT_Common.hxx>
 
-/*
+#include <BaseTraceCollector.hxx>
 
-Dummy definitions of _xcolor and __GLXFBConfigRec
+PYBIND11_MODULE(BaseTraceCollector, mod) {
 
-The OCCT include files for Linux use these two X Windows related structs.
-Since pyOCCT doesn't need their internal details, it seems unnecessary to drag
-in X library files, which may not be present in all systems anyway.
+	// CLASSES
+	py::class_<BaseTraceCollector> cls_BaseTraceCollector(mod, "BaseTraceCollector", "See derived Classes in SALOMELocalTrace for usage without CORBA, see derived Classes in SALOMETraceCollector for usage with CORBA.");
 
-*/
-
-#ifndef __xTypes_h__
-#define __xTypes_h__
-
-/*
-typedef struct _xcolor {
-
-	unsigned long  pixel;
-	unsigned short red;
-	unsigned short green;
-	unsigned short blue;
-	char           flags;
-	char           pad;
-
-} XColor;
-*/
-
-struct _XDisplay {
-
-};
-
-struct __GLXFBConfigRec {
-
-};
-
-#endif /* !__xTypes_h */
+}

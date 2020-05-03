@@ -8,7 +8,7 @@
 [![Anaconda-Server Badge](https://anaconda.org/trelau/pyocct/badges/downloads.svg)](https://anaconda.org/trelau/pyocct)
 [![Anaconda-Server Badge](https://anaconda.org/trelau/pyocct/badges/latest_release_date.svg)](https://anaconda.org/trelau/pyocct)
 
-The **pyOCCT** project provides Python bindings to the OpenCASCADE 7.2.0
+The **pyOCCT** project provides Python bindings to the OpenCASCADE 7.4.0
 geometry kernel and SMESH 8.3.0 meshing library via pybind11. Together, this
 technology stack enables rapid CAD/CAE application development in the popular
 Python programming language.
@@ -69,12 +69,12 @@ The easiest and fastest way to get started is using the conda build from the
 Anaconda cloud:
 
     conda install -c trelau pyocct
-    
+
 To support minimal visualization the wxPython package is required and can be
 installed via conda by:
 
     conda install -c conda-forge wxpython
-    
+
 At this point the ``OCCT`` package should be available:
 
     from OCCT.TopoDS import TopoDS_Shape
@@ -82,7 +82,7 @@ At this point the ``OCCT`` package should be available:
 Navigate to the *examples/* folder and run:
 
     python import_step.py
-    
+
 and you should see the following image in the viewing tool if all the
 requirements are correctly installed.
 

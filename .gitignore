@@ -1,9 +1,6 @@
 # PyCharm files
 .idea/
 
-# pybind11 link folder
-pybind11/
-
 # clang AST
 *.ast
 

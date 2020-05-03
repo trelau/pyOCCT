@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import time
 
+from OCCT.BOPAlgo import BOPAlgo_Options
 from OCCT.BRepAlgoAPI import BRepAlgoAPI_Fuse
 from OCCT.TopTools import TopTools_ListOfShape
 
@@ -30,8 +31,8 @@ wing_assy = ExchangeBasic.read_brep(fn)
 fn = './models/fuse_assy.brep'
 fuse_assy = ExchangeBasic.read_brep(fn)
 
+BOPAlgo_Options.SetParallelMode_(True)
 bop = BRepAlgoAPI_Fuse()
-bop.SetRunParallel(True)
 args = TopTools_ListOfShape()
 args.Append(wing_assy)
 bop.SetArguments(args)

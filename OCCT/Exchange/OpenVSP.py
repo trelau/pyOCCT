@@ -262,12 +262,9 @@ def _build_solid(compound, divide_closed):
         builder.Add(sewn_shape, face)
 
     # Attempt to unify planar domains
-    unify_shp = ShapeUpgrade_UnifySameDomain(sewn_shape, False, False, False)
-    try:
-        unify_shp.UnifyFaces()
-        shape = unify_shp.Shape()
-    except RuntimeError:
-        shape = sewn_shape
+    unify_shp = ShapeUpgrade_UnifySameDomain(sewn_shape, False, True, False)
+    unify_shp.Build()
+    shape = unify_shp.Shape()
 
     # Make solid
     shell = ExploreShape.get_shells(shape)[0]
