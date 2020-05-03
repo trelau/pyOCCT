@@ -135,6 +135,9 @@ def main():
     # Gather all the includes for the parser
     other_includes = [i for i in [vtk_include_path, tbb_include_path, clang_include_path] if i]
 
+    # Add extra includes for missing OCCT headers that cause issues during parsing
+    other_includes.append(os.path.join(BINDER_ROOT, 'extra_includes'))
+
     print('\nGenerating all_includes.h file...')
     occt_mods = gen_includes(occt_include_path, BINDER_ROOT)
 
@@ -146,9 +149,6 @@ def main():
     if not os.path.exists(output_path):
         os.makedirs(output_path)
     print("\nWriting binding output files to: {}".format(output_path))
-
-    inc_output = os.path.join(output_path, 'inc')
-    src_output = os.path.join(output_path, 'src')
 
     # For debugging and dev
     gen.bind_enums = True
@@ -180,10 +180,10 @@ def main():
     gen.check_circular()
 
     print('Binding templates...')
-    gen.bind_templates(inc_output)
+    gen.bind_templates(output_path)
 
     print('Binding...')
-    gen.bind(src_output)
+    gen.bind(output_path)
     print('Done!')
     print('-' * 100)
 
