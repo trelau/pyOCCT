@@ -7,14 +7,13 @@ on:
     branches:
     - '*'
 jobs:
-  build:
-    name: Build (${{ matrix.python-version }}, ${{ matrix.os }})
+  generate:
+    name: Generate (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: ['ubuntu-latest', 'windows-latest']
-        python-version: ['3.6', '3.7']
     steps:
 
       - name: "Install OpenGL"
@@ -28,34 +27,81 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - name: "Add conda to PATH"
-        if: matrix.os == 'windows-latest'
-        shell: bash -l {0}
-        run: |
-          echo "::add-path::$CONDA/Scripts"
-
       - name: "Configure conda"
-        shell: bash -l {0}
-        run: |
-          conda update -n base -c defaults conda
-          conda config --add channels conda-forge
-          conda install conda-build
+        uses: goanpeca/setup-miniconda@v1
+        with:
+          auto-update-conda: true
+          environment-file: generate_env.yml
+          activate-environment: binder
 
       - name: "Check conda"
         shell: bash -l {0}
         run: |
-          conda info -a
+          conda activate binder &&
+          conda info -a &&
           conda list
+
+      - name: "Generate bindings"
+        shell: bash -l {0}
+        run: |
+          conda activate binder &&
+          python binder/run.py -c binder/config.txt -o src/occt
+
+      - name: "Upload bindings"
+        uses: actions/upload-artifact@v2
+        with:
+          name: pyocct_src_${{ matrix.os }}
+          path: src/occt
+
+  build:
+    name: Build (${{ matrix.python-version }}, ${{ matrix.os }})
+    needs: generate
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest', 'windows-latest']
+        python-version: ['3.6', '3.7', '3.8']
+    steps:
+
+      - name: "Install OpenGL"
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get -q -y install libglu1-mesa-dev libgl1-mesa-dev libxi-dev libglfw3-dev libgles2-mesa-dev
+
+      - name: "Clone pyOCCT"
+        uses: actions/checkout@v2
+
+      - name: "Configure conda"
+        uses: goanpeca/setup-miniconda@v1
+        with:
+          auto-update-conda: true
+          environment-file: build_env.yml
+          activate-environment: pyOCCT
+
+      - name: "Check conda"
+        shell: bash -l {0}
+        run: |
+          conda activate pyOCCT &&
+          conda info -a &&
+          conda list
+
+      - name: "Download binding sources"
+        uses: actions/download-artifact@v2
+        with:
+          name: pyocct_src_${{ matrix.os }}
+          path: src/occt
 
       - name: "Run conda build"
         shell: bash -l {0}
         run: |
           mkdir conda
-          source activate
-          conda build  ci/conda --python ${{ matrix.python-version }} --output-folder conda
+          conda activate pyOCCT &&
+          conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: pyocct-py${{ matrix.python-version }}-(${{ matrix.os }})
+          name: pyocct-py${{ matrix.python-version }}_${{ matrix.os }}
           path: conda

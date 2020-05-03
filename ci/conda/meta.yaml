@@ -13,19 +13,13 @@ requirements:
     - {{ compiler('cxx') }} # [win]
     - cmake
     - ninja
-    - pybind11
-    - python-clang
-    - clangdev
-    - tbb-devel
-    - python {{ python }}
-    - occt ==7.4.0
-    - smesh ==8.3.0.3
 
   host:
-    - tbb-devel
     - python {{ python }}
+    - pybind11
     - occt ==7.4.0
     - smesh ==8.3.0.3
+    - tbb-devel
 
   run:
     - python {{ python }}
