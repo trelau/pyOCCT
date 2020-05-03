@@ -33,23 +33,26 @@ jobs:
         run: echo "::add-path::$CONDA/Scripts"
 
       - name: "Initialize conda"
-        run: conda init --all
+        run: conda init powershell
 
       - name: "Configure conda"
         run: conda env create -f environment.yml
 
       - name: "Check conda"
+        shell: pwsh
         run: |
           conda activate pyOCCT &&
           conda info -a &&
           conda list
 
       - name: "Generate bindings"
+        shell: pwsh
         run: |
           conda activate pyOCCT &&
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Run conda build"
+        shell: pwsh
         run: |
           mkdir conda
           conda activate pyOCCT &&
