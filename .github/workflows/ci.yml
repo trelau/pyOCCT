@@ -29,23 +29,23 @@ jobs:
           submodules: 'recursive'
 
       - name: "Configure conda"
-        run: conda env create -f environment.yml
+        uses: goanpeca/setup-miniconda@v1
+        with:
+          environment-file: environment.yml
+          activate-environment: true
 
       - name: "Check conda"
         run: |
-          source activate pyOCCT &&
           conda info -a &&
           conda list
 
       - name: "Generate bindings"
         run: |
-          source activate pyOCCT &&
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Run conda build"
         run: |
           mkdir conda
-          source activate pyOCCT &&
           conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
