@@ -1,0 +1,13 @@
+name: pyOCCT
+channels:
+  - conda-forge
+  - anaconda
+  - defaults
+dependencies:
+  - python=3.7
+  - conda-build
+  - clangdev
+  - python-clang
+  - occt=7.4.0
+  - smesh=8.3.0.3
+  - tbb-devel

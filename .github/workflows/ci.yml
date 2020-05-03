@@ -38,24 +38,30 @@ jobs:
         shell: bash -l {0}
         run: |
           conda update -n base -c defaults conda
-          conda config --add channels conda-forge
-          conda install conda-build
+          conda env create -f environment.yml
 
       - name: "Check conda"
         shell: bash -l {0}
         run: |
+          source activate pyOCCT
           conda info -a
           conda list
+
+      - name: "Generate bindings"
+        shell: bash -l {0}
+        run: |
+          source activate pyOCCT
+          python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Run conda build"
         shell: bash -l {0}
         run: |
+          source activate pyOCCT
           mkdir conda
-          source activate
           conda build  ci/conda --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
         uses: actions/upload-artifact@v1
         with:
-          name: pyocct-py${{ matrix.python-version }}-(${{ matrix.os }})
+          name: pyocct-py${{ matrix.python-version }}_${{ matrix.os }}
           path: conda
