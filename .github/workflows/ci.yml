@@ -30,33 +30,33 @@ jobs:
 
       - name: "Add conda to PATH"
         if: matrix.os == 'windows-latest'
-        shell: bash -l {0}
+        shell: cmd
         run: |
           echo "::add-path::$CONDA/Scripts"
 
       - name: "Configure conda"
-        shell: bash -l {0}
+        shell: pwsh
         run: |
           conda env create -f environment.yml
 
       - name: "Check conda"
-        shell: bash -l {0}
+        shell: pwsh
         run: |
-          activate pyOCCT && \
-          conda info -a && \
+          source activate pyOCCT
+          conda info -a
           conda list
 
       - name: "Generate bindings"
-        shell: bash -l {0}
+        shell: pwsh
         run: |
-          activate pyOCCT && \
+          source activate pyOCCT
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Run conda build"
-        shell: bash -l {0}
+        shell: pwsh
         run: |
           mkdir conda
-          activate pyOCCT && \
+          source activate pyOCCT
           conda build  ci/conda --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
