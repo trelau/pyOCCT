@@ -37,8 +37,8 @@ jobs:
       - name: "Configure conda"
         shell: bash -l {0}
         run: |
-          conda init bash
           conda env create -f environment.yml
+          conda init bash
 
       - name: "Check conda"
         shell: bash -l {0}
