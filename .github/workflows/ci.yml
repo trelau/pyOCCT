@@ -31,8 +31,8 @@ jobs:
       - name: "Configure conda"
         uses: goanpeca/setup-miniconda@v1
         with:
-          environment-file: environment.yml
-          activate-environment: true
+          environment-file: 'environment.yml'
+          activate-environment: 'pyOCCT'
 
       - name: "Check conda"
         run: |
