@@ -37,14 +37,14 @@ jobs:
       - name: "Check conda"
         shell: bash -l {0}
         run: |
-          conda activate binder &&
-          conda info -a &&
+          conda activate binder
+          conda info -a
           conda list
 
       - name: "Generate bindings"
         shell: bash -l {0}
         run: |
-          conda activate binder &&
+          conda activate binder
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Upload bindings"
@@ -77,15 +77,16 @@ jobs:
         uses: goanpeca/setup-miniconda@v1
         with:
           auto-update-conda: true
-          environment-file: build_env.yml
           python-version: ${{ matrix.python-version }}
           activate-environment: pyOCCT
+          channels: conda-forge
+          conda-build-version: 3.19.2
 
       - name: "Check conda"
         shell: bash -l {0}
         run: |
-          conda activate pyOCCT &&
-          conda info -a &&
+          conda activate pyOCCT
+          conda info -a
           conda list
 
       - name: "Download binding sources"
@@ -98,7 +99,7 @@ jobs:
         shell: bash -l {0}
         run: |
           mkdir conda
-          conda activate pyOCCT &&
+          conda activate pyOCCT
           conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"

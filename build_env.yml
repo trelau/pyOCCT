@@ -1,5 +1,0 @@
-name: pyOCCT
-channels:
-  - conda-forge
-dependencies:
-  - conda-build
