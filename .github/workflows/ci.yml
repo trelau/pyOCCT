@@ -78,6 +78,7 @@ jobs:
         with:
           auto-update-conda: true
           environment-file: build_env.yml
+          python-version: ${{ matrix.python-version }}
           activate-environment: pyOCCT
 
       - name: "Check conda"
