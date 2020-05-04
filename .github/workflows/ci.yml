@@ -103,7 +103,7 @@ jobs:
         run: |
           mkdir conda
           conda activate pyOCCT
-          conda build  ci/conda --output-folder conda
+          conda build  ci/conda --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
         uses: actions/upload-artifact@v2
