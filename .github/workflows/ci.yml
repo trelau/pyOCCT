@@ -78,9 +78,10 @@ jobs:
         with:
           auto-update-conda: true
           python-version: ${{ matrix.python-version }}
-          activate-environment: pyOCCT
           channels: conda-forge
           conda-build-version: 3.19.2
+          auto-activate-base: false
+          activate-environment: pyOCCT
 
       - name: "Check conda"
         shell: bash -l {0}
@@ -88,6 +89,7 @@ jobs:
           conda activate pyOCCT
           conda info -a
           conda list
+          which python
 
       - name: "Download binding sources"
         uses: actions/download-artifact@v2
