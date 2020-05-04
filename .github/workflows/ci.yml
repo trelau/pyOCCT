@@ -31,7 +31,8 @@ jobs:
         uses: goanpeca/setup-miniconda@v1
         with:
           auto-update-conda: true
-          environment-file: generate_env.yml
+          environment-file: binder/environment.yml
+          auto-activate-base: false
           activate-environment: binder
 
       - name: "Check conda"
@@ -102,7 +103,7 @@ jobs:
         run: |
           mkdir conda
           conda activate pyOCCT
-          conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
+          conda build  ci/conda --output-folder conda
 
       - name: "Upload conda package"
         uses: actions/upload-artifact@v2
