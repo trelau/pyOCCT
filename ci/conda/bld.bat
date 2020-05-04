@@ -8,7 +8,7 @@ cmake .. -G "Ninja" ^
     -DPTHREAD_INCLUDE_DIRS:FILEPATH="%LIBRARY_PREFIX%/include"
 if errorlevel 1 exit 1
 
-ninja
+ninja -j1
 if errorlevel 1 exit 1
 
 ninja install

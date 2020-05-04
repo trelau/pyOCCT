@@ -17,17 +17,13 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-import math
 import unittest
 
-from OCCT.Font import (
-    Font_FontMgr, Font_BRepTextBuilder, Font_FontAspect, Font_BRepFont
-)
-
-from OCCT.TCollection import TCollection_AsciiString
+from OCCT.Font import Font_FontMgr, Font_BRepTextBuilder, Font_FontAspect, Font_BRepFont
+from OCCT.Graphic3d import Graphic3d_HTA_LEFT, Graphic3d_VTA_BOTTOM
 from OCCT.NCollection import NCollection_String
 from OCCT.TColStd import TColStd_SequenceOfHAsciiString
-from OCCT.Graphic3d import Graphic3d_HTA_LEFT, Graphic3d_VTA_BOTTOM
+from OCCT.TCollection import TCollection_AsciiString
 from OCCT.gp import gp_Ax3
 
 
@@ -36,7 +32,7 @@ class Test_Font_BRepFont(unittest.TestCase):
     Test for Font_BRepFont class.
     """
 
-    def test_Font_BRepTextBuilder_Perform(self):
+    def test_Perform(self):
         """
         Test Font_BRepTextBuilder::Perform.
         """
@@ -48,12 +44,11 @@ class Test_Font_BRepFont(unittest.TestCase):
         self.assertGreater(font_names.Size(), 0)
 
         font_family = TCollection_AsciiString(font_names.First().ToCString())
-
         font_style = Font_FontAspect.Font_FA_Regular
 
         # Create the font
         font = Font_BRepFont()
-        assert font.FindAndInit(font_family, font_style, 12.0)
+        self.assertTrue(font.FindAndInit(font_family, font_style, 12.0))
 
         # Create builder
         builder = Font_BRepTextBuilder()
@@ -64,12 +59,8 @@ class Test_Font_BRepFont(unittest.TestCase):
         halign = Graphic3d_HTA_LEFT
         valign = Graphic3d_VTA_BOTTOM
         topods_shape = builder.Perform(font, text, pos, halign, valign)
-
         self.assertFalse(topods_shape.IsNull())
 
 
 if __name__ == '__main__':
     unittest.main()
-
-
-

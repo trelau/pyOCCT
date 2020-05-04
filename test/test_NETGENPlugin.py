@@ -17,45 +17,93 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-import os
-import sys
-import pytest
+import unittest
+
+from OCCT.BRepPrimAPI import BRepPrimAPI_MakeBox
+from OCCT.NETGENPlugin import (NETGENPlugin_SimpleHypothesis_3D, NETGENPlugin_NETGEN_2D3D,
+                               NETGENPlugin_SimpleHypothesis_2D, NETGENPlugin_NETGEN_2D)
+from OCCT.SMESH import SMESH_Gen
 
 
-def is_netgen_available():
-    import OCCT
-    PY_EXT = '.pyd' if sys.platform == 'win32' else '.so'
-    smesh_path = os.path.join(OCCT.__path__[0], 'NETGENPlugin' + PY_EXT)
-    return os.path.exists(smesh_path)
-
-
-@pytest.mark.skipif(not is_netgen_available(), reason='NETGEN was not built')
-def test_Box3D():
+class Test_NETGENPlugin(unittest.TestCase):
     """
-    Test a tetrahedral mesh of a simple solid box
+    Test for NETGENPlugin.
     """
-    from OCCT.BRepPrimAPI import BRepPrimAPI_MakeBox
-    from OCCT.NETGENPlugin import (NETGENPlugin_SimpleHypothesis_3D,
-                                NETGENPlugin_NETGEN_2D3D)
-    from OCCT.SMESH import SMESH_Gen
 
-    box = BRepPrimAPI_MakeBox(10, 10, 10).Solid()
+    def test_Box3D(self):
+        """
+        Test a tetrahedral mesh of a simple solid box.
+        """
+        box = BRepPrimAPI_MakeBox(10, 10, 10).Solid()
 
-    gen = SMESH_Gen()
-    mesh = gen.CreateMesh(0, True)
+        gen = SMESH_Gen()
+        mesh = gen.CreateMesh(0, True)
 
-    hyp = NETGENPlugin_SimpleHypothesis_3D(0, 0, gen)
-    hyp.SetLocalLength(1.0)
+        hyp = NETGENPlugin_SimpleHypothesis_3D(0, 0, gen)
+        hyp.SetLocalLength(1.0)
 
-    NETGENPlugin_NETGEN_2D3D(1, 0, gen)
+        NETGENPlugin_NETGEN_2D3D(1, 0, gen)
 
-    mesh.ShapeToMesh(box)
-    mesh.AddHypothesis(box, 0)
-    mesh.AddHypothesis(box, 1)
+        mesh.ShapeToMesh(box)
+        mesh.AddHypothesis(box, 0)
+        mesh.AddHypothesis(box, 1)
 
-    success = gen.Compute(mesh, box)
-    assert success
+        success = gen.Compute(mesh, box)
+        self.assertTrue(success)
 
-    assert mesh.NbTetras() == 4767
-    assert mesh.NbNodes() == 1189
+        self.assertEqual(mesh.NbTetras(), 4767)
+        self.assertEqual(mesh.NbNodes(), 1189)
 
+    def test_Box2DTri(self):
+        """
+        Test a triangular mesh of a simple box.
+        """
+        box = BRepPrimAPI_MakeBox(10, 10, 10).Solid()
+
+        gen = SMESH_Gen()
+        mesh = gen.CreateMesh(0, True)
+
+        hyp = NETGENPlugin_SimpleHypothesis_2D(0, 0, gen)
+        hyp.SetLocalLength(1.0)
+
+        NETGENPlugin_NETGEN_2D(1, 0, gen)
+
+        mesh.ShapeToMesh(box)
+        mesh.AddHypothesis(box, 0)
+        mesh.AddHypothesis(box, 1)
+
+        success = gen.Compute(mesh, box)
+        self.assertTrue(success)
+
+        self.assertEqual(mesh.NbTriangles(), 1422)
+        self.assertEqual(mesh.NbNodes(), 713)
+
+    def test_Box2DQuad(self):
+        """
+        Test a quadrilateral mesh of a simple box.
+        """
+        box = BRepPrimAPI_MakeBox(10, 10, 10).Solid()
+
+        gen = SMESH_Gen()
+        mesh = gen.CreateMesh(0, True)
+
+        hyp = NETGENPlugin_SimpleHypothesis_2D(0, 0, gen)
+        hyp.SetAllowQuadrangles(True)
+        hyp.SetLocalLength(1.0)
+
+        NETGENPlugin_NETGEN_2D(1, 0, gen)
+
+        mesh.ShapeToMesh(box)
+        mesh.AddHypothesis(box, 0)
+        mesh.AddHypothesis(box, 1)
+
+        success = gen.Compute(mesh, box)
+        self.assertTrue(success)
+
+        self.assertEqual(mesh.NbTriangles(), 0)
+        self.assertEqual(mesh.NbQuadrangles(), 600)
+        self.assertEqual(mesh.NbNodes(), 602)
+
+
+if __name__ == '__main__':
+    unittest.main()

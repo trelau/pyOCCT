@@ -16,32 +16,33 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-from OCCT.NETGENPlugin import (NETGENPlugin_Hypothesis_2D,
+from OCCT.NETGENPlugin import (NETGENPlugin_SimpleHypothesis_2D,
                                NETGENPlugin_NETGEN_2D)
 from OCCT.SMESH import SMESH_Gen, SMESH_Mesh
 
 from OCCT.Exchange import ExchangeBasic
 from OCCT.Visualization import BasicViewer
 
-fn = './models/wing_body.brep'
+fn = './models/wingbox.brep'
 shape = ExchangeBasic.read_brep(fn)
+
+v = BasicViewer()
+v.add(shape)
+v.start()
 
 gen = SMESH_Gen()
 mesh = gen.CreateMesh(0, True)
 assert isinstance(mesh, SMESH_Mesh)
 
-mesh.ShapeToMesh(shape)
-
-hyp2d = NETGENPlugin_Hypothesis_2D(0, 0, gen)
-hyp2d.SetQuadAllowed(True)
-hyp2d.SetMaxSize(4)
-hyp2d.SetMinSize(4)
-hyp2d.SetSurfaceCurvature(False)
+hyp2d = NETGENPlugin_SimpleHypothesis_2D(0, 0, gen)
+hyp2d.SetAllowQuadrangles(True)
+hyp2d.SetLocalLength(4.0)
 
 alg2d = NETGENPlugin_NETGEN_2D(1, 0, gen)
 
-mesh.AddHypothesis(mesh.GetShapeToMesh(), 0)
-mesh.AddHypothesis(mesh.GetShapeToMesh(), 1)
+mesh.ShapeToMesh(shape)
+mesh.AddHypothesis(shape, 0)
+mesh.AddHypothesis(shape, 1)
 
 print('Computing mesh...')
 done = gen.Compute(mesh, mesh.GetShapeToMesh())

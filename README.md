@@ -43,8 +43,8 @@ made available, but for now the OpenCASCADE C++ documentation provides the most
 complete set of information. The pyOCCT interface should be very similar to its
 C++ counterpart. More resources will be available soon.
 
-* [OpenCASCADE Technology Overview](https://www.opencascade.com/doc/occt-7.2.0/overview/html/index.html)
-* [OpenCASCADE Reference Manual](https://www.opencascade.com/doc/occt-7.2.0/refman/html/index.html)
+* [OpenCASCADE Technology Overview](https://www.opencascade.com/doc/occt-7.4.0/overview/html/index.html)
+* [OpenCASCADE Reference Manual](https://www.opencascade.com/doc/occt-7.4.0/refman/html/index.html)
 * [OpenCASCADE forums](https://www.opencascade.com/forums)
 * [OpenCASCADE issue tracker](https://tracker.dev.opencascade.org/)
 * [Chat on Gitter](https://gitter.im/pyOCCT/Lobby)
@@ -57,18 +57,18 @@ a designated environment be created and used for pyOCCT. An example of
 creating this environment for Anaconda Python within an Anaconda command prompt
 is:
 
-    conda create -n occt python=3.5
+    conda create -n pyocct python=3.7
 
-This will create an environment named "occt" with Python 3.5. Make sure this
+This will create an environment named "pyocct" with Python 3.7. Make sure this
 environment is active when using pyOCCT. For Anaconda Python, activating this
 environment may look like:
 
-    activate occt
+    activate pyocct
 
 The easiest and fastest way to get started is using the conda build from the
 Anaconda cloud:
 
-    conda install -c trelau pyocct
+    conda install -c conda-forge -c laughlinresearch pyocct
 
 To support minimal visualization the wxPython package is required and can be
 installed via conda by:
@@ -91,23 +91,3 @@ requirements are correctly installed.
 Installation files can be cleaned up by:
 
     conda clean -a
-
-# Help Wanted
-For now, contributions to the source code will be incorporated manually. There
-is a (mostly) automated tool for generating the source but it is not yet
-available. As new versions of OpenCASCADE are released, it may be better to
-patch up the existing bindings rather than rerun the binding generation tool.
-The automated process still requires a handful of manual patches to capture
-edge cases. Although, if the header files of new OpenCASCADE releases are
-significantly different or there is an architectural change in pyOCCT, it makes
-sense to use the automated tool.
-
-In addition to the items in the
-[Design Considerations](http://pyocct.readthedocs.io/en/latest/dev.html#design-considerations)
-section in the documentation, some areas that could use contributor support:
-
-* Cross-platform support
-* Leverage CI tools like AppVeyor and Travis-CI
-* Conda packages
-* Tests, examples, and benchmarks
-* Better exception handling

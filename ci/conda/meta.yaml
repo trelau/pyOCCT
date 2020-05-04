@@ -27,12 +27,8 @@ requirements:
     - smesh ==8.3.0.3
 
 test:
-  requires:
-    - pytest
   source_files:
     - test
-  commands:
-    - pytest test -v
 
 about:
   home: https://github.com/LaughlinResearch/pyOCCT

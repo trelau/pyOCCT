@@ -75,5 +75,6 @@ class Test_Geom_Surface(unittest.TestCase):
         """
         self.assertAlmostEqual(self._surf.V2(), 0.5 * math.pi)
 
-    if __name__ == '__main__':
-        unittest.main()
+
+if __name__ == '__main__':
+    unittest.main()

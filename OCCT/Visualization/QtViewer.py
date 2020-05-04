@@ -16,23 +16,16 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import os
-import warnings
 
-from OCCT.AIS import (AIS_InteractiveContext,
-                      AIS_Shaded,
-                      AIS_WireFrame,
+from OCCT.AIS import (AIS_InteractiveContext, AIS_Shaded, AIS_WireFrame,
                       AIS_Shape)
-from OCCT.Aspect import (Aspect_DisplayConnection,
-                         Aspect_TOTP_RIGHT_LOWER)
+from OCCT.Aspect import Aspect_DisplayConnection, Aspect_TOTP_RIGHT_LOWER
 from OCCT.BRepBuilderAPI import (BRepBuilderAPI_MakeVertex,
                                  BRepBuilderAPI_MakeEdge,
                                  BRepBuilderAPI_MakeFace)
-from OCCT.Geom import (Geom_Curve,
-                       Geom_Surface)
-from OCCT.Graphic3d import (Graphic3d_MaterialAspect,
-                            Graphic3d_NOM_DEFAULT)
+from OCCT.Geom import Geom_Curve, Geom_Surface
+from OCCT.Graphic3d import Graphic3d_MaterialAspect, Graphic3d_NOM_DEFAULT
 from OCCT.MeshVS import (MeshVS_DA_DisplayNodes,
                          MeshVS_DA_EdgeColor,
                          MeshVS_Mesh,
@@ -42,26 +35,16 @@ from OCCT.Quantity import (Quantity_TOC_RGB,
                            Quantity_NOC_WHITE,
                            Quantity_Color,
                            Quantity_NOC_BLACK)
+from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh
 from OCCT.TopoDS import TopoDS_Shape
-from OCCT.V3d import (V3d_Viewer,
-                      V3d_TypeOfOrientation)
+from OCCT.V3d import V3d_Viewer, V3d_TypeOfOrientation
 from OCCT.Xw import Xw_Window
 from OCCT.gp import gp_Pnt
-
 from qtpy import QtCore
-from qtpy.QtWidgets import QApplication, QMainWindow, QOpenGLWidget
 from qtpy.QtGui import QPalette, QIcon
+from qtpy.QtWidgets import QApplication, QMainWindow, QOpenGLWidget
 
-try:
-    from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh
-
-    has_smesh = True
-except ImportError:
-    has_smesh = False
-    msg = "SMESH module was not found for visualization."
-    warnings.warn(msg, RuntimeWarning)
-
-__all__ = ['BasicViewer']
+__all__ = ['BasicViewerQt']
 
 
 class QOpenCascadeWidget(QOpenGLWidget):
@@ -397,7 +380,7 @@ class QOpenCascadeWidget(QOpenGLWidget):
         raise NotImplemented('Need gl2ps library.')
 
 
-class BasicViewer(QMainWindow):
+class BasicViewerQt(QMainWindow):
     """
     Simple class for viewing items.
 
@@ -411,7 +394,7 @@ class BasicViewer(QMainWindow):
         self._app = QApplication.instance()
         if self._app is None:
             self._app = QApplication([])
-        super(BasicViewer, self).__init__(parent)
+        super(BasicViewerQt, self).__init__(parent)
 
         # Window settings
         self.setWindowTitle('pyOCCT')
