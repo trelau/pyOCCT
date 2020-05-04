@@ -10,7 +10,7 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }} # [win]
+    - {{ compiler('cxx') }}
     - cmake
     - ninja
 
@@ -22,7 +22,7 @@ requirements:
     - tbb-devel
 
   run:
-    - python {{ python }}
+    - python
     - occt ==7.4.0
     - smesh ==8.3.0.3
 
@@ -34,6 +34,5 @@ about:
   home: https://github.com/LaughlinResearch/pyOCCT
   license: LGPL2.1
   license_family: LGPL
-  summary: Python bindings for OpenCASCADE
-  description: Python bindings for OpenCASCADE geometry kernel
-               and SMESH meshing library.
+  summary: Python bindings for OpenCASCADE and SMESH
+  description: Python bindings for OpenCASCADE geometry kernel and SMESH meshing library.

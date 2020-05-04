@@ -6,8 +6,3 @@ c_compiler:
 
 cxx_compiler:
  - vs2015 # [win]
-
-python:
- - 3.6
- - 3.7
- - 3.8
