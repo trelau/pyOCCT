@@ -33,7 +33,8 @@ jobs:
       - name: "Configure conda"
         shell: pwsh
         run: |
-          conda create -f binder/environment.yml
+          conda init --all
+          conda env create -f binder/environment.yml
 
       - name: "Check conda"
         shell: pwsh
