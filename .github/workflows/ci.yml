@@ -28,10 +28,10 @@ jobs:
           submodules: 'recursive'
 
       - name: "Add conda to PATH"
-        shell: bash -l {0}
-        run: |
-          echo "::add-path::$CONDA/condabin"
-          conda init powershell
+        run: ::add-path::$CONDA/condabin
+
+      - name: "Initialize conda"
+          run: conda init powershell
 
       - name: "Configure conda"
         run: |
