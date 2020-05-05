@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['ubuntu-latest', 'windows-latest']
+        os: ['ubuntu-latest']
     steps:
 
       - name: "Install OpenGL"
@@ -33,19 +33,19 @@ jobs:
       - name: "Configure conda"
         shell: pwsh
         run: |
-          conda create -n binder -c conda-forge python=3.7 clangdev python-clang occt=7.4.0 tbb-devel
+          conda create -f binder/environment.yml
 
       - name: "Check conda"
         shell: pwsh
         run: |
-          source activate binder
+          conda activate binder
           conda info -a
           conda list
 
       - name: "Generate bindings"
         shell: pwsh
         run: |
-          source activate binder
+          conda activate binder
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Upload bindings"
@@ -61,7 +61,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['ubuntu-latest', 'windows-latest']
+        os: ['ubuntu-latest']
         python-version: ['3.6', '3.7', '3.8']
     steps:
 
@@ -74,23 +74,18 @@ jobs:
       - name: "Clone pyOCCT"
         uses: actions/checkout@v2
 
-      - name: "Configure conda"
-        uses: goanpeca/setup-miniconda@v1
-        with:
-          auto-update-conda: true
-          python-version: ${{ matrix.python-version }}
-          channels: conda-forge
-          conda-build-version: 3.19.2
-          auto-activate-base: false
-          activate-environment: pyOCCT
+      - name: "Add conda to PATH"
+        run: echo "::add-path::$CONDA/condabin"
+
+      - name: "Install conda build"
+        shell: pwsh
+        run: conda install -c conda-forge conda-build
 
       - name: "Check conda"
         shell: bash -l {0}
         run: |
-          conda activate pyOCCT
           conda info -a
           conda list
-          which python
 
       - name: "Download binding sources"
         uses: actions/download-artifact@v2
@@ -102,7 +97,6 @@ jobs:
         shell: bash -l {0}
         run: |
           mkdir conda
-          conda activate pyOCCT
           conda build  ci/conda --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
