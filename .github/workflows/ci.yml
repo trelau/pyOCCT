@@ -27,23 +27,20 @@ jobs:
         with:
           submodules: 'recursive'
 
+      - name: "Add conda to PATH"
+          run: echo "::add-path::$CONDA/condabin"
+
       - name: "Configure conda"
-        uses: goanpeca/setup-miniconda@v1
-        with:
-          auto-update-conda: true
-          environment-file: binder/environment.yml
-          auto-activate-base: false
-          activate-environment: binder
+        run: |
+          conda create -n binder -c conda-forge python=3.7 clangdev python-clang occt=7.4.0 tbb-devel
 
       - name: "Check conda"
-        shell: bash -l {0}
         run: |
           conda activate binder
           conda info -a
           conda list
 
       - name: "Generate bindings"
-        shell: bash -l {0}
         run: |
           conda activate binder
           python binder/run.py -c binder/config.txt -o src/occt
