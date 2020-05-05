@@ -28,7 +28,7 @@ jobs:
           submodules: 'recursive'
 
       - name: "Add conda to PATH"
-          run: echo "::add-path::$CONDA/condabin"
+        run: echo "::add-path::$CONDA/condabin"
 
       - name: "Configure conda"
         run: |
