@@ -31,7 +31,7 @@ jobs:
         run: ::add-path::$CONDA/condabin
 
       - name: "Initialize conda"
-          run: conda init powershell
+        run: conda init powershell
 
       - name: "Configure conda"
         run: |
