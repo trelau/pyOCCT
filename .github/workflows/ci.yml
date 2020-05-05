@@ -83,7 +83,7 @@ jobs:
         run: conda install -c conda-forge conda-build
 
       - name: "Check conda"
-        shell: bash -l {0}
+        shell: pwsh
         run: |
           conda info -a
           conda list
@@ -95,7 +95,7 @@ jobs:
           path: src/occt
 
       - name: "Run conda build"
-        shell: bash -l {0}
+        shell: pwsh
         run: |
           mkdir conda
           conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
