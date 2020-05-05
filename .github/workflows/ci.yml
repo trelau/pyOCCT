@@ -98,7 +98,7 @@ jobs:
         shell: bash -l {0}
         run: |
           mkdir conda
-          conda build  ci/conda --python ${{ matrix.python-version }} --output-folder conda
+          conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
         uses: actions/upload-artifact@v2
