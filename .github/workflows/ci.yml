@@ -41,14 +41,14 @@ jobs:
       - name: "Check conda"
         shell: pwsh
         run: |
-          conda activate binder
+          source activate binder
           conda info -a
           conda list
 
       - name: "Generate bindings"
         shell: pwsh
         run: |
-          conda activate binder
+          source activate binder
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Upload bindings"
