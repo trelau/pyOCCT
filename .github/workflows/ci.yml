@@ -30,9 +30,6 @@ jobs:
       - name: "Add conda to PATH"
         run: echo "::add-path::$CONDA/condabin"
 
-      - name: "Initialize conda"
-        run: conda init powershell
-
       - name: "Configure conda"
         shell: pwsh
         run: |
