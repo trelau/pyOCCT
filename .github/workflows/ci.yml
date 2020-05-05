@@ -34,16 +34,19 @@ jobs:
         run: conda init powershell
 
       - name: "Configure conda"
+        shell: pwsh
         run: |
           conda create -n binder -c conda-forge python=3.7 clangdev python-clang occt=7.4.0 tbb-devel
 
       - name: "Check conda"
+        shell: pwsh
         run: |
           conda activate binder
           conda info -a
           conda list
 
       - name: "Generate bindings"
+        shell: pwsh
         run: |
           conda activate binder
           python binder/run.py -c binder/config.txt -o src/occt
