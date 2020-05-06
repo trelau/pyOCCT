@@ -72,7 +72,7 @@ jobs:
       - name: "Configure conda"
         shell: cmd
         run: |
-          activate
+          source activate
           conda env create -f binder/environment.yml
 
       - name: "Check conda"
