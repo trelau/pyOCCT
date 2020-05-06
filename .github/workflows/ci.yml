@@ -67,22 +67,22 @@ jobs:
           submodules: 'recursive'
 
       - name: "Add conda to PATH"
-        run: echo "::add-path::$CONDA/condabin"
+        shell: cmd
+        run: echo "::add-path::$CONDA/Scripts"
 
       - name: "Configure conda"
-        shell: bash -l {0}
-        run: |
-          conda env create -f binder/environment.yml
+        shell: cmd
+        run: conda env create -f binder/environment.yml
 
       - name: "Check conda"
-        shell: bash -l {0}
+        shell: cmd
         run: |
           conda activate binder
           conda info -a
           conda list
 
       - name: "Generate bindings"
-        shell: bash -l {0}
+        shell: cmd
         run: |
           conda activate binder
           python binder/run.py -c binder/config.txt -o src/occt
