@@ -14,6 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         os: ['windows-latest', 'ubuntu-latest']
+    env:
+      CONDABIN: $CONDA/condabin
     steps:
 
       - name: "Install OpenGL"
@@ -29,21 +31,19 @@ jobs:
 
       - name: "Configure conda"
         shell: bash
-        run: |
-          $CONDA/condabin/conda init --all
-          $CONDA/condabin/conda env create -f binder/environment.yml
+        run: CONDABIN/conda env create -f binder/environment.yml
 
       - name: "Check conda"
-        shell: bash
+        shell: pwsh
         run: |
-          $CONDA/condabin/conda activate binder
-          $CONDA/condabin/conda info -a
-          $CONDA/condabin/conda list
+          CONDABIN/conda activate binder
+          CONDABIN/conda info -a
+          CONDABIN/conda list
 
       - name: "Generate bindings"
         shell: bash
         run: |
-          $CONDA/condabin/conda activate binder
+          CONDABIN/conda activate binder
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Upload bindings"
