@@ -66,6 +66,10 @@ jobs:
         with:
           submodules: 'recursive'
 
+      - name: "Add conda to PATH"
+        shell: cmd
+        run: echo "::add-path::$CONDA/condabin"
+
       - name: "Configure conda"
         shell: cmd
         run: |
@@ -151,6 +155,10 @@ jobs:
 
       - name: "Clone pyOCCT"
         uses: actions/checkout@v2
+
+      - name: "Add conda to PATH"
+        shell: cmd
+        run: echo "::add-path::$CONDA/condabin"
 
       - name: "Install conda build"
         shell: cmd
