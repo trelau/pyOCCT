@@ -72,6 +72,7 @@ jobs:
       - name: "Configure conda"
         shell: cmd
         run: |
+          activate
           conda env create -f binder/environment.yml
 
       - name: "Check conda"
@@ -160,7 +161,9 @@ jobs:
 
       - name: "Install conda build"
         shell: cmd
-        run: conda install -c conda-forge conda-build
+        run: |
+          activate
+          conda install -c conda-forge conda-build
 
       - name: "Check conda"
         shell: cmd
