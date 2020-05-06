@@ -72,7 +72,9 @@ jobs:
 
       - name: "Configure conda"
         shell: bash -l {0}
-        run: conda env create -f binder/environment.yml
+        run: |
+          conda init --all
+          conda env create -f binder/environment.yml
 
       - name: "Check conda"
         shell: bash -l {0}
@@ -100,7 +102,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['windows-latest', 'ubuntu-latest']
+        os: ['ubuntu-latest']
         python-version: ['3.6', '3.7', '3.8']
     steps:
 
@@ -161,9 +163,7 @@ jobs:
 
       - name: "Install conda build"
         shell: bash -l {0}
-        run: |
-          activate
-          conda install -c conda-forge conda-build
+        run: conda install -c conda-forge conda-build
 
       - name: "Check conda"
         shell: bash -l {0}
