@@ -14,6 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         os: ['windows-latest']
+    env:
+      CONDA: $CONDA/condabin
     steps:
 
       - name: "Install OpenGL"
@@ -27,26 +29,19 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - name: "Add conda to PATH"
-        run: echo "::add-path::$CONDA/condabin"
-
       - name: "Configure conda"
-        shell: bash
         run: |
-          conda init --all
-          conda env create -f binder/environment.yml
+          env.<CONDA>/conda env create -f binder/environment.yml
 
       - name: "Check conda"
-        shell: bash -l {0}
         run: |
-          conda activate binder
-          conda info -a
-          conda list
+          env.<CONDA>/conda activate binder
+          env.<CONDA>/conda info -a
+          env.<CONDA>/conda list
 
       - name: "Generate bindings"
-        shell: bash -l {0}
         run: |
-          conda activate binder
+          env.<CONDA>/conda activate binder
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Upload bindings"
