@@ -16,16 +16,24 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-import os
 
-from OCCT.AIS import (AIS_InteractiveContext, AIS_Shaded, AIS_WireFrame,
+import os
+import sys
+import warnings
+
+from OCCT.AIS import (AIS_InteractiveContext,
+                      AIS_Shaded,
+                      AIS_WireFrame,
                       AIS_Shape)
-from OCCT.Aspect import Aspect_DisplayConnection, Aspect_TOTP_RIGHT_LOWER
+from OCCT.Aspect import (Aspect_DisplayConnection,
+                         Aspect_TOTP_RIGHT_LOWER)
 from OCCT.BRepBuilderAPI import (BRepBuilderAPI_MakeVertex,
                                  BRepBuilderAPI_MakeEdge,
                                  BRepBuilderAPI_MakeFace)
-from OCCT.Geom import Geom_Curve, Geom_Surface
-from OCCT.Graphic3d import Graphic3d_MaterialAspect, Graphic3d_NOM_DEFAULT
+from OCCT.Geom import (Geom_Curve,
+                       Geom_Surface)
+from OCCT.Graphic3d import (Graphic3d_MaterialAspect,
+                            Graphic3d_NOM_DEFAULT)
 from OCCT.MeshVS import (MeshVS_DA_DisplayNodes,
                          MeshVS_DA_EdgeColor,
                          MeshVS_Mesh,
@@ -35,16 +43,34 @@ from OCCT.Quantity import (Quantity_TOC_RGB,
                            Quantity_NOC_WHITE,
                            Quantity_Color,
                            Quantity_NOC_BLACK)
-from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh
 from OCCT.TopoDS import TopoDS_Shape
-from OCCT.V3d import V3d_Viewer, V3d_TypeOfOrientation
-from OCCT.Xw import Xw_Window
+from OCCT.V3d import (V3d_Viewer,
+                      V3d_TypeOfOrientation)
 from OCCT.gp import gp_Pnt
-from qtpy import QtCore
-from qtpy.QtGui import QPalette, QIcon
-from qtpy.QtWidgets import QApplication, QMainWindow, QOpenGLWidget
 
-__all__ = ['BasicViewerQt']
+if sys.platform == 'win32':
+    from OCCT.WNT import WNT_Window
+elif sys.platform == 'darwin':
+    from OCCT.Cocoa import Cocoa_Window
+else:
+    from OCCT.Xw import Xw_Window
+
+from qtpy import QtCore
+from qtpy.QtWidgets import (
+    QApplication, QMainWindow, QOpenGLWidget, QFrame, QVBoxLayout
+)
+from qtpy.QtGui import QPalette, QIcon
+
+try:
+    from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh
+
+    has_smesh = True
+except ImportError:
+    has_smesh = False
+    msg = "SMESH module was not found for visualization."
+    warnings.warn(msg, RuntimeWarning)
+
+__all__ = ['BasicViewer']
 
 
 class QOpenCascadeWidget(QOpenGLWidget):
@@ -68,8 +94,6 @@ class QOpenCascadeWidget(QOpenGLWidget):
         self._white = Quantity_Color(Quantity_NOC_WHITE)
         self._black = Quantity_Color(Quantity_NOC_BLACK)
 
-        # Get window handle
-        self.window_handle = self.winId()
         # Display connection
         self.display_connect = Aspect_DisplayConnection()
         # Graphics driver
@@ -78,7 +102,20 @@ class QOpenCascadeWidget(QOpenGLWidget):
         # Create viewer and view
         self.my_viewer = V3d_Viewer(self._graphics_driver)
         self.my_view = self.my_viewer.CreateView()
-        self.wind = Xw_Window(self.display_connect, self.window_handle)
+
+        hwnd = self.winId()
+        if sys.platform == 'win32':
+            import ctypes
+            ctypes.pythonapi.PyCapsule_New.restype = ctypes.py_object
+            ctypes.pythonapi.PyCapsule_New.argtypes = [
+                ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p]
+            hwnd = ctypes.pythonapi.PyCapsule_New(hwnd, None, None)
+            window = WNT_Window(hwnd)
+        elif sys.platform == 'darwin':
+            window = Cocoa_Window(hwnd)
+        else:
+            window = Xw_Window(self.display_connection, hwnd)
+        self.wind = window
         self.my_view.SetWindow(self.wind)
 
         # Map window
@@ -93,7 +130,6 @@ class QOpenCascadeWidget(QOpenGLWidget):
         self.my_viewer.SetLightOn()
 
         self.my_view.SetBackgroundColor(Quantity_TOC_RGB, 0.5, 0.5, 0.5)
-
         self.my_context.SetDisplayMode(AIS_Shaded, True)
 
         self.my_drawer = self.my_context.DefaultDrawer()
@@ -114,7 +150,7 @@ class QOpenCascadeWidget(QOpenGLWidget):
         self.my_view.MustBeResized()
 
     def wheelEvent(self, e):
-        if e.delta() > 0:
+        if e.angleDelta().y() > 0:
             zoom = 1.5
         else:
             zoom = 0.75
@@ -380,7 +416,7 @@ class QOpenCascadeWidget(QOpenGLWidget):
         raise NotImplemented('Need gl2ps library.')
 
 
-class BasicViewerQt(QMainWindow):
+class BasicViewer(QMainWindow):
     """
     Simple class for viewing items.
 
@@ -394,7 +430,7 @@ class BasicViewerQt(QMainWindow):
         self._app = QApplication.instance()
         if self._app is None:
             self._app = QApplication([])
-        super(BasicViewerQt, self).__init__(parent)
+        super(BasicViewer, self).__init__(parent)
 
         # Window settings
         self.setWindowTitle('pyOCCT')
@@ -403,11 +439,15 @@ class BasicViewerQt(QMainWindow):
         self.setWindowIcon(_qicon)
 
         # Create the OCCT view
-        self._the_view = QOpenCascadeWidget(self)
-        self.setCentralWidget(self._the_view)
-
+        frame = QFrame(self)
+        layout = QVBoxLayout(frame)
+        layout.setContentsMargins(0, 0, 0, 0)
+        self._the_view = QOpenCascadeWidget()
+        layout.addWidget(self._the_view)
+        self.setCentralWidget(frame)
         self.show()
         self.resize(width, height)
+        self.view.my_view.MustBeResized()
 
     @property
     def view(self):
