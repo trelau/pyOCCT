@@ -72,9 +72,6 @@ jobs:
       - name: "Clone pyOCCT"
         uses: actions/checkout@v2
 
-      - name: "Add conda to PATH"
-        run: echo "::add-path::$CONDA/condabin"
-
       - name: "Install conda build"
         shell: pwsh
         run: conda install -c conda-forge conda-build
