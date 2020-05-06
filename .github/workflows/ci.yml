@@ -31,7 +31,7 @@ jobs:
         run: echo "::add-path::$CONDA/condabin"
 
       - name: "Configure conda"
-        shell: bash -l {0}
+        shell: bash
         run: |
           conda init --all
           conda env create -f binder/environment.yml
