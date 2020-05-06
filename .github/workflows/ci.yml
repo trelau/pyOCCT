@@ -31,13 +31,13 @@ jobs:
         run: echo "::add-path::$CONDA/condabin"
 
       - name: "Configure conda"
-        shell: pwsh -ExecutionPolicy Unrestricted
+        shell: pwsh -ExecutionPolicy Unrestricted {0}
         run: |
           conda init --all
           conda env create -f binder/environment.yml
 
       - name: "Check conda"
-        shell: pwsh -ExecutionPolicy Unrestricted
+        shell: pwsh -ExecutionPolicy Unrestricted  {0}
         run: |
           conda activate binder
           conda info -a
