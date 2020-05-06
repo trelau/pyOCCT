@@ -14,8 +14,6 @@ jobs:
       fail-fast: false
       matrix:
         os: ['windows-latest']
-    env:
-      CONDA: $CONDA/condabin
     steps:
 
       - name: "Install OpenGL"
@@ -24,24 +22,38 @@ jobs:
           sudo apt-get update
           sudo apt-get -q -y install libglu1-mesa-dev libgl1-mesa-dev libxi-dev libglfw3-dev libgles2-mesa-dev
 
+      - name: "Set PowerShell execution policy"
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          Write-Host Get-ExecutionPolicy
+          Write-Host Set-ExecutionPolicy RemoteSigned
+
       - name: "Clone pyOCCT"
         uses: actions/checkout@v2
         with:
           submodules: 'recursive'
 
+      - name: "Add conda to PATH"
+        run: echo "::add-path::$CONDA/condabin"
+
       - name: "Configure conda"
+        shell: pwsh
         run: |
-          env.<CONDA>/conda env create -f binder/environment.yml
+          conda init --all
+          conda env create -f binder/environment.yml
 
       - name: "Check conda"
+        shell: pwsh
         run: |
-          env.<CONDA>/conda activate binder
-          env.<CONDA>/conda info -a
-          env.<CONDA>/conda list
+          conda activate binder
+          conda info -a
+          conda list
 
       - name: "Generate bindings"
+        shell: pwsh
         run: |
-          env.<CONDA>/conda activate binder
+          conda activate binder
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Upload bindings"
