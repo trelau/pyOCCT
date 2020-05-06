@@ -181,7 +181,7 @@ jobs:
         shell: bash -l {0}
         run: |
           mkdir conda
-          conda activate
+          source activate
           conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
