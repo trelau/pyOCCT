@@ -878,8 +878,6 @@
 +manual StdPersistent_DataXtd_Constraint-->bind_StdObjMgt_Attribute<TDataXtd_Constraint>(mod, "StdObjMgt_Attribute_TDataXtd_Constraint", py::module_local());
 +manual StdPersistent_DataXtd_PatternStd-->bind_StdObjMgt_Attribute<TDataXtd_PatternStd>(mod, "StdObjMgt_Attribute_TDataXtd_PatternStd", py::module_local());
 
-+manual V3d_View::ChangeRenderingParams-->cls_V3d_View.def("ChangeRenderingParams", (Graphic3d_RenderingParams & (V3d_View::*)()) &V3d_View::ChangeRenderingParams, py::return_value_policy::reference, "Returns reference to current rendering parameters and effect settings.");
-
 # Extra text ------------------------------------------------------------------
 +extra AIS_Line-->cls_AIS_Line.def("Points", [](AIS_Line &self, opencascade::handle<Geom_Point> & thePStart, opencascade::handle<Geom_Point> & thePEnd) {self.Points(thePStart, thePEnd); return std::tuple<opencascade::handle<Geom_Point>, opencascade::handle<Geom_Point>>(thePStart, thePEnd); }, "Returns the starting point thePStart and the end point thePEnd of the line set by SetPoints.", py::arg("thePStart"), py::arg("thePEnd"));
 
@@ -943,3 +941,6 @@
 +patch Font: (TopoDS_Shape (Font_BRepTextBuilder::*)(Font_BRepFont &, const Font_TextFormatter &, const gp_Ax3 &)) &Font_BRepTextBuilder::Perform-->[](Font_BRepTextBuilder &self, Font_BRepFont_ & a0, const Font_TextFormatter & a1, const gp_Ax3 & a2) -> TopoDS_Shape { return self.Perform(a0, a1, a2); }
 +patch Font: (TopoDS_Shape (Font_BRepTextBuilder::*)(Font_BRepFont &, const NCollection_String &, const gp_Ax3 &, const Graphic3d_HorizontalTextAlignment, const Graphic3d_VerticalTextAlignment)) &Font_BRepTextBuilder::Perform-->[](Font_BRepTextBuilder &self, Font_BRepFont_ & a0, const NCollection_String & a1, const gp_Ax3 & a2, const Graphic3d_HorizontalTextAlignment a3, const Graphic3d_VerticalTextAlignment a4) -> TopoDS_Shape { return self.Perform(a0, a1, a2, a3, a4); }
 +patch Font: Font_BRepFont &-->Font_BRepFont_ &
+
+# Return ref
++patch V3d: &V3d_View::ChangeRenderingParams-->&V3d_View::ChangeRenderingParams, py::return_value_policy::reference

@@ -27,7 +27,7 @@ from OCCT.V3d import V3d_Viewer
 
 class Test_V3d_View(unittest.TestCase):
     """
-    Test for Geom_Surface class.
+    Test for V3d_View class.
     """
 
     @classmethod
