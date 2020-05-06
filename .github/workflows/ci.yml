@@ -27,26 +27,23 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - name: "Add conda to PATH"
-        run: echo "::add-path::$CONDA/condabin"
-
       - name: "Configure conda"
         shell: bash
         run: |
-          conda init --all
-          conda env create -f binder/environment.yml
+          $CONDA/condabin/conda init --all
+          $CONDA/condabin/conda env create -f binder/environment.yml
 
       - name: "Check conda"
-        shell: pwsh
+        shell: bash
         run: |
-          conda activate binder
-          conda info -a
-          conda list
+          $CONDA/condabin/conda activate binder
+          $CONDA/condabin/conda info -a
+          $CONDA/condabin/conda list
 
       - name: "Generate bindings"
-        shell: pwsh
+        shell: bash
         run: |
-          conda activate binder
+          $CONDA/condabin/conda activate binder
           python binder/run.py -c binder/config.txt -o src/occt
 
       - name: "Upload bindings"
