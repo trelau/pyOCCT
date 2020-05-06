@@ -70,20 +70,19 @@ jobs:
         run: echo "::add-path::$CONDA/condabin"
 
       - name: "Configure conda"
-        shell: cmd
+        shell: bash -l {0}
         run: |
-          source activate
           conda env create -f binder/environment.yml
 
       - name: "Check conda"
-        shell: cmd
+        shell: bash -l {0}
         run: |
           conda activate binder
           conda info -a
           conda list
 
       - name: "Generate bindings"
-        shell: cmd
+        shell: bash -l {0}
         run: |
           conda activate binder
           python binder/run.py -c binder/config.txt -o src/occt
