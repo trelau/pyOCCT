@@ -67,7 +67,6 @@ jobs:
           submodules: 'recursive'
 
       - name: "Add conda to PATH"
-        shell: cmd
         run: echo "::add-path::$CONDA/condabin"
 
       - name: "Configure conda"
@@ -157,7 +156,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: "Add conda to PATH"
-        shell: cmd
         run: echo "::add-path::$CONDA/condabin"
 
       - name: "Install conda build"
