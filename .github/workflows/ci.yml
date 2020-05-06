@@ -2,10 +2,10 @@ name: Conda Package
 on:
   push:
     branches:
-    - '*'
+      - '*'
   pull_request:
     branches:
-    - '*'
+      - '*'
 jobs:
   generate:
     name: Generate (${{ matrix.os }})
@@ -181,6 +181,7 @@ jobs:
         shell: bash -l {0}
         run: |
           mkdir conda
+          conda activate
           conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
