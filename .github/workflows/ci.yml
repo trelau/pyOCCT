@@ -2,10 +2,10 @@ name: Conda Package
 on:
   push:
     branches:
-    - '*'
+      - '*'
   pull_request:
     branches:
-    - '*'
+      - '*'
 jobs:
   generate:
     name: Generate (${{ matrix.os }})
@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['ubuntu-latest', 'windows-latest']
+        os: ['ubuntu-latest']
     steps:
 
       - name: "Install OpenGL"
@@ -28,11 +28,53 @@ jobs:
           submodules: 'recursive'
 
       - name: "Configure conda"
-        uses: goanpeca/setup-miniconda@v1
+        shell: pwsh
+        run: |
+          conda init --all
+          conda env create -f binder/environment.yml
+
+      - name: "Check conda"
+        shell: pwsh
+        run: |
+          conda activate binder
+          conda info -a
+          conda list
+
+      - name: "Generate bindings"
+        shell: pwsh
+        run: |
+          conda activate binder
+          python binder/run.py -c binder/config.txt -o src/occt
+
+      - name: "Upload bindings"
+        uses: actions/upload-artifact@v2
         with:
-          auto-update-conda: true
-          environment-file: generate_env.yml
-          activate-environment: binder
+          name: pyocct_src_${{ matrix.os }}
+          path: src/occt
+
+  generate_win:
+    name: Generate (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['windows-latest']
+    steps:
+
+      - name: "Clone pyOCCT"
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: "Add conda to PATH"
+        shell: bash -l {0}
+        run: echo "::add-path::$CONDA/Scripts"
+
+      - name: "Configure conda"
+        shell: bash -l {0}
+        run: |
+          conda init --all
+          conda env create -f binder/environment.yml
 
       - name: "Check conda"
         shell: bash -l {0}
@@ -60,7 +102,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['ubuntu-latest', 'windows-latest']
+        os: ['ubuntu-latest']
         python-version: ['3.6', '3.7', '3.8']
     steps:
 
@@ -73,23 +115,61 @@ jobs:
       - name: "Clone pyOCCT"
         uses: actions/checkout@v2
 
-      - name: "Configure conda"
-        uses: goanpeca/setup-miniconda@v1
+      - name: "Install conda build"
+        shell: pwsh
+        run: conda install -c conda-forge conda-build
+
+      - name: "Check conda"
+        shell: pwsh
+        run: |
+          conda info -a
+          conda list
+
+      - name: "Download binding sources"
+        uses: actions/download-artifact@v2
         with:
-          auto-update-conda: true
-          python-version: ${{ matrix.python-version }}
-          channels: conda-forge
-          conda-build-version: 3.19.2
-          auto-activate-base: false
-          activate-environment: pyOCCT
+          name: pyocct_src_${{ matrix.os }}
+          path: src/occt
+
+      - name: "Run conda build"
+        shell: pwsh
+        run: |
+          mkdir conda
+          conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
+
+      - name: "Upload conda package"
+        uses: actions/upload-artifact@v2
+        with:
+          name: pyocct-py${{ matrix.python-version }}_${{ matrix.os }}
+          path: conda
+
+  build_win:
+    name: Build (${{ matrix.python-version }}, ${{ matrix.os }})
+    needs: generate_win
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['windows-latest']
+        python-version: ['3.6', '3.7', '3.8']
+    steps:
+
+      - name: "Clone pyOCCT"
+        uses: actions/checkout@v2
+
+      - name: "Add conda to PATH"
+        shell: bash -l {0}
+        run: echo "::add-path::$CONDA/Scripts"
+
+      - name: "Install conda build"
+        shell: bash -l {0}
+        run: conda install -c conda-forge conda-build
 
       - name: "Check conda"
         shell: bash -l {0}
         run: |
-          conda activate pyOCCT
           conda info -a
           conda list
-          which python
 
       - name: "Download binding sources"
         uses: actions/download-artifact@v2
@@ -101,7 +181,7 @@ jobs:
         shell: bash -l {0}
         run: |
           mkdir conda
-          conda activate pyOCCT
+          source activate
           conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"

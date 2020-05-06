@@ -10,12 +10,12 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}
+    - {{ compiler('cxx') }}  # [win]
     - cmake
     - ninja
 
   host:
-    - python {{ python }}
+    - python
     - pybind11
     - occt ==7.4.0
     - smesh ==8.3.0.3
