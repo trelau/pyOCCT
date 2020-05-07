@@ -21,12 +21,12 @@ from OCCT.NETGENPlugin import (NETGENPlugin_SimpleHypothesis_2D,
 from OCCT.SMESH import SMESH_Gen, SMESH_Mesh
 
 from OCCT.Exchange import ExchangeBasic
-from OCCT.Visualization import BasicViewer
+from OCCT.Visualization.WxViewer import ViewerWx
 
 fn = './models/wingbox.brep'
 shape = ExchangeBasic.read_brep(fn)
 
-v = BasicViewer()
+v = ViewerWx()
 v.add(shape)
 v.start()
 
@@ -49,6 +49,6 @@ done = gen.Compute(mesh, mesh.GetShapeToMesh())
 assert done
 print('done.')
 
-v = BasicViewer()
+v = ViewerWx()
 v.add(mesh)
 v.start()

@@ -21,16 +21,15 @@ import time
 
 from OCCT.Boolean import FuseShapes
 from OCCT.Exchange import ImportVSP
-from OCCT.Visualization import BasicViewer
+from OCCT.Visualization.WxViewer import ViewerWx
 
 # Select version of OpenVSP used to export the model. Versions greater than
 # 3.5.0 seem to decrease OpenCASCADE performance. Surface parameterization was
 # changed in OpenVSP, but not entirely sure that is the root cause.
 fn = './models/F-16_OpenVSP3.5.0.stp'
-# fn = './models/F-16_OpenVSP3.15.0.stp'
 vsp = ImportVSP(fn)
 
-v = BasicViewer()
+v = ViewerWx()
 for s in vsp.solids:
     r = random.randint(0, 256)
     g = random.randint(0, 256)

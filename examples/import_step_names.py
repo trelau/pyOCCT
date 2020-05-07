@@ -20,7 +20,7 @@ from OCCT.STEPControl import STEPControl_Reader
 from OCCT.TopAbs import TopAbs_FACE
 from OCCT.TopExp import TopExp_Explorer
 
-from OCCT.Visualization import BasicViewer
+from OCCT.Visualization.WxViewer import ViewerWx
 
 # Read the file and get the shape
 reader = STEPControl_Reader()
@@ -29,7 +29,7 @@ reader.ReadFile('./models/shape_names.step')
 reader.TransferRoots()
 shape = reader.OneShape()
 
-gui = BasicViewer()
+gui = ViewerWx()
 
 # Explore the faces of the shape (these are known to be named)
 exp = TopExp_Explorer(shape, TopAbs_FACE)

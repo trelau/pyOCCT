@@ -1,4 +1,4 @@
-name: Conda Package
+name: Workflow
 on:
   push:
     branches:

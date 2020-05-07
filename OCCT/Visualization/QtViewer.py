@@ -21,56 +21,33 @@ import os
 import sys
 import warnings
 
-from OCCT.AIS import (AIS_InteractiveContext,
-                      AIS_Shaded,
-                      AIS_WireFrame,
-                      AIS_Shape)
-from OCCT.Aspect import (Aspect_DisplayConnection,
-                         Aspect_TOTP_RIGHT_LOWER)
-from OCCT.BRepBuilderAPI import (BRepBuilderAPI_MakeVertex,
-                                 BRepBuilderAPI_MakeEdge,
+from OCCT.AIS import AIS_InteractiveContext, AIS_Shaded, AIS_WireFrame, AIS_Shape
+from OCCT.Aspect import Aspect_DisplayConnection, Aspect_TOTP_RIGHT_LOWER
+from OCCT.BRepBuilderAPI import (BRepBuilderAPI_MakeVertex, BRepBuilderAPI_MakeEdge,
                                  BRepBuilderAPI_MakeFace)
-from OCCT.Geom import (Geom_Curve,
-                       Geom_Surface)
-from OCCT.Graphic3d import (Graphic3d_MaterialAspect,
-                            Graphic3d_NOM_DEFAULT)
-from OCCT.MeshVS import (MeshVS_DA_DisplayNodes,
-                         MeshVS_DA_EdgeColor,
-                         MeshVS_Mesh,
+from OCCT.Geom import Geom_Curve, Geom_Surface
+from OCCT.Graphic3d import Graphic3d_MaterialAspect, Graphic3d_NOM_DEFAULT
+from OCCT.MeshVS import (MeshVS_DA_DisplayNodes, MeshVS_DA_EdgeColor, MeshVS_Mesh,
                          MeshVS_MeshPrsBuilder)
 from OCCT.OpenGl import OpenGl_GraphicDriver
-from OCCT.Quantity import (Quantity_TOC_RGB,
-                           Quantity_NOC_WHITE,
-                           Quantity_Color,
-                           Quantity_NOC_BLACK)
+from OCCT.Quantity import Quantity_TOC_RGB, Quantity_NOC_WHITE, Quantity_Color, Quantity_NOC_BLACK
 from OCCT.TopoDS import TopoDS_Shape
-from OCCT.V3d import (V3d_Viewer,
-                      V3d_TypeOfOrientation)
+from OCCT.V3d import V3d_Viewer, V3d_TypeOfOrientation
 from OCCT.gp import gp_Pnt
-
-if sys.platform == 'win32':
-    from OCCT.WNT import WNT_Window
-elif sys.platform == 'darwin':
-    from OCCT.Cocoa import Cocoa_Window
-else:
-    from OCCT.Xw import Xw_Window
-
 from qtpy import QtCore
-from qtpy.QtWidgets import (
-    QApplication, QMainWindow, QOpenGLWidget, QFrame, QVBoxLayout
-)
 from qtpy.QtGui import QPalette, QIcon
+from qtpy.QtWidgets import QApplication, QMainWindow, QOpenGLWidget, QFrame, QVBoxLayout
 
 try:
     from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh
 
-    has_smesh = True
+    HAS_SMESH = True
 except ImportError:
-    has_smesh = False
+    HAS_SMESH = False
     msg = "SMESH module was not found for visualization."
     warnings.warn(msg, RuntimeWarning)
 
-__all__ = ['BasicViewer']
+__all__ = ['ViewerQt']
 
 
 class QOpenCascadeWidget(QOpenGLWidget):
@@ -104,17 +81,26 @@ class QOpenCascadeWidget(QOpenGLWidget):
         self.my_view = self.my_viewer.CreateView()
 
         hwnd = self.winId()
-        if sys.platform == 'win32':
+        if sys.platform.startswith('win'):
             import ctypes
+            from OCCT.WNT import WNT_Window
+
             ctypes.pythonapi.PyCapsule_New.restype = ctypes.py_object
             ctypes.pythonapi.PyCapsule_New.argtypes = [
                 ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p]
             hwnd = ctypes.pythonapi.PyCapsule_New(hwnd, None, None)
             window = WNT_Window(hwnd)
-        elif sys.platform == 'darwin':
+        elif sys.platform.startswith('darwin'):
+            from OCCT.Cocoa import Cocoa_Window
+
             window = Cocoa_Window(hwnd)
-        else:
+        elif sys.platform.startswith('linux'):
+            from OCCT.Xw import Xw_Window
+
             window = Xw_Window(self.display_connection, hwnd)
+        else:
+            raise NotImplementedError('Support platform not found for visualization.')
+
         self.wind = window
         self.my_view.SetWindow(self.wind)
 
@@ -277,6 +263,9 @@ class QOpenCascadeWidget(QOpenGLWidget):
         if mode is None:
             mode = self._mesh_mode
 
+        if not HAS_SMESH:
+            raise NotImplementedError('SMESH was not found to support mesh visualization.')
+
         vs_link = SMESH_MeshVSLink(mesh)
         mesh_vs = MeshVS_Mesh()
         mesh_vs.SetDataSource(vs_link)
@@ -416,9 +405,9 @@ class QOpenCascadeWidget(QOpenGLWidget):
         raise NotImplemented('Need gl2ps library.')
 
 
-class BasicViewer(QMainWindow):
+class ViewerQt(QMainWindow):
     """
-    Simple class for viewing items.
+    Simple class for viewing items using Qt.
 
     :param int width: Window width.
     :param int height: Window height.
@@ -430,7 +419,7 @@ class BasicViewer(QMainWindow):
         self._app = QApplication.instance()
         if self._app is None:
             self._app = QApplication([])
-        super(BasicViewer, self).__init__(parent)
+        super(ViewerQt, self).__init__(parent)
 
         # Window settings
         self.setWindowTitle('pyOCCT')
@@ -474,6 +463,8 @@ class BasicViewer(QMainWindow):
             self.view.set_display_mode('s')
         elif e.key() == ord('W'):
             self.view.set_display_mode('w')
+        elif e.key() == ord('C'):
+            self._continue()
         else:
             print('Key is not mapped to anything.')
 
@@ -513,7 +504,7 @@ class BasicViewer(QMainWindow):
             return self.view.display_shape(entity, rgb, transparency, material)
         elif isinstance(entity, (gp_Pnt, Geom_Curve, Geom_Surface)):
             return self.view.display_geom(entity, rgb, transparency, material)
-        elif isinstance(entity, SMESH_Mesh):
+        elif HAS_SMESH and isinstance(entity, SMESH_Mesh):
             return self.view.display_mesh(entity, mode)
         else:
             return None
@@ -535,7 +526,11 @@ class BasicViewer(QMainWindow):
 
         :return: None.
         """
+        print('Press \"c\" to continue...')
 
         if fit:
             self.view.fit()
         self._app.exec_()
+
+    def _continue(self, *args):
+        self._app.exit()

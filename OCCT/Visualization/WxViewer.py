@@ -17,33 +17,41 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import os
-import platform
+import sys
+import warnings
 
 import wx
 from OCCT.AIS import AIS_InteractiveContext, AIS_Shape, AIS_Shaded, AIS_WireFrame
 from OCCT.Aspect import Aspect_DisplayConnection, Aspect_TOTP_LEFT_LOWER
-from OCCT.BRepBuilderAPI import (BRepBuilderAPI_MakeVertex,
-                                 BRepBuilderAPI_MakeEdge,
+from OCCT.BRepBuilderAPI import (BRepBuilderAPI_MakeVertex, BRepBuilderAPI_MakeEdge,
                                  BRepBuilderAPI_MakeFace)
 from OCCT.Geom import Geom_Curve, Geom_Surface
 from OCCT.Graphic3d import Graphic3d_MaterialAspect
-from OCCT.MeshVS import (MeshVS_DA_DisplayNodes, MeshVS_DA_EdgeColor,
-                         MeshVS_Mesh, MeshVS_MeshPrsBuilder)
+from OCCT.MeshVS import (MeshVS_DA_DisplayNodes, MeshVS_DA_EdgeColor, MeshVS_Mesh,
+                         MeshVS_MeshPrsBuilder)
 from OCCT.OpenGl import OpenGl_GraphicDriver
 from OCCT.Quantity import Quantity_Color, Quantity_NOC_BLACK, Quantity_TOC_RGB
-from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh, SMESH_subMesh
 from OCCT.TopoDS import TopoDS_Shape
 from OCCT.V3d import V3d_Viewer, V3d_TypeOfOrientation
 from OCCT.gp import gp_Pnt
 
-__all__ = ['BasicViewer']
+try:
+    from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh, SMESH_subMesh
+
+    HAS_SMESH = True
+except ImportError:
+    HAS_SMESH = False
+    msg = "SMESH module was not found for visualization."
+    warnings.warn(msg, RuntimeWarning)
+
+__all__ = ['ViewerWx']
 
 _icon = os.path.dirname(__file__) + '/_resources/icon.png'
 
 
-class BasicViewer(wx.Frame):
+class ViewerWx(wx.Frame):
     """
-    Basic tool for viewing shapes.
+    Basic tool for viewing shapes based on wx.
 
     :param int height: Window height.
     :param int width: Window width.
@@ -52,8 +60,7 @@ class BasicViewer(wx.Frame):
     def __init__(self, width=800, height=600):
         # Launch an app before initializing any wx types
         self._app = wx.App()
-        super(BasicViewer, self).__init__(None, title='pyOCCT',
-                                          size=(width, height))
+        super(ViewerWx, self).__init__(None, title='pyOCCT', size=(width, height))
 
         self._init()
         self.Center()
@@ -117,8 +124,9 @@ class BasicViewer(wx.Frame):
             # Window identifier in Linux
             hwnd = self.GetHandle()
 
-            if platform.system() == 'Windows':
+            if sys.platform.startswith('win'):
                 import ctypes
+                from OCCT.WNT import WNT_Window
 
                 ctypes.pythonapi.PyCapsule_New.restype = ctypes.py_object
                 ctypes.pythonapi.PyCapsule_New.argtypes = [ctypes.c_int,
@@ -126,15 +134,15 @@ class BasicViewer(wx.Frame):
                                                            ctypes.c_void_p]
                 capsule = ctypes.pythonapi.PyCapsule_New(hwnd, None, None)
 
-                from OCCT.WNT import WNT_Window
-
                 # WNT window
                 wind = WNT_Window(capsule)
-            else:
+            elif sys.platform.startswith('linux'):
                 from OCCT.XwWindow import Xw_Window
 
                 # Xw window
                 wind = Xw_Window(self.display_connect, hwnd)
+            else:
+                raise NotImplementedError('Support platform not found for visualization.')
 
             # Map window
             if not wind.IsMapped():
@@ -311,6 +319,9 @@ class BasicViewer(wx.Frame):
         :return: The MeshVS_Mesh created for the mesh.
         :rtype: OCCT.MeshVS.MeshVS_Mesh
         """
+        if not HAS_SMESH:
+            raise NotImplementedError('SMESH was not found to support mesh visualization.')
+
         vs_link = SMESH_MeshVSLink(mesh)
         mesh_vs = MeshVS_Mesh()
         mesh_vs.SetDataSource(vs_link)
@@ -342,7 +353,7 @@ class BasicViewer(wx.Frame):
             return self.display_shape(entity, rgb, transparency, material)
         elif isinstance(entity, (gp_Pnt, Geom_Curve, Geom_Surface)):
             return self.display_geom(entity, rgb, transparency, material)
-        elif isinstance(entity, (SMESH_Mesh, SMESH_subMesh)):
+        elif HAS_SMESH and isinstance(entity, (SMESH_Mesh, SMESH_subMesh)):
             return self.display_mesh(entity, mode)
         else:
             return None
