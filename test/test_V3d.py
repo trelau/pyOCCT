@@ -24,7 +24,13 @@ from OCCT.Aspect import Aspect_DisplayConnection
 from OCCT.OpenGl import OpenGl_GraphicDriver
 from OCCT.V3d import V3d_Viewer
 
+try:
+    display_connection = Aspect_DisplayConnection()
+except RuntimeError:
+    display_connection = None
 
+
+@unittest.skipIf(display_connection is None, "No display connection")
 class Test_V3d_View(unittest.TestCase):
     """
     Test for V3d_View class.
@@ -35,8 +41,7 @@ class Test_V3d_View(unittest.TestCase):
         """
         Set up with a V3d_View.
         """
-        conn = cls._display_connection = Aspect_DisplayConnection()
-        driver = cls._driver = OpenGl_GraphicDriver(conn)
+        driver = cls._driver = OpenGl_GraphicDriver(display_connection)
         viewer = cls._viewer = V3d_Viewer(driver)
         cls._view = viewer.CreateView()
 
