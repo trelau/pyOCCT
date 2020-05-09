@@ -941,3 +941,6 @@
 +patch Font: (TopoDS_Shape (Font_BRepTextBuilder::*)(Font_BRepFont &, const Font_TextFormatter &, const gp_Ax3 &)) &Font_BRepTextBuilder::Perform-->[](Font_BRepTextBuilder &self, Font_BRepFont_ & a0, const Font_TextFormatter & a1, const gp_Ax3 & a2) -> TopoDS_Shape { return self.Perform(a0, a1, a2); }
 +patch Font: (TopoDS_Shape (Font_BRepTextBuilder::*)(Font_BRepFont &, const NCollection_String &, const gp_Ax3 &, const Graphic3d_HorizontalTextAlignment, const Graphic3d_VerticalTextAlignment)) &Font_BRepTextBuilder::Perform-->[](Font_BRepTextBuilder &self, Font_BRepFont_ & a0, const NCollection_String & a1, const gp_Ax3 & a2, const Graphic3d_HorizontalTextAlignment a3, const Graphic3d_VerticalTextAlignment a4) -> TopoDS_Shape { return self.Perform(a0, a1, a2, a3, a4); }
 +patch Font: Font_BRepFont &-->Font_BRepFont_ &
+
+# Return ref
++patch V3d: &V3d_View::ChangeRenderingParams-->&V3d_View::ChangeRenderingParams, py::return_value_policy::reference
