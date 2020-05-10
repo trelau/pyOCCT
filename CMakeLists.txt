@@ -23,8 +23,8 @@ project(pyOCCT VERSION 7.4.0.0 LANGUAGES CXX)
 # --------------------------------------------------------------------------- #
 # OPTIONS
 # --------------------------------------------------------------------------- #
-option(ENABLE_SMESH "Enable SMESH" OFF)
-option(ENABLE_NETGEN "Enable Netgen" OFF)
+option(ENABLE_SMESH "Enable SMESH" ON)
+option(ENABLE_NETGEN "Enable Netgen" ON)
 option(ENABLE_VTK "Enable VTK" OFF)
 option(ENABLE_WARNINGS "Disable warning output." OFF)
 
