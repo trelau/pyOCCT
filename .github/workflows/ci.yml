@@ -188,51 +188,51 @@ jobs:
           name: pyocct-py${{ matrix.python-version }}_${{ matrix.os }}
           path: conda
 
-#  generate_macos:
-#    name: Generate (${{ matrix.os }})
-#    runs-on: ${{ matrix.os }}
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        os: ['macos-latest']
-#    steps:
-#
-#      - name: "Clone pyOCCT"
-#        uses: actions/checkout@v2
-#        with:
-#          submodules: 'recursive'
-#
-#      - name: "Add conda to PATH"
-#        run: echo "::add-path::$CONDA/bin"
-#
-#      - name: "MacOS fix"
-#        run: sudo chown -R $USER $CONDA
-#
-#      - name: "Configure conda"
-#        shell: pwsh
-#        run: |
-#          conda init --all
-#          conda env create -f binder/environment.yml
-#
-#      - name: "Check conda"
-#        shell: pwsh
-#        run: |
-#          conda activate binder
-#          conda info -a
-#          conda list
-#
-#      - name: "Generate bindings"
-#        shell: pwsh
-#        run: |
-#          conda activate binder
-#          python binder/run.py -c binder/config.txt -o src/occt
-#
-#      - name: "Upload bindings"
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: pyocct_src_${{ matrix.os }}
-#          path: src/occt
-#
+  generate_macos:
+    name: Generate (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['macos-latest']
+    steps:
+
+      - name: "Clone pyOCCT"
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: "Add conda to PATH"
+        run: echo "::add-path::$CONDA/bin"
+
+      - name: "MacOS fix"
+        run: sudo chown -R $USER $CONDA
+
+      - name: "Configure conda"
+        shell: pwsh
+        run: |
+          conda init --all
+          conda env create -f binder/environment.yml
+
+      - name: "Check conda"
+        shell: pwsh
+        run: |
+          conda activate binder
+          conda info -a
+          conda list
+
+      - name: "Generate bindings"
+        shell: pwsh
+        run: |
+          conda activate binder
+          python binder/run.py -c binder/config.txt -o src/occt
+
+      - name: "Upload bindings"
+        uses: actions/upload-artifact@v2
+        with:
+          name: pyocct_src_${{ matrix.os }}
+          path: src/occt
+
 #  build_macos:
 #    name: Build (${{ matrix.python-version }}, ${{ matrix.os }})
 #    needs: generate_macos
