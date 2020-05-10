@@ -7,12 +7,9 @@ setup(
               'OCCT.Visualization'],
     package_data={'OCCT': ['*.so', '*.pyd', '*.dll',
                            'Visualization/_resources/*']},
-    author='Laughlin Research, LLC',
+    author='Trevor Laughlin',
     description='Python bindings for OpenCASCADE.',
     url='https://github.com/LaughlinResearch/pyOCCT',
     license='LGPL v2.1',
-    platforms=['Windows', 'Linux'],
-    classifiers=['Development Status :: 3 - Alpha',
-                 'Intended Audience :: Developers',
-                 'Programming Language :: Python']
+    platforms=['Windows', 'Linux']
 )
