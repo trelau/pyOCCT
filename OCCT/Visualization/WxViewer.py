@@ -137,7 +137,7 @@ class ViewerWx(wx.Frame):
                 # WNT window
                 wind = WNT_Window(capsule)
             elif sys.platform.startswith('linux'):
-                from OCCT.XwWindow import Xw_Window
+                from OCCT.Xw import Xw_Window
 
                 # Xw window
                 wind = Xw_Window(self.display_connect, hwnd)
