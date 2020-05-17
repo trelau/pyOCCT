@@ -7,12 +7,6 @@ pyOCCT --- Python bindings for OpenCASCADE
    intro
 
 .. toctree::
-   :caption: Getting Started
-   :maxdepth: 2
-
-   build
-
-.. toctree::
    :caption: Development
    :maxdepth: 2
 

@@ -101,9 +101,9 @@ be imported as:
 
 .. code-block:: python
 
-    from OCCT.Visualization import BasicViewer
+    from OCCT.Visualization import WxViewer
 
-    v = BasicViewer()
+    v = ViewerWx()
     v.add(*args)
     v.start()
 
@@ -115,8 +115,10 @@ The following tools are available:
 .. table:: OCCT.Visualization tools.
    :widths: auto
 
-   =============== ============================================================
-   Name            Description
-   =============== ============================================================
-   ``BasicViewer`` Basic viewing tool for shapes, geometry, and meshes.
-   =============== ============================================================
+   ============ ==================================================================
+   Name         Description
+   ============ ==================================================================
+   ``ViewerWx`` Basic viewing tool for shapes, geometry, and meshes using wxpython
+   ============ ==================================================================
+   ``ViewerQt`` Basic viewing tool for shapes, geometry, and meshes using Qt
+   ============ ==================================================================
