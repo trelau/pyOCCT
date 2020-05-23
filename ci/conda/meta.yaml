@@ -17,17 +17,13 @@ requirements:
   host:
     - python
     - pybind11
-    - occt ==7.4.0 h9121d39_1  # [linux]
-    - occt ==7.4.0 hb9b6dc7_1  # [osx]
-    - occt ==7.4.0 h823b557_1  # [win]
+    - occt ==7.4.0
     - smesh ==8.3.0.3
     - tbb-devel
 
   run:
     - python
-    - occt ==7.4.0 h9121d39_1  # [linux]
-    - occt ==7.4.0 hb9b6dc7_1  # [osx]
-    - occt ==7.4.0 h823b557_1  # [win]
+    - occt ==7.4.0
     - smesh ==8.3.0.3
 
 test:
