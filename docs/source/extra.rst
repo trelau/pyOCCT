@@ -6,10 +6,10 @@ scientific publications:
 .. code-block:: bash
 
     @misc{pyOCCT,
-       author = {Laughlin Research, LLC},
-       year = {2018},
+       author = {Trevor Laughlin},
+       year = {2020},
        note = {https://github.com/LaughlinResearch/pyOCCT},
-       title = {pyOCCT -- Python bindings for OpenCASCADE}
+       title = {pyOCCT -- Python bindings for OpenCASCADE via pybind11}
     }
 
 PythonOCC Comparison

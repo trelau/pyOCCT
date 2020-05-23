@@ -42,10 +42,8 @@ modern C++ features including templates. Compared to earlier versions, the
 latest releases of OpenCASCADE define a number of different types by
 instantiating a set of core class templates. To more closely follow the
 OpenCASCADE architecture and avoid repetitive code, function templates are used
-whenever possible to bind types derived from an OpenCASCADE class template.
-These templates are provided in the *inc/* folder and in theory there should be
-one function template for each OpenCASCADE class template. In the appropriate
-module, the function template can be called with essentially the same
+whenever possible to bind types derived from an OpenCASCADE class template. In
+the appropriate module, the function template can be called with essentially the same
 parameters as its OpenCASCADE counterpart, with the addition of the current
 pybind11 module and its desired name.
 
@@ -241,11 +239,6 @@ This is a summary of some known issues:
   modified as an input. So far only trial and error has detected these issues
   and they are usually fixed on a case-by-case basis.
 
-* The source contains a lot of ``// FIXME`` text that comments out a particular
-  class or function for one reason or another. The source code is still written
-  in hopes that uses may uncomment it and figure the root cause of why it was
-  omitted in the first place.
-
 * While pyOCCT provides coverage for a significant amount of the OpenCASCADE
   codebase, there are exceptions. An error will be thrown if a needed type
   is not registered by pybind11. Sometimes it's just a small matter of patching
@@ -262,10 +255,5 @@ This is a summary of some known issues:
   pybind11 but its a matter of implementation detail and complexity in the
   automated binding generation tool. Things can be fixed manually as needed
   but another pass at this is needed in the binding generator tool.
-
-* Class data members are not supported but rarely needed for typical usage.
-  The OpenCASCADE library mainly consists of class member functions. This is
-  supported by pybind11 but additional work is needed for the binding generator
-  tool.
 
 .. _handle: https://www.opencascade.com/doc/occt-7.2.0/refman/html/classopencascade_1_1handle.html

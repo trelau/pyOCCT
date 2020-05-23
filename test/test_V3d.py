@@ -17,7 +17,6 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-import math
 import unittest
 
 from OCCT.Aspect import Aspect_DisplayConnection
@@ -45,20 +44,17 @@ class Test_V3d_View(unittest.TestCase):
         viewer = cls._viewer = V3d_Viewer(driver)
         cls._view = viewer.CreateView()
 
-    def test_V3d_View_ChangeRenderingParams(self):
+    def test_ChangeRenderingParams(self):
         """
         Test V3d_View::ChangeRenderingParams.
         """
         view = self._view
 
-        # Update the value
-        change_params = view.ChangeRenderingParams()
-        new_value = not change_params.IsShadowEnabled
-        change_params.IsShadowEnabled = new_value
-
-        # Make sure it stuck
-        params = view.RenderingParams()
-        self.assertEqual(params.IsShadowEnabled, new_value)
+        # Update the value and make sure it stuck
+        cparams = view.ChangeRenderingParams()
+        cparams.IsShadowEnabled = not cparams.IsShadowEnabled
+        rparams = view.RenderingParams()
+        self.assertEqual(cparams.IsShadowEnabled, rparams.IsShadowEnabled)
 
 
 if __name__ == '__main__':

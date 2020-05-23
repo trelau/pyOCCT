@@ -23,7 +23,7 @@ from OCCT.BRepAlgoAPI import BRepAlgoAPI_Fuse
 from OCCT.TopTools import TopTools_ListOfShape
 
 from OCCT.Exchange import ExchangeBasic
-from OCCT.Visualization.WxViewer import BasicViewerWx
+from OCCT.Visualization.WxViewer import ViewerWx
 
 fn = './models/wing_assy.brep'
 wing_assy = ExchangeBasic.read_brep(fn)
@@ -44,6 +44,6 @@ start = time.time()
 bop.Build()
 print('Complete in ', time.time() - start, ' seconds.')
 
-v = BasicViewerWx()
+v = ViewerWx()
 v.add(bop.Shape())
 v.start()
