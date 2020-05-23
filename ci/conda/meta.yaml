@@ -17,7 +17,9 @@ requirements:
   host:
     - python
     - pybind11
-    - occt ==7.4.0 h823b557_1
+    - occt ==7.4.0 h9121d39_1  # [linux]
+    - occt ==7.4.0 hb9b6dc7_1  # [osx]
+    - occt ==7.4.0 h823b557_1  # [win]
     - smesh ==8.3.0.3
     - tbb-devel
 
