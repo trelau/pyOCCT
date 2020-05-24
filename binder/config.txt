@@ -236,11 +236,6 @@
 
 -function DsgPrs_RadiusPresentation::Add(const opencascade::handle<Prs3d_Presentation> &, const opencascade::handle<Prs3d_Drawer> &, const TCollection_ExtendedString &, const gp_Pnt &, const gp_Circ &, const Standard_Real, const Standard_Real, const DsgPrs_ArrowSide, const Standard_Boolean, const Standard_Boolean)
 
-# Abstract
-#-function Expr_UnaryExpression::Expr_UnaryExpression
-#-function Expr_BinaryExpression::Expr_BinaryExpression
-#-function Expr_SingleRelation::Expr_SingleRelation
-
 -function FilletPoint::FilletPoint
 -function FilletPoint::appendValue
 -function FilletPoint::calculateDiff
@@ -308,11 +303,6 @@
 -function HLRBRep_ThePolyhedronOfInterCSurf::HasVMinSingularity
 -function HLRBRep_ThePolyhedronOfInterCSurf::HasVMaxSingularity
 
-
-# Abstract
-#-function IFSelect_SelectDeduct:IFSelect_SelectDeduct
-#-function IFSelect_Selection::IFSelect_Selection
-#-function IFSelect_SelectControl::IFSelect_SelectControl
 -function IFSelect_ContextModif::Search
 -function IFSelect_EditForm::NbTouched
 -function IFSelect_IntParam::StaticName
@@ -398,7 +388,7 @@
 -function IVtkTools_ShapeObject::getKey_
 -function IVtkTools_ShapePicker::GetSelectionModes(const IVtk_IShape::Handle &)
 
-# TODO: How can doubl** be cast?
+# TODO: How can double** be cast?
 -function IVtkOCC_ViewerSelector::Pick(double **, const int, const IVtk_IView::Handle &)
 -function IVtkOCC_ShapePickerAlgo::Pick(double **, const int)
 
@@ -851,68 +841,68 @@
 +skip OpenGl_TextureFormatSelector<GLushort>
 
 # Manual text -----------------------------------------------------------------
-+manual BOPTools_BoxSet<NumType, Dimension, DataType>-->bind_BVH_BoxSet<NumType, Dimension, DataType>(mod, "BOPTools_BoxSet_Base", py::module_local());
-+manual BOPTools_BoxSelector<Dimension>-->bind_BVH_Traverse<Standard_Real, Dimension, BVH_BoxSet<Standard_Real, Dimension, Standard_Integer>, Standard_Boolean>(mod, "BOPTools_BoxSelector_Base", py::module_local());
++before_type BOPTools_BoxSet<NumType, Dimension, DataType>-->bind_BVH_BoxSet<NumType, Dimension, DataType>(mod, "BOPTools_BoxSet_Base", py::module_local());
++before_type BOPTools_BoxSelector<Dimension>-->bind_BVH_Traverse<Standard_Real, Dimension, BVH_BoxSet<Standard_Real, Dimension, Standard_Integer>, Standard_Boolean>(mod, "BOPTools_BoxSelector_Base", py::module_local());
 
-+manual BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>-->bind_BVH_BaseTraverse<MetricType>(mod, "BVH_Traverse_Base", py::module_local());
-+manual BVH_BoxSet<NumType, Dimension, DataType>-->bind_BVH_PrimitiveSet<NumType, Dimension>(mod, "BVH_BoxSet_Base", py::module_local());
-+manual BVH_Geometry<T, N>-->bind_BVH_ObjectSet<T, N>(mod, "BVH_Geometry_Base", py::module_local());
-+manual BVH_ObjectSet<T, N>-->bind_BVH_Set<T, N>(mod, "BVH_ObjectSet_Base", py::module_local());
-+manual BVH_PrimitiveSet<T, N>-->bind_BVH_Object<T, N>(mod, "BVH_PrimitiveSet_Base", py::module_local());
-+manual BVH_Triangulation<T, N>-->bind_BVH_PrimitiveSet<T, N>(mod, "BVH_Triangulation_Base", py::module_local());
++before_type BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>-->bind_BVH_BaseTraverse<MetricType>(mod, "BVH_Traverse_Base", py::module_local());
++before_type BVH_BoxSet<NumType, Dimension, DataType>-->bind_BVH_PrimitiveSet<NumType, Dimension>(mod, "BVH_BoxSet_Base", py::module_local());
++before_type BVH_Geometry<T, N>-->bind_BVH_ObjectSet<T, N>(mod, "BVH_Geometry_Base", py::module_local());
++before_type BVH_ObjectSet<T, N>-->bind_BVH_Set<T, N>(mod, "BVH_ObjectSet_Base", py::module_local());
++before_type BVH_PrimitiveSet<T, N>-->bind_BVH_Object<T, N>(mod, "BVH_PrimitiveSet_Base", py::module_local());
++before_type BVH_Triangulation<T, N>-->bind_BVH_PrimitiveSet<T, N>(mod, "BVH_Triangulation_Base", py::module_local());
 
-+manual Graphic3d_BvhCStructureSetTrsfPers-->bind_BVH_Set<Standard_Real, 3>(mod, "BVH_Set_Standard_Real3", py::module_local());
++before_type Graphic3d_BvhCStructureSetTrsfPers-->bind_BVH_Set<Standard_Real, 3>(mod, "BVH_Set_Standard_Real3", py::module_local());
 
-+manual OpenGl_BVHClipPrimitiveTrsfPersSet-->bind_BVH_Set<Standard_Real, 3>(mod, "BVH_Set_Standard_Real3", py::module_local());
-+manual OpenGl_RaytraceGeometry-->bind_BVH_Geometry<Standard_ShortReal, 3>(mod, "BVH_Geometry_Standard_ShortReal3", py::module_local());
++before_type OpenGl_BVHClipPrimitiveTrsfPersSet-->bind_BVH_Set<Standard_Real, 3>(mod, "BVH_Set_Standard_Real3", py::module_local());
++before_type OpenGl_RaytraceGeometry-->bind_BVH_Geometry<Standard_ShortReal, 3>(mod, "BVH_Geometry_Standard_ShortReal3", py::module_local());
 
-+manual SelectMgr_RectangularFrustum-->bind_SelectMgr_Frustum<4>(mod, "Select_Mgr_Frustum4", py::module_local());
-+manual SelectMgr_TriangularFrustum-->bind_SelectMgr_Frustum<3>(mod, "Select_Mgr_Frustum3", py::module_local());
++before_type SelectMgr_RectangularFrustum-->bind_SelectMgr_Frustum<4>(mod, "Select_Mgr_Frustum4", py::module_local());
++before_type SelectMgr_TriangularFrustum-->bind_SelectMgr_Frustum<3>(mod, "Select_Mgr_Frustum3", py::module_local());
 
-+manual StdLPersistent_Function-->bind_StdObjMgt_Attribute<TFunction_Function>(mod, "StdObjMgt_Attribute_TFunction_Function", py::module_local());
-+manual StdLPersistent_NamedData-->bind_StdObjMgt_Attribute<TDataStd_NamedData>(mod, "StdObjMgt_Attribute_TDataStd_NamedData", py::module_local());
-+manual StdLPersistent_Real-->bind_StdObjMgt_Attribute<TDataStd_Real>(mod, "StdObjMgt_Attribute_TDataStd_Real", py::module_local());
-+manual StdLPersistent_Variable-->bind_StdObjMgt_Attribute<TDataStd_Variable>(mod, "StdObjMgt_Attribute_TDataStd_Variable", py::module_local());
-+manual StdLPersistent_XLink-->bind_StdObjMgt_Attribute<TDocStd_XLink>(mod, "StdObjMgt_Attribute_TDocStd_XLink", py::module_local());
++before_type StdLPersistent_Function-->bind_StdObjMgt_Attribute<TFunction_Function>(mod, "StdObjMgt_Attribute_TFunction_Function", py::module_local());
++before_type StdLPersistent_NamedData-->bind_StdObjMgt_Attribute<TDataStd_NamedData>(mod, "StdObjMgt_Attribute_TDataStd_NamedData", py::module_local());
++before_type StdLPersistent_Real-->bind_StdObjMgt_Attribute<TDataStd_Real>(mod, "StdObjMgt_Attribute_TDataStd_Real", py::module_local());
++before_type StdLPersistent_Variable-->bind_StdObjMgt_Attribute<TDataStd_Variable>(mod, "StdObjMgt_Attribute_TDataStd_Variable", py::module_local());
++before_type StdLPersistent_XLink-->bind_StdObjMgt_Attribute<TDocStd_XLink>(mod, "StdObjMgt_Attribute_TDocStd_XLink", py::module_local());
 
-+manual StdPersistent_DataXtd_Constraint-->bind_StdObjMgt_Attribute<TDataXtd_Constraint>(mod, "StdObjMgt_Attribute_TDataXtd_Constraint", py::module_local());
-+manual StdPersistent_DataXtd_PatternStd-->bind_StdObjMgt_Attribute<TDataXtd_PatternStd>(mod, "StdObjMgt_Attribute_TDataXtd_PatternStd", py::module_local());
++before_type StdPersistent_DataXtd_Constraint-->bind_StdObjMgt_Attribute<TDataXtd_Constraint>(mod, "StdObjMgt_Attribute_TDataXtd_Constraint", py::module_local());
++before_type StdPersistent_DataXtd_PatternStd-->bind_StdObjMgt_Attribute<TDataXtd_PatternStd>(mod, "StdObjMgt_Attribute_TDataXtd_PatternStd", py::module_local());
 
 # Extra text ------------------------------------------------------------------
-+extra AIS_Line-->cls_AIS_Line.def("Points", [](AIS_Line &self, opencascade::handle<Geom_Point> & thePStart, opencascade::handle<Geom_Point> & thePEnd) {self.Points(thePStart, thePEnd); return std::tuple<opencascade::handle<Geom_Point>, opencascade::handle<Geom_Point>>(thePStart, thePEnd); }, "Returns the starting point thePStart and the end point thePEnd of the line set by SetPoints.", py::arg("thePStart"), py::arg("thePEnd"));
++after_type AIS_Line-->cls_AIS_Line.def("Points", [](AIS_Line &self, opencascade::handle<Geom_Point> & thePStart, opencascade::handle<Geom_Point> & thePEnd) {self.Points(thePStart, thePEnd); return std::tuple<opencascade::handle<Geom_Point>, opencascade::handle<Geom_Point>>(thePStart, thePEnd); }, "Returns the starting point thePStart and the end point thePEnd of the line set by SetPoints.", py::arg("thePStart"), py::arg("thePEnd"));
 
-+extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("Clear", [](BRepAlgoAPI_Algo &self) {return self.Clear(); }, "Clears all warnings and errors, and any data cached by the algorithm. User defined options are not cleared.");
-+extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetRunParallel", [](BRepAlgoAPI_Algo &self, const Standard_Boolean theFlag) { return self.SetRunParallel(theFlag); }, "Set the flag of parallel processing if <theFlag> is true the parallel processing is switched on if <theFlag> is false the parallel processing is switched off", py::arg("theFlag"));
-+extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("RunParallel", [](BRepAlgoAPI_Algo &self) {return self.RunParallel(); }, "Returns the flag of parallel processing");
-+extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetFuzzyValue", [](BRepAlgoAPI_Algo &self, const Standard_Real theFuzz) { return self.SetFuzzyValue(theFuzz); }, "Sets the additional tolerance", py::arg("theFuzz"));
-+extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("FuzzyValue", [](BRepAlgoAPI_Algo &self) { return self.FuzzyValue(); }, "Returns the additional tolerance");
-+extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasErrors", [](BRepAlgoAPI_Algo &self) { return self.HasErrors(); }, "Returns true if algorithm has failed");
-+extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasWarnings", [](BRepAlgoAPI_Algo &self) { return self.HasWarnings(); }, "Returns true if algorithm has generated some warning alerts");
-+extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasError", [](BRepAlgoAPI_Algo &self, Handle(Standard_Type) &theType) { return self.HasError(theType); }, "Returns true if algorithm has generated error of specified type", py::arg("theType"));
-+extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasWarning", [](BRepAlgoAPI_Algo &self, Handle(Standard_Type) &theType) { return self.HasWarning(theType); }, "Returns true if algorithm has generated warning of specified type", py::arg("theType"));
-+extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("ClearWarnings", [](BRepAlgoAPI_Algo &self) { self.ClearWarnings(); }, "Clears the warnings of the algorithm");
-+extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("GetReport", [](BRepAlgoAPI_Algo &self) { const Handle(Message_Report) r = self.GetReport(); return r; }, "Returns report collecting all errors and warnings");
-+extra BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetProgressIndicator", [](BRepAlgoAPI_Algo &self, const Handle(Message_ProgressIndicator) &pi) {return self.SetProgressIndicator(pi); }, "Set the Progress Indicator object.", py::arg("theObj"));
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("Clear", [](BRepAlgoAPI_Algo &self) {return self.Clear(); }, "Clears all warnings and errors, and any data cached by the algorithm. User defined options are not cleared.");
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetRunParallel", [](BRepAlgoAPI_Algo &self, const Standard_Boolean theFlag) { return self.SetRunParallel(theFlag); }, "Set the flag of parallel processing if <theFlag> is true the parallel processing is switched on if <theFlag> is false the parallel processing is switched off", py::arg("theFlag"));
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("RunParallel", [](BRepAlgoAPI_Algo &self) {return self.RunParallel(); }, "Returns the flag of parallel processing");
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetFuzzyValue", [](BRepAlgoAPI_Algo &self, const Standard_Real theFuzz) { return self.SetFuzzyValue(theFuzz); }, "Sets the additional tolerance", py::arg("theFuzz"));
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("FuzzyValue", [](BRepAlgoAPI_Algo &self) { return self.FuzzyValue(); }, "Returns the additional tolerance");
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasErrors", [](BRepAlgoAPI_Algo &self) { return self.HasErrors(); }, "Returns true if algorithm has failed");
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasWarnings", [](BRepAlgoAPI_Algo &self) { return self.HasWarnings(); }, "Returns true if algorithm has generated some warning alerts");
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasError", [](BRepAlgoAPI_Algo &self, Handle(Standard_Type) &theType) { return self.HasError(theType); }, "Returns true if algorithm has generated error of specified type", py::arg("theType"));
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasWarning", [](BRepAlgoAPI_Algo &self, Handle(Standard_Type) &theType) { return self.HasWarning(theType); }, "Returns true if algorithm has generated warning of specified type", py::arg("theType"));
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("ClearWarnings", [](BRepAlgoAPI_Algo &self) { self.ClearWarnings(); }, "Clears the warnings of the algorithm");
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("GetReport", [](BRepAlgoAPI_Algo &self) { const Handle(Message_Report) r = self.GetReport(); return r; }, "Returns report collecting all errors and warnings");
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetProgressIndicator", [](BRepAlgoAPI_Algo &self, const Handle(Message_ProgressIndicator) &pi) {return self.SetProgressIndicator(pi); }, "Set the Progress Indicator object.", py::arg("theObj"));
 
-+extra Geom_Surface-->cls_Geom_Surface.def("U1", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return U1; }, "Returns the parametric bound U1.");
-+extra Geom_Surface-->cls_Geom_Surface.def("U2", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return U2; }, "Returns the parametric bound U2.");
-+extra Geom_Surface-->cls_Geom_Surface.def("V1", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return V1; }, "Returns the parametric bound V1.");
-+extra Geom_Surface-->cls_Geom_Surface.def("V2", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return V2; }, "Returns the parametric bound V2.");
++after_type Geom_Surface-->cls_Geom_Surface.def("U1", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return U1; }, "Returns the parametric bound U1.");
++after_type Geom_Surface-->cls_Geom_Surface.def("U2", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return U2; }, "Returns the parametric bound U2.");
++after_type Geom_Surface-->cls_Geom_Surface.def("V1", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return V1; }, "Returns the parametric bound V1.");
++after_type Geom_Surface-->cls_Geom_Surface.def("V2", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return V2; }, "Returns the parametric bound V2.");
 
-+extra ShapeAnalysis_FreeBounds-->cls_ShapeAnalysis_FreeBounds.def_static("ConnectEdgesToWires_", [](opencascade::handle<TopTools_HSequenceOfShape> &edges, const Standard_Real toler, const Standard_Boolean shared) { opencascade::handle<TopTools_HSequenceOfShape> wires = new TopTools_HSequenceOfShape; ShapeAnalysis_FreeBounds::ConnectEdgesToWires(edges, toler, shared, wires); return wires; }, "Builds sequnce of <wires> out of sequence of not sorted <edges>. Tries to build wires of maximum length. Building a wire is stopped when no edges can be connected to it at its head or at its tail.", py::arg("edges"), py::arg("toler"), py::arg("shared"));
-+extra ShapeAnalysis_FreeBounds-->cls_ShapeAnalysis_FreeBounds.def_static("ConnectWiresToWires_", [](opencascade::handle<TopTools_HSequenceOfShape> &iwires, const Standard_Real toler, const Standard_Boolean shared) { opencascade::handle<TopTools_HSequenceOfShape> owires = new TopTools_HSequenceOfShape; ShapeAnalysis_FreeBounds::ConnectWiresToWires(iwires, toler, shared, owires); return owires; }, "Builds sequnce of <owires> out of sequence of not sorted <iwires>.Tries to build wires of maximum length.Building a wire is stopped when no wires can be connected to it at its head or at its tail.", py::arg("iwires"), py::arg("toler"), py::arg("shared"));
-+extra ShapeAnalysis_FreeBounds-->cls_ShapeAnalysis_FreeBounds.def_static("ConnectWiresToWires_", [](opencascade::handle<TopTools_HSequenceOfShape> &iwires, const Standard_Real toler, const Standard_Boolean shared, TopTools_DataMapOfShapeShape &vertices) { opencascade::handle<TopTools_HSequenceOfShape> owires = new TopTools_HSequenceOfShape; ShapeAnalysis_FreeBounds::ConnectWiresToWires(iwires, toler, shared, owires, vertices); return owires; }, "Builds sequnce of <owires> out of sequence of not sorted <iwires>. Tries to build wires of maximum length. Building a wire is stopped when no wires can be connected to it at its head or at its tail.", py::arg("iwires"), py::arg("toler"), py::arg("shared"), py::arg("vertices"));
++after_type ShapeAnalysis_FreeBounds-->cls_ShapeAnalysis_FreeBounds.def_static("ConnectEdgesToWires_", [](opencascade::handle<TopTools_HSequenceOfShape> &edges, const Standard_Real toler, const Standard_Boolean shared) { opencascade::handle<TopTools_HSequenceOfShape> wires = new TopTools_HSequenceOfShape; ShapeAnalysis_FreeBounds::ConnectEdgesToWires(edges, toler, shared, wires); return wires; }, "Builds sequnce of <wires> out of sequence of not sorted <edges>. Tries to build wires of maximum length. Building a wire is stopped when no edges can be connected to it at its head or at its tail.", py::arg("edges"), py::arg("toler"), py::arg("shared"));
++after_type ShapeAnalysis_FreeBounds-->cls_ShapeAnalysis_FreeBounds.def_static("ConnectWiresToWires_", [](opencascade::handle<TopTools_HSequenceOfShape> &iwires, const Standard_Real toler, const Standard_Boolean shared) { opencascade::handle<TopTools_HSequenceOfShape> owires = new TopTools_HSequenceOfShape; ShapeAnalysis_FreeBounds::ConnectWiresToWires(iwires, toler, shared, owires); return owires; }, "Builds sequnce of <owires> out of sequence of not sorted <iwires>.Tries to build wires of maximum length.Building a wire is stopped when no wires can be connected to it at its head or at its tail.", py::arg("iwires"), py::arg("toler"), py::arg("shared"));
++after_type ShapeAnalysis_FreeBounds-->cls_ShapeAnalysis_FreeBounds.def_static("ConnectWiresToWires_", [](opencascade::handle<TopTools_HSequenceOfShape> &iwires, const Standard_Real toler, const Standard_Boolean shared, TopTools_DataMapOfShapeShape &vertices) { opencascade::handle<TopTools_HSequenceOfShape> owires = new TopTools_HSequenceOfShape; ShapeAnalysis_FreeBounds::ConnectWiresToWires(iwires, toler, shared, owires, vertices); return owires; }, "Builds sequnce of <owires> out of sequence of not sorted <iwires>. Tries to build wires of maximum length. Building a wire is stopped when no wires can be connected to it at its head or at its tail.", py::arg("iwires"), py::arg("toler"), py::arg("shared"), py::arg("vertices"));
 
-+extra TDF_Label-->cls_TDF_Label.def("FindAttribute", [](TDF_Label &self, const Standard_GUID &anID, opencascade::handle<TDF_Attribute> &anAttribute) {Standard_Boolean status = self.FindAttribute(anID, anAttribute); return std::tuple<Standard_Boolean, opencascade::handle<TDF_Attribute>>(status, anAttribute); }, "Finds an attribute of the current label, according to <anID>. If anAttribute is not a valid one, false is returned.", py::arg("anID"), py::arg("anAttribute"));
++after_type TDF_Label-->cls_TDF_Label.def("FindAttribute", [](TDF_Label &self, const Standard_GUID &anID, opencascade::handle<TDF_Attribute> &anAttribute) {Standard_Boolean status = self.FindAttribute(anID, anAttribute); return std::tuple<Standard_Boolean, opencascade::handle<TDF_Attribute>>(status, anAttribute); }, "Finds an attribute of the current label, according to <anID>. If anAttribute is not a valid one, false is returned.", py::arg("anID"), py::arg("anAttribute"));
 
-+extra TDocStd_Application-->cls_TDocStd_Application.def("Open", [](TDocStd_Application &self, const TCollection_ExtendedString &path, opencascade::handle<TDocStd_Document> &aDoc) {PCDM_ReaderStatus status = self.Open(path, aDoc);  return std::tuple<PCDM_ReaderStatus, opencascade::handle<TDocStd_Document>>(status, aDoc); }, "Retrieves the document aDoc stored under the name aName in the directory directory. In order not to override a version of aDoc which is already in memory, this method can be made to depend on the value returned by IsInSession.", py::arg("path"), py::arg("aDoc"));
++after_type TDocStd_Application-->cls_TDocStd_Application.def("Open", [](TDocStd_Application &self, const TCollection_ExtendedString &path, opencascade::handle<TDocStd_Document> &aDoc) {PCDM_ReaderStatus status = self.Open(path, aDoc);  return std::tuple<PCDM_ReaderStatus, opencascade::handle<TDocStd_Document>>(status, aDoc); }, "Retrieves the document aDoc stored under the name aName in the directory directory. In order not to override a version of aDoc which is already in memory, this method can be made to depend on the value returned by IsInSession.", py::arg("path"), py::arg("aDoc"));
 
-+extra TopoDS_Shape-->cls_TopoDS_Shape.def("__hash__", [](TopoDS_Shape &self) {return self.HashCode(999999); });
++after_type TopoDS_Shape-->cls_TopoDS_Shape.def("__hash__", [](TopoDS_Shape &self) {return self.HashCode(999999); });
 
-+extra XCAFDoc_ShapeTool-->cls_XCAFDoc_ShapeTool.def("FindSubShape", [](XCAFDoc_ShapeTool &self, const TDF_Label &shapeL, const TopoDS_Shape &sub) { TDF_Label L; Standard_Boolean status = self.FindSubShape(shapeL, sub, L); return std::tuple<Standard_Boolean, TDF_Label>(status, L); }, "Finds a label for subshape of shape stored on label shapeL Returns Null label if it is not found", py::arg("shapeL"), py::arg("sub"));
++after_type XCAFDoc_ShapeTool-->cls_XCAFDoc_ShapeTool.def("FindSubShape", [](XCAFDoc_ShapeTool &self, const TDF_Label &shapeL, const TopoDS_Shape &sub) { TDF_Label L; Standard_Boolean status = self.FindSubShape(shapeL, sub, L); return std::tuple<Standard_Boolean, TDF_Label>(status, L); }, "Finds a label for subshape of shape stored on label shapeL Returns Null label if it is not found", py::arg("shapeL"), py::arg("sub"));
 
 # Add exception translator
-+extra Standard_Failure-->py::register_exception_translator([](std::exception_ptr p) {try {if (p) std::rethrow_exception(p);} catch (const Standard_Failure &e) { PyErr_SetString(PyExc_RuntimeError, e.GetMessageString());}});
++after_type Standard_Failure-->py::register_exception_translator([](std::exception_ptr p) {try {if (p) std::rethrow_exception(p);} catch (const Standard_Failure &e) { PyErr_SetString(PyExc_RuntimeError, e.GetMessageString());}});
 
 # Patches -----------------------------------------------------------------
 
