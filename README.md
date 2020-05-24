@@ -70,7 +70,7 @@ external `pyOCCT_binder` project:
 
     git clone --recurse-submodules https://github.com/LaughlinResearch/pyOCCT.git
 
-The binder using `clang` to parse the C++ header files of the libraries and generate the source
+The binder uses `clang` to parse the C++ header files of the libraries and generate the source
 code. If you are familiar with `conda`, an environment can be created for this task by:
 
     conda env create -f binder/environment.yml
@@ -82,7 +82,7 @@ sources:
 
 At the moment, only the OpenCASCADE bindings are automatically generated. Eventually, the SMESH
 bindings will be auto-generated as well. Be sure and check the output from the binding generation
-process in the command prompt in case there are missing header files.
+process in the command prompt in case there are missing header files or other errors.
 
 After the binding sources are generated:
 
