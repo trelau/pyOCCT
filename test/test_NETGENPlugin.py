@@ -24,8 +24,8 @@ from OCCT.NETGENPlugin import (NETGENPlugin_SimpleHypothesis_3D, NETGENPlugin_NE
                                NETGENPlugin_SimpleHypothesis_2D, NETGENPlugin_NETGEN_2D)
 from OCCT.SMESH import SMESH_Gen
 from OCCT.StdMeshers import StdMeshers_LocalLength, StdMeshers_Regular_1D
-
-from OCCT.Topology import ExploreShape
+from OCCT.TopAbs import TopAbs_EDGE
+from OCCT.TopExp import TopExp_Explorer
 
 
 class Test_NETGENPlugin(unittest.TestCase):
@@ -113,7 +113,7 @@ class Test_NETGENPlugin(unittest.TestCase):
         Test a mesh on a box with a local edge length enforced on one edge.
         """
         box = BRepPrimAPI_MakeBox(10, 10, 10).Solid()
-        edge = ExploreShape.get_edges(box)[0]
+        edge = TopExp_Explorer(box, TopAbs_EDGE).Current()
 
         gen = SMESH_Gen()
         mesh = gen.CreateMesh(0, True)

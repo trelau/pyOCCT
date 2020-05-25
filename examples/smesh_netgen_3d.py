@@ -16,29 +16,36 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-from OCCT.BRep import BRep_Builder
-from OCCT.TopoDS import TopoDS_Compound
+from OCCT.NETGENPlugin import (NETGENPlugin_SimpleHypothesis_3D,
+                               NETGENPlugin_NETGEN_2D3D)
+from OCCT.SMESH import SMESH_Gen
 
-__all__ = ['CreateShape']
+from OCCT.Exchange import ExchangeBasic
+from OCCT.Visualization.WxViewer import ViewerWx
 
+fn = './models/shape_names.step'
+shape = ExchangeBasic.read_step(fn)
 
-class CreateShape(object):
-    """
-    Create shapes.
-    """
+v = ViewerWx()
+v.add(shape)
+v.start()
 
-    @staticmethod
-    def compound(shapes):
-        """
-        Create a compound from a list of shapes.
+gen = SMESH_Gen()
+mesh = gen.CreateMesh(0, True)
 
-        :param shapes: List of shapes.
-        :type: collections.Sequence(OCCT.TopoDS.TopoDS_Shape)
-        """
+hyp = NETGENPlugin_SimpleHypothesis_3D(0, 0, gen)
+hyp.SetLocalLength(5)
 
-        cp = TopoDS_Compound()
-        builder = BRep_Builder()
-        builder.MakeCompound(cp)
-        for shape in shapes:
-            builder.Add(cp, shape)
-        return cp
+alg = NETGENPlugin_NETGEN_2D3D(1, 0, gen)
+
+mesh.ShapeToMesh(shape)
+mesh.AddHypothesis(shape, 0)
+mesh.AddHypothesis(shape, 1)
+
+print('Computing mesh...')
+done = gen.Compute(mesh, mesh.GetShapeToMesh())
+print('done.')
+
+v = ViewerWx()
+v.add(mesh)
+v.start()
