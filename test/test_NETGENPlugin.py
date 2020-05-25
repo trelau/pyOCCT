@@ -23,6 +23,9 @@ from OCCT.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCCT.NETGENPlugin import (NETGENPlugin_SimpleHypothesis_3D, NETGENPlugin_NETGEN_2D3D,
                                NETGENPlugin_SimpleHypothesis_2D, NETGENPlugin_NETGEN_2D)
 from OCCT.SMESH import SMESH_Gen
+from OCCT.StdMeshers import StdMeshers_LocalLength, StdMeshers_Regular_1D
+
+from OCCT.Topology import ExploreShape
 
 
 class Test_NETGENPlugin(unittest.TestCase):
@@ -103,6 +106,34 @@ class Test_NETGENPlugin(unittest.TestCase):
         self.assertEqual(mesh.NbTriangles(), 0)
         self.assertEqual(mesh.NbQuadrangles(), 600)
         self.assertEqual(mesh.NbNodes(), 602)
+
+    @unittest.expectedFailure
+    def test_LocalEdgeLength(self):
+        """
+        Test a mesh on a box with a local edge length enforced on one edge.
+        """
+        box = BRepPrimAPI_MakeBox(10, 10, 10).Solid()
+        edge = ExploreShape.get_edges(box)[0]
+
+        gen = SMESH_Gen()
+        mesh = gen.CreateMesh(0, True)
+
+        hyp3d = NETGENPlugin_SimpleHypothesis_3D(0, 0, gen)
+        hyp3d.SetLocalLength(1.0)
+        NETGENPlugin_NETGEN_2D3D(1, 0, gen)
+
+        hyp1d = StdMeshers_LocalLength(2, 0, gen)
+        hyp1d.SetLength(0.1)
+        StdMeshers_Regular_1D(3, 0, gen)
+
+        mesh.ShapeToMesh(box)
+        mesh.AddHypothesis(box, 0)
+        mesh.AddHypothesis(box, 1)
+        mesh.AddHypothesis(edge, 2)
+        mesh.AddHypothesis(edge, 3)
+
+        success = gen.Compute(mesh, box)
+        self.assertTrue(success)
 
 
 if __name__ == '__main__':
