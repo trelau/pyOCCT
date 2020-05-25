@@ -308,13 +308,14 @@ class ViewerWx(wx.Frame):
 
         return self.display_shape(shape, rgb, transparency, material)
 
-    def display_mesh(self, mesh, mode=2):
+    def display_mesh(self, mesh, mode=2, group=None):
         """
         Display a mesh.
 
         :param mesh: The mesh.
         :type mesh: OCCT.SMESH_SMESH_Mesh or OCCT.SMESH_SMESH_subMesh
         :param int mode: Display mode for mesh elements (1=wireframe, 2=solid).
+        :param OCCT.SMESH.SMESH_Group group: Option to display a group of mesh elements.
 
         :return: The MeshVS_Mesh created for the mesh.
         :rtype: OCCT.MeshVS.MeshVS_Mesh
@@ -322,7 +323,10 @@ class ViewerWx(wx.Frame):
         if not HAS_SMESH:
             raise NotImplementedError('SMESH was not found to support mesh visualization.')
 
-        vs_link = SMESH_MeshVSLink(mesh)
+        if group:
+            vs_link = SMESH_MeshVSLink(mesh, group)
+        else:
+            vs_link = SMESH_MeshVSLink(mesh)
         mesh_vs = MeshVS_Mesh()
         mesh_vs.SetDataSource(vs_link)
         prs_builder = MeshVS_MeshPrsBuilder(mesh_vs)
