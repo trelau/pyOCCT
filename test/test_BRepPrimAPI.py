@@ -45,6 +45,8 @@ class Test_BRepPrimAPI_MakeBox(unittest.TestCase):
     def test_Solid(self):
         """
         Test BRepPrimAPI_MakeBox::Solid.
+
+        https://github.com/conda-forge/occt-feedstock/issues/43
         """
         self.assertIsInstance(self._builder.Solid(), TopoDS_Solid)
 
