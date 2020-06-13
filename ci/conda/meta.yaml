@@ -24,7 +24,7 @@ requirements:
   run:
     - python
     - occt ==7.4.0
-    - smesh ==8.3.0.3
+    - smesh4pyocct ==8.3.0.3
 
 test:
   source_files:
