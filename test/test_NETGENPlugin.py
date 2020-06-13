@@ -54,8 +54,8 @@ class Test_NETGENPlugin(unittest.TestCase):
         success = gen.Compute(mesh, box)
         self.assertTrue(success)
 
-        self.assertEqual(mesh.NbTetras(), 4767)
-        self.assertEqual(mesh.NbNodes(), 1189)
+        self.assertEqual(mesh.NbTetras(), 4741)
+        self.assertEqual(mesh.NbNodes(), 1185)
 
     def test_Box2DTri(self):
         """
@@ -107,7 +107,6 @@ class Test_NETGENPlugin(unittest.TestCase):
         self.assertEqual(mesh.NbQuadrangles(), 600)
         self.assertEqual(mesh.NbNodes(), 602)
 
-    @unittest.expectedFailure
     def test_LocalEdgeLength(self):
         """
         Test a mesh on a box with a local edge length enforced on one edge.
@@ -134,6 +133,9 @@ class Test_NETGENPlugin(unittest.TestCase):
 
         success = gen.Compute(mesh, box)
         self.assertTrue(success)
+
+        self.assertEqual(mesh.NbTetras(), 31547)
+        self.assertEqual(mesh.NbNodes(), 6205)
 
 
 if __name__ == '__main__':
