@@ -2,7 +2,7 @@
 This file is part of pyOCCT which provides Python bindings to the OpenCASCADE
 geometry kernel.
 
-Copyright (C) 2016-2018  Laughlin Research, LLC (info@laughlinresearch.com)
+Copyright (C) 2016-2018  Laughlin Research, LLC
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

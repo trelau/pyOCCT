@@ -31,7 +31,7 @@ test:
     - test
 
 about:
-  home: https://github.com/LaughlinResearch/pyOCCT
+  home: https://github.com/trelau/pyOCCT
   license: LGPL2.1
   license_family: LGPL
   summary: Python bindings for OpenCASCADE and SMESH

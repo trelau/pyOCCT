@@ -8,7 +8,7 @@ scientific publications:
     @misc{pyOCCT,
        author = {Trevor Laughlin},
        year = {2020},
-       note = {https://github.com/LaughlinResearch/pyOCCT},
+       note = {https://github.com/trelau/pyOCCT},
        title = {pyOCCT -- Python bindings for OpenCASCADE via pybind11}
     }
 

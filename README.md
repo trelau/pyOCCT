@@ -3,7 +3,7 @@
 [![Documentation Status](https://readthedocs.org/projects/pyocct/badge/?version=latest)](http://pyocct.readthedocs.io/en/latest/?badge=latest)
 [![Join the chat at https://gitter.im/pyOCCT/Lobby](https://badges.gitter.im/pyOCCT/Lobby.svg)](https://gitter.im/pyOCCT/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-![Workflow](https://github.com/LaughlinResearch/pyOCCT/workflows/Workflow/badge.svg)
+![Workflow](https://github.com/trelau/pyOCCT/workflows/Workflow/badge.svg)
 [![Anaconda-Server Badge](https://anaconda.org/trelau/pyocct/badges/installer/conda.svg)](https://conda.anaconda.org/trelau/pyocct)
 [![Anaconda-Server Badge](https://anaconda.org/trelau/pyocct/badges/platforms.svg)](https://anaconda.org/trelau/pyocct)
 [![Anaconda-Server Badge](https://anaconda.org/trelau/pyocct/badges/downloads.svg)](https://anaconda.org/trelau/pyocct)
@@ -30,12 +30,12 @@ The `pyOCCT` core technology stack includes:
   C++ types in Python and vice versa, mainly to create Python bindings of existing C++ code.
 
 ## Getting started using conda
-[Conda packages](https://anaconda.org/LaughlinResearch/dashboard/) are available for a number of
+[Conda packages](https://anaconda.org/trelau/dashboard/) are available for a number of
 platforms and Python versions. Get started with:
 
-    conda create -n pyocct python=3.7
+    conda create -n pyocct python=3.8
     activate pyocct
-    conda install -c conda-forge -c laughlinresearch pyocct
+    conda install -c conda-forge -c trelau pyocct
     
 This will create an environment named "pyocct" and install `pyOCCT` and all necessary dependencies.
 You can replace the "pyocct" environment name with anything you'd like.
@@ -62,13 +62,13 @@ Installation files can be cleaned up by:
 If you're looking to build from sources, you might notice that the `src/` folder only
 contains binding source code for the SMESH modules. To build from sources, you must generate the
 binding source code locally. This can be done using the
-[pyOCCT_binder](https://github.com/LaughlinResearch/pyOCCT_binder) project which is available as a
+[pyOCCT_binder](https://github.com/trelau/pyOCCT_binder) project which is available as a
 git submodule in this repository within the `binder/` folder.
 
 Clone this repository and use the `--recurse-submodules` command to initialize and download the
 external `pyOCCT_binder` project: 
 
-    git clone --recurse-submodules https://github.com/LaughlinResearch/pyOCCT.git
+    git clone --recurse-submodules https://github.com/trelau/pyOCCT.git
 
 The binder uses `clang` to parse the C++ header files of the libraries and generate the source
 code. If you are familiar with `conda`, an environment can be created for this task by:

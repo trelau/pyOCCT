@@ -4,7 +4,8 @@ https://tracker.dev.opencascade.org/view.php?id=22702
 # This file is part of pyOCCT which provides Python bindings to the OpenCASCADE
 # geometry kernel.
 #
-# Copyright (C) 2016-2018  Laughlin Research, LLC (info@laughlinresearch.com)
+# Copyright (C) 2016-2018 Laughlin Research, LLC
+# Copyright (C) 2019-2020 Trevor Laughlin and pyOCCT contributors
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
