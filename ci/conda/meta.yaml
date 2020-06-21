@@ -6,7 +6,7 @@ source:
   path: ../..
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -18,13 +18,13 @@ requirements:
     - python
     - pybind11
     - occt ==7.4.0
-    - smesh4pyocct ==8.3.0.3
+    - smesh4pyocct ==8.3.0.4
     - tbb-devel
 
   run:
     - python
     - occt ==7.4.0
-    - smesh4pyocct ==8.3.0.3
+    - smesh4pyocct ==8.3.0.4
 
 test:
   source_files:
