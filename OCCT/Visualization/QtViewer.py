@@ -73,9 +73,9 @@ class QOpenCascadeWidget(QOpenGLWidget):
         self._black = Quantity_Color(Quantity_NOC_BLACK)
 
         # Display connection
-        self.display_connect = Aspect_DisplayConnection()
+        self.display_connection = Aspect_DisplayConnection()
         # Graphics driver
-        self._graphics_driver = OpenGl_GraphicDriver(self.display_connect)
+        self._graphics_driver = OpenGl_GraphicDriver(self.display_connection)
 
         # Create viewer and view
         self.my_viewer = V3d_Viewer(self._graphics_driver)
