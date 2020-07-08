@@ -73,9 +73,9 @@ class QOpenCascadeWidget(QOpenGLWidget):
         self._black = Quantity_Color(Quantity_NOC_BLACK)
 
         # Display connection
-        self.display_connection = Aspect_DisplayConnection()
+        self.display_connect = Aspect_DisplayConnection()
         # Graphics driver
-        self._graphics_driver = OpenGl_GraphicDriver(self.display_connection)
+        self._graphics_driver = OpenGl_GraphicDriver(self.display_connect)
 
         # Create viewer and view
         self.my_viewer = V3d_Viewer(self._graphics_driver)
@@ -98,7 +98,7 @@ class QOpenCascadeWidget(QOpenGLWidget):
         elif sys.platform.startswith('linux'):
             from OCCT.Xw import Xw_Window
 
-            window = Xw_Window(self.display_connection, hwnd)
+            window = Xw_Window(self.display_connect, hwnd)
         else:
             raise NotImplementedError('Support platform not found for visualization.')
 
