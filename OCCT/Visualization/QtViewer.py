@@ -98,7 +98,7 @@ class QOpenCascadeWidget(QOpenGLWidget):
         elif sys.platform.startswith('linux'):
             from OCCT.Xw import Xw_Window
 
-            window = Xw_Window(self.display_connection, hwnd)
+            window = Xw_Window(self.display_connect, hwnd)
         else:
             raise NotImplementedError('Support platform not found for visualization.')
 
