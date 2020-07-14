@@ -36,7 +36,8 @@ from OCCT.V3d import V3d_Viewer, V3d_TypeOfOrientation
 from OCCT.gp import gp_Pnt
 from qtpy import QtCore
 from qtpy.QtGui import QPalette, QIcon
-from qtpy.QtWidgets import QApplication, QMainWindow, QOpenGLWidget, QFrame, QVBoxLayout
+from qtpy.QtWidgets import QApplication, QMainWindow, QFrame, QVBoxLayout
+from qtpy.QtOpenGL import QGLWidget
 
 try:
     from OCCT.SMDSAbs import SMDSAbs_Node
@@ -51,7 +52,7 @@ except ImportError:
 __all__ = ['ViewerQt']
 
 
-class QOpenCascadeWidget(QOpenGLWidget):
+class QOpenCascadeWidget(QGLWidget):
     """
     View for displaying shapes.
 
@@ -493,7 +494,7 @@ class ViewerQt(QMainWindow):
         frame = QFrame(self)
         layout = QVBoxLayout(frame)
         layout.setContentsMargins(0, 0, 0, 0)
-        self._the_view = QOpenCascadeWidget()
+        self._the_view = QOpenCascadeWidget(self)
         layout.addWidget(self._the_view)
         self.setCentralWidget(frame)
         self.show()
