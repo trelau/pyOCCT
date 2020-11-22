@@ -76,7 +76,7 @@ jobs:
 
       - name: "Add conda to PATH"
         shell: bash -l {0}
-        run: echo "::add-path::$CONDA/Scripts"
+        run: echo "$CONDA/Scripts" >> $GITHUB_PATH
 
       - name: "Configure conda"
         shell: bash -l {0}
@@ -171,7 +171,7 @@ jobs:
 
       - name: "Add conda to PATH"
         shell: bash -l {0}
-        run: echo "::add-path::$CONDA/Scripts"
+        run: echo "$CONDA/Scripts" >> $GITHUB_PATH
 
       - name: "Install conda build"
         shell: bash -l {0}

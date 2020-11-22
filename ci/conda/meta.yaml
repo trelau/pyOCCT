@@ -1,12 +1,12 @@
 package:
   name: pyocct
-  version: 7.4.0.0
+  version: 7.5.0.0
 
 source:
   path: ../..
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -17,14 +17,14 @@ requirements:
   host:
     - python
     - pybind11
-    - occt ==7.4.0
-    - smesh4pyocct ==8.3.0.4
+    - occt ==7.5.0
+    # - smesh4pyocct ==8.3.0.4
     - tbb-devel
 
   run:
     - python
-    - occt ==7.4.0
-    - smesh4pyocct ==8.3.0.4
+    - occt ==7.5.0
+    # - smesh4pyocct ==8.3.0.4
 
 test:
   source_files:
