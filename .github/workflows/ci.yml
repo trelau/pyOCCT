@@ -218,7 +218,7 @@ jobs:
           submodules: 'recursive'
 
       - name: "Add conda to PATH"
-        run: echo "::add-path::$CONDA/bin"
+        run: echo "$CONDA/bin" >> $GITHUB_PATH
 
       - name: "MacOS fix"
         run: sudo chown -R $USER $CONDA
@@ -264,7 +264,7 @@ jobs:
 #        uses: actions/checkout@v2
 #
 #      - name: "Add conda to PATH"
-#        run: echo "::add-path::$CONDA/bin"
+#        run: echo "$CONDA/bin" >> $GITHUB_PATH
 #
 #      - name: "MacOS fix"
 #        run: |
