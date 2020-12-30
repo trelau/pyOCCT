@@ -51,7 +51,7 @@ jobs:
         shell: pwsh
         run: |
           conda activate binder
-          python binder/run.py -c binder/config.txt -o src/occt
+          python binder/run.py -c binder/config.txt -o src
 
       - name: "Upload bindings"
         uses: actions/upload-artifact@v2
@@ -95,7 +95,7 @@ jobs:
         shell: bash -l {0}
         run: |
           conda activate binder
-          python binder/run.py -c binder/config.txt -o src/occt
+          python binder/run.py -c binder/config.txt -o src
 
       - name: "Upload bindings"
         uses: actions/upload-artifact@v2
@@ -240,7 +240,7 @@ jobs:
         shell: pwsh
         run: |
           conda activate binder
-          python binder/run.py -c binder/config.txt -o src/occt
+          python binder/run.py -c binder/config.txt -o src
 
       - name: "Upload bindings"
         uses: actions/upload-artifact@v2

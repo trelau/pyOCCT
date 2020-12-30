@@ -18,16 +18,14 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 cmake_minimum_required(VERSION 3.10)
-project(pyOCCT VERSION 7.5.0.0 LANGUAGES CXX)
+project(pyOCCT VERSION 7.5.0.0 LANGUAGES C CXX)
 
 
 # --------------------------------------------------------------------------- #
 # OPTIONS
 # --------------------------------------------------------------------------- #
-option(ENABLE_SMESH "Enable SMESH" OFF)
-option(ENABLE_NETGEN "Enable Netgen" OFF)
-option(ENABLE_VTK "Enable VTK" OFF)
 option(ENABLE_WARNINGS "Disable warning output." OFF)
+
 
 # --------------------------------------------------------------------------- #
 # SETTINGS
@@ -93,6 +91,20 @@ include_directories(${OPENGL_INCLUDE_DIR})
 
 
 # --------------------------------------------------------------------------- #
+# Freetype
+# --------------------------------------------------------------------------- #
+message(STATUS "Searching for freetype...")
+find_package(Freetype REQUIRED)
+
+
+# --------------------------------------------------------------------------- #
+# GLEW
+# --------------------------------------------------------------------------- #
+message(STATUS "Searching for GLEW...")
+find_package(GLEW REQUIRED)
+
+
+# --------------------------------------------------------------------------- #
 # OpenCASCADE
 # --------------------------------------------------------------------------- #
 # Must be included before opencascade so the InterfaceGraphic.hxx patch works
@@ -110,8 +122,6 @@ if(NOT EXISTS ${OpenCASCADE_LIBRARY_DIR})
     message(FATAL_ERROR "Failed to find OpenCASCADE library directory.")
 endif()
 
-message(STATUS "OpenCASCADE include directory: ${OpenCASCADE_INCLUDE_DIR}")
-message(STATUS "OpenCASCADE library directory: ${OpenCASCADE_LIBRARY_DIR}")
 include_directories(${OpenCASCADE_INCLUDE_DIR})
 link_directories(${OpenCASCADE_LIBRARY_DIR})
 
@@ -119,77 +129,8 @@ link_directories(${OpenCASCADE_LIBRARY_DIR})
 # ----------------------------------------------------------------------- #
 # VTK
 # ----------------------------------------------------------------------- #
-if(ENABLE_VTK)
-    message(STATUS "Searching for VTK...")
-    find_package(VTK REQUIRED)
-    message(STATUS "VTK include directory: ${VTK_INCLUDE_DIRS}")
-    include_directories(${VTK_INCLUDE_DIRS})
-endif(ENABLE_VTK)
-
-# --------------------------------------------------------------------------- #
-# SMESH
-# --------------------------------------------------------------------------- #
-set(SMESH_ABS_LIBS)
-if(ENABLE_SMESH)
-
-    add_definitions(-DBUILD_SMESH)
-
-    message(STATUS "Searching for SMESH...")
-    find_package(SMESH REQUIRED)
-
-    message(STATUS "SMESH include directory: ${SMESH_INCLUDE_PATH}")
-    message(STATUS "SMESH library directory: ${SMESH_LIB_PATH}")
-    include_directories(${SMESH_INCLUDE_PATH})
-    link_directories(${SMESH_LIB_PATH})
-
-    # Build full library paths since they have the same name as the Python
-    # libraries
-    foreach(LIB ${SMESH_LIBRARIES})
-        set(FOUND_LIB "FOUND_LIB-NOTFOUND")
-        find_library(FOUND_LIB ${LIB} PATHS ${SMESH_LIB_PATH})
-        list(APPEND SMESH_ABS_LIBS ${FOUND_LIB})
-    endforeach(LIB)
-    unset(FOUND_LIB CACHE)
-
-    # ----------------------------------------------------------------------- #
-    # BOOST
-    # ----------------------------------------------------------------------- #
-    message(STATUS "Searching for Boost...")
-    find_package(Boost REQUIRED COMPONENTS filesystem thread)
-
-    if (MSVC)
-        # Find the shared boost libs
-        add_definitions(-DBOOST_ALL_DYN_LINK)
-    endif()
-
-    # message(STATUS "Boost include directory: ${Boost_INCLUDE_DIR}")
-    # include_directories(${Boost_INCLUDE_DIR})
-
-    # ----------------------------------------------------------------------- #
-    # PTHREAD
-    # ----------------------------------------------------------------------- #
-    set(PTHREAD_INCLUDE_DIRS "" CACHE PATH "pthread include directory.")
-
-    if(NOT EXISTS ${PTHREAD_INCLUDE_DIRS})
-        message(FATAL_ERROR "pthread include directory is required.")
-    endif()
-
-    message(STATUS "pthread include directory: ${PTHREAD_INCLUDE_DIRS}")
-    include_directories(${PTHREAD_INCLUDE_DIRS})
-
-
-    # ----------------------------------------------------------------------- #
-    # NETGEN
-    # ----------------------------------------------------------------------- #
-    if(ENABLE_NETGEN AND ENABLE_SMESH)
-        message(STATUS "Searching for Netgen...")
-        find_package(Netgen REQUIRED)
-
-        message(STATUS "Netgen include directory: ${NETGEN_INCLUDE_DIR}")
-        include_directories(${NETGEN_INCLUDE_DIR})
-    endif()
-
-endif(ENABLE_SMESH)
+message(STATUS "Searching for VTK...")
+find_package(VTK REQUIRED CommonCore)
 
 
 # --------------------------------------------------------------------------- #
@@ -204,18 +145,13 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 
 # Treat each .cxx file in src/modules as a module
-file(GLOB OCCT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/occt/*.cxx)
+file(GLOB OCCT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cxx)
 
 # OCCT modules
 foreach(SRC ${OCCT_SRCS})
 
     # Get module name
     get_filename_component(MOD ${SRC} NAME_WE)
-
-    if(NOT ENABLE_VTK AND ${MOD} MATCHES "IVtk.*")
-        message(STATUS "Skipping Vtk module ${MOD}")
-        continue()
-    endif()
 
     # Check for platform-specific modules
     if((WIN32 OR APPLE) AND ${MOD} STREQUAL "Xw")
@@ -243,42 +179,7 @@ foreach(SRC ${OCCT_SRCS})
     endif()
 
     set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
-    target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/occt)
+    target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
     install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
             DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
 endforeach()
-
-# SMESH modules
-if(ENABLE_SMESH)
-
-    file(GLOB SMESH_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/smesh/*.cxx)
-
-    foreach(SRC ${SMESH_SRCS})
-
-        # Get module name
-        get_filename_component(MOD ${SRC} NAME_WE)
-
-        # Check Netgen
-        if(NOT ENABLE_NETGEN AND ${MOD} STREQUAL "NETGENPlugin")
-            message(STATUS "Skipping ${MOD}")
-            continue()
-        endif()
-
-        # Add pybind11 module
-        pybind11_add_module(${MOD} ${SRC})
-        target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
-                                             ${PYTHON_LIBRARIES}
-                                             ${SMESH_ABS_LIBS})
-        set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
-        target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/smesh)
-        install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
-                DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
-
-        # Special hack for handling static member variables causing link errors
-        # with pybind11
-        if(MSVC AND ${MOD} STREQUAL "SMESHDS")
-            set_property(TARGET ${MOD} APPEND_STRING PROPERTY LINK_FLAGS " /FORCE")
-        endif()
-
-    endforeach()
-endif()

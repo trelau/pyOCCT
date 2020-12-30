@@ -42,9 +42,14 @@ def gen_includes(occt_include_path, output_path):
     # Generate all_includes.h and output modules
     all_includes = []
 
+    # Header files to ignore
+    ignored_includes = [
+        'step.tab.hxx'
+    ]
+
     occt_mods = set()
     for fin in os.listdir(occt_include_path):
-        if fin.endswith('.hxx'):
+        if fin.endswith('.hxx') and fin not in ignored_includes:
             all_includes.append(fin)
         if '_' in fin:
             mod = fin.split('_')[0]
