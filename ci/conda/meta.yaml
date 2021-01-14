@@ -19,6 +19,7 @@ requirements:
     - pybind11
     - occt ==7.5.0
     - tbb-devel
+    - glew # [linux]
 
   run:
     - python

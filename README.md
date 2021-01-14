@@ -22,10 +22,10 @@ The `pyOCCT` core technology stack includes:
 * [Salome Platform](http://www.salome-platform.org): Open-source software that provides a generic
   pre- and post-processing platform for numerical simulation. It is based on an open and flexible
   architecture made of reusable components.
-  
+
 * [Netgen](https://ngsolve.org/): Advanced meshing capabilities including 3-D tetrahedral and 2-D
   unstructured quad-dominated surface meshing.
-  
+
 * [pybind11](https://github.com/pybind/pybind11): A lightweight header-only library that exposes
   C++ types in Python and vice versa, mainly to create Python bindings of existing C++ code.
 
@@ -36,7 +36,7 @@ platforms and Python versions. Get started with:
     conda create -n pyocct python=3.8
     activate pyocct
     conda install -c conda-forge -c trelau pyocct
-    
+
 This will create an environment named "pyocct" and install `pyOCCT` and all necessary dependencies.
 You can replace the "pyocct" environment name with anything you'd like.
 
@@ -66,7 +66,7 @@ binding source code locally. This can be done using the
 git submodule in this repository within the `binder/` folder.
 
 Clone this repository and use the `--recurse-submodules` command to initialize and download the
-external `pyOCCT_binder` project: 
+external `pyOCCT_binder` project:
 
     git clone --recurse-submodules https://github.com/trelau/pyOCCT.git
 
@@ -74,11 +74,11 @@ The binder uses `clang` to parse the C++ header files of the libraries and gener
 code. If you are familiar with `conda`, an environment can be created for this task by:
 
     conda env create -f binder/environment.yml
-    
+
 If all the necessary dependencies are available, the binder can be run to generate the binding
 sources:
 
-    python binder/run.py -c binder/config.txt -o src/occt
+    python binder/run.py -c binder/config.txt -o src
 
 At the moment, only the OpenCASCADE bindings are automatically generated. Eventually, the SMESH
 bindings will be auto-generated as well. Be sure and check the output from the binding generation
