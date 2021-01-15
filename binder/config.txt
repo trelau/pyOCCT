@@ -619,7 +619,7 @@
 -header* AdvApp2Var_Data_f2c.hxx
 -header* AIS_LocalStatus.hxx
 -header* AIS_DataMapOfSelStat.hxx
--header* BRepMesh_CustomBaseMeshAlgo.hxx
+#-header* BRepMesh_CustomBaseMeshAlgo.hxx
 -header* glext.h
 -header* NCollection_Shared.hxx
 
