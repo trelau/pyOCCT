@@ -60,31 +60,6 @@
 -class RWObj_MtlReader
 -class RWGltf_GltfOStreamWriter
 
-# These are all moved to AIS
--class PrsDim_DimensionOwner
--class PrsDim_Dimension
--class PrsDim_AngleDimension
--class PrsDim_Relation
--class PrsDim_Chamf2dDimension
--class PrsDim_Chamf3dDimension
--class PrsDim_ConcentricRelation
--class PrsDim_DiameterDimension
--class PrsDim_EllipseRadiusDimension
--class PrsDim_EqualDistanceRelation
--class PrsDim_EqualRadiusRelation
--class PrsDim_FixRelation
--class PrsDim_IdenticRelation
--class PrsDim_LengthDimension
--class PrsDim_MaxRadiusDimension
--class PrsDim_MidPointRelation
--class PrsDim_MinRadiusDimension
--class PrsDim_OffsetDimension
--class PrsDim_ParallelRelation
--class PrsDim_PerpendicularRelation
--class PrsDim_RadiusDimension
--class PrsDim_SymmetricRelation
--class PrsDim_TangentRelation
-
 -class ShapePersistent_BRep
 -class ShapePersistent_Geom
 -class ShapePersistent_Geom_Curve
@@ -979,29 +954,32 @@
 +patch AIS: (AIS_ManipulatorObjectSequence::*)(const int &)-->(AIS_ManipulatorObjectSequence::*)(const typename AIS_ManipulatorObjectSequence::value_type &)
 
 # All the PrsDim_ stuff was moved
-+patch AIS: AIS_DimensionOwner-->PrsDim_DimensionOwner
-+patch AIS: AIS_Dimension-->PrsDim_Dimension
-+patch AIS: AIS_AngleDimension-->PrsDim_AngleDimension
-+patch AIS: AIS_Relation-->PrsDim_Relation
-+patch AIS: AIS_Chamf2dDimension-->PrsDim_Chamf2dDimension
-+patch AIS: AIS_Chamf3dDimension-->PrsDim_Chamf3dDimension
-+patch AIS: AIS_ConcentricRelation-->PrsDim_ConcentricRelation
-+patch AIS: AIS_DiameterDimension-->PrsDim_DiameterDimension
-+patch AIS: AIS_EllipseRadiusDimension-->PrsDim_EllipseRadiusDimension
-+patch AIS: AIS_EqualDistanceRelation-->PrsDim_EqualDistanceRelation
-+patch AIS: AIS_EqualRadiusRelation-->PrsDim_EqualRadiusRelation
-+patch AIS: AIS_FixRelation-->PrsDim_FixRelation
-+patch AIS: AIS_IdenticRelation-->PrsDim_IdenticRelation
-+patch AIS: AIS_LengthDimension-->PrsDim_LengthDimension
-+patch AIS: AIS_MaxRadiusDimension-->PrsDim_MaxRadiusDimension
-+patch AIS: AIS_MidPointRelation-->PrsDim_MidPointRelation
-+patch AIS: AIS_MinRadiusDimension-->PrsDim_MinRadiusDimension
-+patch AIS: AIS_OffsetDimension-->PrsDim_OffsetDimension
-+patch AIS: AIS_ParallelRelation-->PrsDim_ParallelRelation
-+patch AIS: AIS_PerpendicularRelation-->PrsDim_PerpendicularRelation
-+patch AIS: AIS_RadiusDimension-->PrsDim_RadiusDimension
-+patch AIS: AIS_SymmetricRelation-->PrsDim_SymmetricRelation
-+patch AIS: AIS_TangentRelation-->PrsDim_TangentRelation
+# Hack: Start comment to comment out whole PrsDim_ block
++patch PrsDim: // CLASS: PRSDIM_DIMENSIONOWNER-->/* CLASS: PRSDIM_DIMENSIONOWNER
++before_type PrsDim-->*/
++patch AIS: PrsDim_DimensionOwner-->AIS_DimensionOwner
++patch AIS: PrsDim_Dimension-->AIS_Dimension
++patch AIS: PrsDim_AngleDimension-->AIS_AngleDimension
++patch AIS: PrsDim_Relation-->AIS_Relation
++patch AIS: PrsDim_Chamf2dDimension-->AIS_Chamf2dDimension
++patch AIS: PrsDim_Chamf3dDimension-->AIS_Chamf3dDimension
++patch AIS: PrsDim_ConcentricRelation-->AIS_ConcentricRelation
++patch AIS: PrsDim_DiameterDimension-->AIS_DiameterDimension
++patch AIS: PrsDim_EllipseRadiusDimension-->AIS_EllipseRadiusDimension
++patch AIS: PrsDim_EqualDistanceRelation-->AIS_EqualDistanceRelation
++patch AIS: PrsDim_EqualRadiusRelation-->AIS_EqualRadiusRelation
++patch AIS: PrsDim_FixRelation-->AIS_FixRelation
++patch AIS: PrsDim_IdenticRelation-->AIS_IdenticRelation
++patch AIS: PrsDim_LengthDimension-->AIS_LengthDimension
++patch AIS: PrsDim_MaxRadiusDimension-->AIS_MaxRadiusDimension
++patch AIS: PrsDim_MidPointRelation-->AIS_MidPointRelation
++patch AIS: PrsDim_MinRadiusDimension-->AIS_MinRadiusDimension
++patch AIS: PrsDim_OffsetDimension-->AIS_OffsetDimension
++patch AIS: PrsDim_ParallelRelation-->AIS_ParallelRelation
++patch AIS: PrsDim_PerpendicularRelation-->AIS_PerpendicularRelation
++patch AIS: PrsDim_RadiusDimension-->AIS_RadiusDimension
++patch AIS: PrsDim_SymmetricRelation-->AIS_SymmetricRelation
++patch AIS: PrsDim_TangentRelation-->AIS_TangentRelation
 
 +patch bind_BOPTools_PairSelector: std::vector<PairIDs>-->std::vector<typename BOPTools_PairSelector<Dimension>::PairIDs>
 
