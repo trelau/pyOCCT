@@ -799,6 +799,7 @@
 -import XCAFDimTolObjects: XCAFDoc
 
 # Import guards ---------------------------------------------------------------
++iguard Aspect: Graphic3d
 +iguard Font: Graphic3d
 +iguard Graphic3d: Select3D
 +iguard LDOMBasicString: LDOM

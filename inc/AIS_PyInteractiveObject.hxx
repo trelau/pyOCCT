@@ -29,17 +29,17 @@ class AIS_PyInteractiveObject: public AIS_InteractiveObject {
     DEFINE_STANDARD_RTTIEXT(AIS_PyInteractiveObject, AIS_InteractiveObject)
 public:
     //! Empty constructor
-    Standard_EXPORT AIS_PyInteractiveObject() {};
-    Standard_EXPORT void Compute (const Handle(PrsMgr_PresentationManager3d)& aPresentationManager, const Handle(Prs3d_Presentation)& aPresentation, const Standard_Integer aMode = 0) Standard_OVERRIDE {
+    AIS_PyInteractiveObject() {};
+    void Compute (const Handle(PrsMgr_PresentationManager3d)& aPresentationManager, const Handle(Prs3d_Presentation)& aPresentation, const Standard_Integer aMode = 0) Standard_OVERRIDE {
         PYBIND11_OVERRIDE_PURE(void, AIS_InteractiveObject, Compute, aPresentationManager, aPresentation, aMode);
     }
-    Standard_EXPORT void ComputeSelection (const Handle(SelectMgr_Selection)& aSelection, const Standard_Integer aMode) Standard_OVERRIDE {
+    void ComputeSelection (const Handle(SelectMgr_Selection)& aSelection, const Standard_Integer aMode) Standard_OVERRIDE {
         PYBIND11_OVERRIDE_PURE(void, AIS_InteractiveObject, ComputeSelection, aSelection, aMode);
     }
-    Standard_EXPORT Standard_Integer Signature() const Standard_OVERRIDE {
+    Standard_Integer Signature() const Standard_OVERRIDE {
         PYBIND11_OVERRIDE(Standard_Integer, AIS_InteractiveObject, Signature);
     }
-    Standard_EXPORT AIS_KindOfInteractive Type() const Standard_OVERRIDE {
+    AIS_KindOfInteractive Type() const Standard_OVERRIDE {
         PYBIND11_OVERRIDE(AIS_KindOfInteractive, AIS_InteractiveObject, Type);
     }
 
