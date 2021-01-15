@@ -56,6 +56,7 @@
 -class PCDM_DOMHeaderParser
 
 -class RWObj_MtlReader
+-class RWGltf_GltfOStreamWriter
 
 -class ShapePersistent_BRep
 -class ShapePersistent_Geom
@@ -544,6 +545,8 @@
 
 -function TopOpeBRepBuild_Builder1::GFillSplitsPVS
 
+-field RWGltf_GltfSharedIStream::Stream
+
 -function VrmlData_IndexedFaceSet::GetNormal
 -function VrmlData_IndexedFaceSet::Polygons
 -function VrmlData_IndexedFaceSet::Polygon
@@ -594,7 +597,7 @@
 -header* NCollection_Shared.hxx
 
 +header Aspect: xTypes.h
-
++header AIS: AIS_PyInteractiveObject.hxx
 +header BinMXCAFDoc: BinTools_LocationSet.hxx
 
 +header BRepMesh: IMeshData_Wire.hxx
@@ -804,6 +807,7 @@
 +iguard Media: Graphic3d
 +iguard SelectBasics: Select3D
 +iguard Standard: TCollection
++iguard Standard: NCollection
 +iguard StepRepr: StepShape
 
 # Call guards -----------------------------------------------------------------
@@ -897,6 +901,9 @@
 # Extra text ------------------------------------------------------------------
 +after_type AIS_Line-->cls_AIS_Line.def("Points", [](AIS_Line &self, opencascade::handle<Geom_Point> & thePStart, opencascade::handle<Geom_Point> & thePEnd) {self.Points(thePStart, thePEnd); return std::tuple<opencascade::handle<Geom_Point>, opencascade::handle<Geom_Point>>(thePStart, thePEnd); }, "Returns the starting point thePStart and the end point thePEnd of the line set by SetPoints.", py::arg("thePStart"), py::arg("thePEnd"));
 
+#+after_type AIS_InteractiveObject-->py::class_<AIS_CustomObject, opencascade::handle<AIS_CustomObject>, AIS_InteractiveObject> cls_AIS_CustomObject(mod, "AIS_CustomObject", "Class to implement custom AIS objects in python.");
++after_type AIS_InteractiveObject-->cls_AIS_InteractiveObject.def(py::init<>());
+
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("Clear", [](BRepAlgoAPI_Algo &self) {return self.Clear(); }, "Clears all warnings and errors, and any data cached by the algorithm. User defined options are not cleared.");
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetRunParallel", [](BRepAlgoAPI_Algo &self, const Standard_Boolean theFlag) { return self.SetRunParallel(theFlag); }, "Set the flag of parallel processing if <theFlag> is true the parallel processing is switched on if <theFlag> is false the parallel processing is switched off", py::arg("theFlag"));
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("RunParallel", [](BRepAlgoAPI_Algo &self) {return self.RunParallel(); }, "Returns the flag of parallel processing");
@@ -960,3 +967,6 @@
 
 # Return value policies
 +return_policy V3d_View::ChangeRenderingParams-->reference
+
+# Inject trapoline
++patch AIS: py::class_<AIS_InteractiveObject, opencascade-->py::class_<AIS_InteractiveObject, AIS_PyInteractiveObject, opencascade
