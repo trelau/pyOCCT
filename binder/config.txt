@@ -77,6 +77,7 @@
 -class PrsDim_LengthDimension
 -class PrsDim_MaxRadiusDimension
 -class PrsDim_MidPointRelation
+-class PrsDim_MinRadiusDimension
 -class PrsDim_OffsetDimension
 -class PrsDim_ParallelRelation
 -class PrsDim_PerpendicularRelation
@@ -813,6 +814,7 @@
 -field VrmlData_InBuffer::Input
 
 # Excluded imports ------------------------------------------------------------
+-import AIS: WNT
 -import Geom: GeomEvaluator
 -import Geom2d: Geom2dEvaluator
 -import GeomAdaptor: GeomEvaluator
@@ -977,7 +979,29 @@
 +patch AIS: (AIS_ManipulatorObjectSequence::*)(const int &)-->(AIS_ManipulatorObjectSequence::*)(const typename AIS_ManipulatorObjectSequence::value_type &)
 
 # All the PrsDim_ stuff was moved
-+patch AIS: PrsDim_-->AIS_
++patch AIS: AIS_DimensionOwner-->PrsDim_DimensionOwner
++patch AIS: AIS_Dimension-->PrsDim_Dimension
++patch AIS: AIS_AngleDimension-->PrsDim_AngleDimension
++patch AIS: AIS_Relation-->PrsDim_Relation
++patch AIS: AIS_Chamf2dDimension-->PrsDim_Chamf2dDimension
++patch AIS: AIS_Chamf3dDimension-->PrsDim_Chamf3dDimension
++patch AIS: AIS_ConcentricRelation-->PrsDim_ConcentricRelation
++patch AIS: AIS_DiameterDimension-->PrsDim_DiameterDimension
++patch AIS: AIS_EllipseRadiusDimension-->PrsDim_EllipseRadiusDimension
++patch AIS: AIS_EqualDistanceRelation-->PrsDim_EqualDistanceRelation
++patch AIS: AIS_EqualRadiusRelation-->PrsDim_EqualRadiusRelation
++patch AIS: AIS_FixRelation-->PrsDim_FixRelation
++patch AIS: AIS_IdenticRelation-->PrsDim_IdenticRelation
++patch AIS: AIS_LengthDimension-->PrsDim_LengthDimension
++patch AIS: AIS_MaxRadiusDimension-->PrsDim_MaxRadiusDimension
++patch AIS: AIS_MidPointRelation-->PrsDim_MidPointRelation
++patch AIS: AIS_MinRadiusDimension-->PrsDim_MinRadiusDimension
++patch AIS: AIS_OffsetDimension-->PrsDim_OffsetDimension
++patch AIS: AIS_ParallelRelation-->PrsDim_ParallelRelation
++patch AIS: AIS_PerpendicularRelation-->PrsDim_PerpendicularRelation
++patch AIS: AIS_RadiusDimension-->PrsDim_RadiusDimension
++patch AIS: AIS_SymmetricRelation-->PrsDim_SymmetricRelation
++patch AIS: AIS_TangentRelation-->PrsDim_TangentRelation
 
 +patch bind_BOPTools_PairSelector: std::vector<PairIDs>-->std::vector<typename BOPTools_PairSelector<Dimension>::PairIDs>
 
