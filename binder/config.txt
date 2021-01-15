@@ -55,8 +55,34 @@
 
 -class PCDM_DOMHeaderParser
 
+-class AIS_DataMapOfSelStat
+
 -class RWObj_MtlReader
 -class RWGltf_GltfOStreamWriter
+
+# These are all moved to AIS
+-class PrsDim_DimensionOwner
+-class PrsDim_Dimension
+-class PrsDim_AngleDimension
+-class PrsDim_Relation
+-class PrsDim_Chamf2dDimension
+-class PrsDim_Chamf3dDimension
+-class PrsDim_ConcentricRelation
+-class PrsDim_DiameterDimension
+-class PrsDim_EllipseRadiusDimension
+-class PrsDim_EqualDistanceRelation
+-class PrsDim_EqualRadiusRelation
+-class PrsDim_FixRelation
+-class PrsDim_IdenticRelation
+-class PrsDim_LengthDimension
+-class PrsDim_MaxRadiusDimension
+-class PrsDim_MidPointRelation
+-class PrsDim_OffsetDimension
+-class PrsDim_ParallelRelation
+-class PrsDim_PerpendicularRelation
+-class PrsDim_RadiusDimension
+-class PrsDim_SymmetricRelation
+-class PrsDim_TangentRelation
 
 -class ShapePersistent_BRep
 -class ShapePersistent_Geom
@@ -640,6 +666,7 @@
 
 +header BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>: bind_BVH_BaseTraverse.hxx
 +header BVH_BoxSet<NumType, Dimension, DataType>: bind_BVH_PrimitiveSet.hxx
++header BVH_Box<T, N>: bind_BVH_BaseBox.hxx
 +header BVH_Geometry<T, N>: bind_BVH_ObjectSet.hxx
 +header BVH_ObjectSet<T, N>: bind_BVH_Set.hxx
 +header BVH_PrimitiveSet<T, N>: bind_BVH_Object.hxx
@@ -801,15 +828,20 @@
 # Import guards ---------------------------------------------------------------
 +iguard Aspect: Graphic3d
 +iguard Font: Graphic3d
++iguard Font: StdPrs
 +iguard Graphic3d: Select3D
 +iguard LDOMBasicString: LDOM
 +iguard LDOMString: LDOM
 +iguard LDOMParser: LDOM
 +iguard Media: Graphic3d
 +iguard SelectBasics: Select3D
++iguard SelectMgr: StdSelect
 +iguard Standard: TCollection
 +iguard Standard: NCollection
 +iguard StepRepr: StepShape
++iguard Prs3d: StdPrs
++iguard PrsDim: AIS
++iguard TPrsStd: AIS
 
 # Call guards -----------------------------------------------------------------
 +cguard Font_TextFormatter::SetupAlignment-->Graphic3d
@@ -877,6 +909,7 @@
 
 +before_type BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>-->bind_BVH_BaseTraverse<MetricType>(mod, "BVH_Traverse_Base", py::module_local());
 +before_type BVH_BoxSet<NumType, Dimension, DataType>-->bind_BVH_PrimitiveSet<NumType, Dimension>(mod, "BVH_BoxSet_Base", py::module_local());
++before_type BVH_Box<T, N>-->bind_BVH_BaseBox<T, N, BVH_Box>(mod, name + "_" + typeid(T).name() + "_Base", py::module_local());
 +before_type BVH_Geometry<T, N>-->bind_BVH_ObjectSet<T, N>(mod, "BVH_Geometry_Base", py::module_local());
 +before_type BVH_ObjectSet<T, N>-->bind_BVH_Set<T, N>(mod, "BVH_ObjectSet_Base", py::module_local());
 +before_type BVH_PrimitiveSet<T, N>-->bind_BVH_Object<T, N>(mod, "BVH_PrimitiveSet_Base", py::module_local());
@@ -943,9 +976,15 @@
 # Patch parameter for AIS_ManipulatorObjectSequence::Append
 +patch AIS: (AIS_ManipulatorObjectSequence::*)(const int &)-->(AIS_ManipulatorObjectSequence::*)(const typename AIS_ManipulatorObjectSequence::value_type &)
 
+# All the PrsDim_ stuff was moved
++patch AIS: PrsDim_-->AIS_
+
 +patch bind_BOPTools_PairSelector: std::vector<PairIDs>-->std::vector<typename BOPTools_PairSelector<Dimension>::PairIDs>
 
++patch bind_BVH_BaseBox: template <typename T, int N>-->template <typename T, int N, template <class /*T*/, int /*N*/> class TheDerivedBox>
++patch bind_BVH_BaseBox: BVH_BaseBox<T, N>-->BVH_BaseBox<T, N, TheDerivedBox>
 +patch bind_BVH_Traverse: (const int &)-->(const opencascade::handle<BVH_Tree <NumType, Dimension>>&)
+
 
 +patch IVtkTools: (IVtkOCC_Shape::Handle (-->(opencascade::handle<IVtkOCC_Shape> (
 
