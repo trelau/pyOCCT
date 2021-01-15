@@ -116,6 +116,32 @@
 
 -typedef Plugin_MapOfFunctions
 
+# All the AIS dimension / relation stuff was moved
+-typedef AIS_DimensionOwner
+-typedef AIS_Dimension
+-typedef AIS_AngleDimension
+-typedef AIS_Relation
+-typedef AIS_Chamf2dDimension
+-typedef AIS_Chamf3dDimension
+-typedef AIS_ConcentricRelation
+-typedef AIS_DiameterDimension
+-typedef AIS_EllipseRadiusDimension
+-typedef AIS_EqualDistanceRelation
+-typedef AIS_EqualRadiusRelation
+-typedef AIS_FixRelation
+-typedef AIS_IdenticRelation
+-typedef AIS_LengthDimension
+-typedef AIS_MaxRadiusDimension
+-typedef AIS_MidPointRelation
+-typedef AIS_MinRadiusDimension
+-typedef AIS_OffsetDimension
+-typedef AIS_ParallelRelation
+-typedef AIS_PerpendicularRelation
+-typedef AIS_RadiusDimension
+-typedef AIS_SymmetricRelation
+-typedef AIS_TangentRelation
+
+
 -typedef SelectMgr_IndexedMapOfOwner
 
 -typedef Standard_Byte
@@ -803,6 +829,7 @@
 -import XCAFDimTolObjects: XCAFDoc
 
 # Import guards ---------------------------------------------------------------
++iguard AIS: PrsDim
 +iguard Aspect: Graphic3d
 +iguard Font: Graphic3d
 +iguard Font: StdPrs
@@ -817,7 +844,6 @@
 +iguard Standard: NCollection
 +iguard StepRepr: StepShape
 +iguard Prs3d: StdPrs
-+iguard PrsDim: AIS
 +iguard TPrsStd: AIS
 
 # Call guards -----------------------------------------------------------------
@@ -952,34 +978,6 @@
 
 # Patch parameter for AIS_ManipulatorObjectSequence::Append
 +patch AIS: (AIS_ManipulatorObjectSequence::*)(const int &)-->(AIS_ManipulatorObjectSequence::*)(const typename AIS_ManipulatorObjectSequence::value_type &)
-
-# All the PrsDim_ stuff was moved
-# Hack: Start comment to comment out whole PrsDim_ block
-+patch PrsDim: // CLASS: PRSDIM_DIMENSIONOWNER-->/* CLASS: PRSDIM_DIMENSIONOWNER
-+before_type PrsDim-->*/
-+patch AIS: PrsDim_DimensionOwner-->AIS_DimensionOwner
-+patch AIS: PrsDim_Dimension-->AIS_Dimension
-+patch AIS: PrsDim_AngleDimension-->AIS_AngleDimension
-+patch AIS: PrsDim_Relation-->AIS_Relation
-+patch AIS: PrsDim_Chamf2dDimension-->AIS_Chamf2dDimension
-+patch AIS: PrsDim_Chamf3dDimension-->AIS_Chamf3dDimension
-+patch AIS: PrsDim_ConcentricRelation-->AIS_ConcentricRelation
-+patch AIS: PrsDim_DiameterDimension-->AIS_DiameterDimension
-+patch AIS: PrsDim_EllipseRadiusDimension-->AIS_EllipseRadiusDimension
-+patch AIS: PrsDim_EqualDistanceRelation-->AIS_EqualDistanceRelation
-+patch AIS: PrsDim_EqualRadiusRelation-->AIS_EqualRadiusRelation
-+patch AIS: PrsDim_FixRelation-->AIS_FixRelation
-+patch AIS: PrsDim_IdenticRelation-->AIS_IdenticRelation
-+patch AIS: PrsDim_LengthDimension-->AIS_LengthDimension
-+patch AIS: PrsDim_MaxRadiusDimension-->AIS_MaxRadiusDimension
-+patch AIS: PrsDim_MidPointRelation-->AIS_MidPointRelation
-+patch AIS: PrsDim_MinRadiusDimension-->AIS_MinRadiusDimension
-+patch AIS: PrsDim_OffsetDimension-->AIS_OffsetDimension
-+patch AIS: PrsDim_ParallelRelation-->AIS_ParallelRelation
-+patch AIS: PrsDim_PerpendicularRelation-->AIS_PerpendicularRelation
-+patch AIS: PrsDim_RadiusDimension-->AIS_RadiusDimension
-+patch AIS: PrsDim_SymmetricRelation-->AIS_SymmetricRelation
-+patch AIS: PrsDim_TangentRelation-->AIS_TangentRelation
 
 +patch bind_BOPTools_PairSelector: std::vector<PairIDs>-->std::vector<typename BOPTools_PairSelector<Dimension>::PairIDs>
 
