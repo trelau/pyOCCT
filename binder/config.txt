@@ -55,7 +55,10 @@
 
 -class PCDM_DOMHeaderParser
 
+-class AIS_DataMapOfSelStat
+
 -class RWObj_MtlReader
+-class RWGltf_GltfOStreamWriter
 
 -class ShapePersistent_BRep
 -class ShapePersistent_Geom
@@ -112,6 +115,32 @@
 -typedef PCDM_BaseDriverPointer
 
 -typedef Plugin_MapOfFunctions
+
+# All the AIS dimension / relation stuff was moved
+-typedef AIS_DimensionOwner
+-typedef AIS_Dimension
+-typedef AIS_AngleDimension
+-typedef AIS_Relation
+-typedef AIS_Chamf2dDimension
+-typedef AIS_Chamf3dDimension
+-typedef AIS_ConcentricRelation
+-typedef AIS_DiameterDimension
+-typedef AIS_EllipseRadiusDimension
+-typedef AIS_EqualDistanceRelation
+-typedef AIS_EqualRadiusRelation
+-typedef AIS_FixRelation
+-typedef AIS_IdenticRelation
+-typedef AIS_LengthDimension
+-typedef AIS_MaxRadiusDimension
+-typedef AIS_MidPointRelation
+-typedef AIS_MinRadiusDimension
+-typedef AIS_OffsetDimension
+-typedef AIS_ParallelRelation
+-typedef AIS_PerpendicularRelation
+-typedef AIS_RadiusDimension
+-typedef AIS_SymmetricRelation
+-typedef AIS_TangentRelation
+
 
 -typedef SelectMgr_IndexedMapOfOwner
 
@@ -544,6 +573,8 @@
 
 -function TopOpeBRepBuild_Builder1::GFillSplitsPVS
 
+-field RWGltf_GltfSharedIStream::Stream
+
 -function VrmlData_IndexedFaceSet::GetNormal
 -function VrmlData_IndexedFaceSet::Polygons
 -function VrmlData_IndexedFaceSet::Polygon
@@ -589,12 +620,12 @@
 -header* AdvApp2Var_Data_f2c.hxx
 -header* AIS_LocalStatus.hxx
 -header* AIS_DataMapOfSelStat.hxx
--header* BRepMesh_CustomBaseMeshAlgo.hxx
+#-header* BRepMesh_CustomBaseMeshAlgo.hxx
 -header* glext.h
 -header* NCollection_Shared.hxx
 
 +header Aspect: xTypes.h
-
++header AIS: AIS_PyInteractiveObject.hxx
 +header BinMXCAFDoc: BinTools_LocationSet.hxx
 
 +header BRepMesh: IMeshData_Wire.hxx
@@ -637,6 +668,7 @@
 
 +header BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>: bind_BVH_BaseTraverse.hxx
 +header BVH_BoxSet<NumType, Dimension, DataType>: bind_BVH_PrimitiveSet.hxx
++header BVH_Box<T, N>: bind_BVH_BaseBox.hxx
 +header BVH_Geometry<T, N>: bind_BVH_ObjectSet.hxx
 +header BVH_ObjectSet<T, N>: bind_BVH_Set.hxx
 +header BVH_PrimitiveSet<T, N>: bind_BVH_Object.hxx
@@ -783,6 +815,7 @@
 -field VrmlData_InBuffer::Input
 
 # Excluded imports ------------------------------------------------------------
+-import AIS: WNT
 -import Geom: GeomEvaluator
 -import Geom2d: Geom2dEvaluator
 -import GeomAdaptor: GeomEvaluator
@@ -796,15 +829,22 @@
 -import XCAFDimTolObjects: XCAFDoc
 
 # Import guards ---------------------------------------------------------------
++iguard AIS: PrsDim
++iguard Aspect: Graphic3d
 +iguard Font: Graphic3d
++iguard Font: StdPrs
 +iguard Graphic3d: Select3D
 +iguard LDOMBasicString: LDOM
 +iguard LDOMString: LDOM
 +iguard LDOMParser: LDOM
 +iguard Media: Graphic3d
 +iguard SelectBasics: Select3D
++iguard SelectMgr: StdSelect
 +iguard Standard: TCollection
++iguard Standard: NCollection
 +iguard StepRepr: StepShape
++iguard Prs3d: StdPrs
++iguard TPrsStd: AIS
 
 # Call guards -----------------------------------------------------------------
 +cguard Font_TextFormatter::SetupAlignment-->Graphic3d
@@ -872,6 +912,7 @@
 
 +before_type BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>-->bind_BVH_BaseTraverse<MetricType>(mod, "BVH_Traverse_Base", py::module_local());
 +before_type BVH_BoxSet<NumType, Dimension, DataType>-->bind_BVH_PrimitiveSet<NumType, Dimension>(mod, "BVH_BoxSet_Base", py::module_local());
++before_type BVH_Box<T, N>-->bind_BVH_BaseBox<T, N, BVH_Box>(mod, name + "_" + typeid(T).name() + "_Base", py::module_local());
 +before_type BVH_Geometry<T, N>-->bind_BVH_ObjectSet<T, N>(mod, "BVH_Geometry_Base", py::module_local());
 +before_type BVH_ObjectSet<T, N>-->bind_BVH_Set<T, N>(mod, "BVH_ObjectSet_Base", py::module_local());
 +before_type BVH_PrimitiveSet<T, N>-->bind_BVH_Object<T, N>(mod, "BVH_PrimitiveSet_Base", py::module_local());
@@ -896,6 +937,9 @@
 
 # Extra text ------------------------------------------------------------------
 +after_type AIS_Line-->cls_AIS_Line.def("Points", [](AIS_Line &self, opencascade::handle<Geom_Point> & thePStart, opencascade::handle<Geom_Point> & thePEnd) {self.Points(thePStart, thePEnd); return std::tuple<opencascade::handle<Geom_Point>, opencascade::handle<Geom_Point>>(thePStart, thePEnd); }, "Returns the starting point thePStart and the end point thePEnd of the line set by SetPoints.", py::arg("thePStart"), py::arg("thePEnd"));
+
+#+after_type AIS_InteractiveObject-->py::class_<AIS_CustomObject, opencascade::handle<AIS_CustomObject>, AIS_InteractiveObject> cls_AIS_CustomObject(mod, "AIS_CustomObject", "Class to implement custom AIS objects in python.");
++after_type AIS_InteractiveObject-->cls_AIS_InteractiveObject.def(py::init<>());
 
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("Clear", [](BRepAlgoAPI_Algo &self) {return self.Clear(); }, "Clears all warnings and errors, and any data cached by the algorithm. User defined options are not cleared.");
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetRunParallel", [](BRepAlgoAPI_Algo &self, const Standard_Boolean theFlag) { return self.SetRunParallel(theFlag); }, "Set the flag of parallel processing if <theFlag> is true the parallel processing is switched on if <theFlag> is false the parallel processing is switched off", py::arg("theFlag"));
@@ -937,7 +981,10 @@
 
 +patch bind_BOPTools_PairSelector: std::vector<PairIDs>-->std::vector<typename BOPTools_PairSelector<Dimension>::PairIDs>
 
++patch bind_BVH_BaseBox: template <typename T, int N>-->template <typename T, int N, template <class /*T*/, int /*N*/> class TheDerivedBox>
++patch bind_BVH_BaseBox: BVH_BaseBox<T, N>-->BVH_BaseBox<T, N, TheDerivedBox>
 +patch bind_BVH_Traverse: (const int &)-->(const opencascade::handle<BVH_Tree <NumType, Dimension>>&)
+
 
 +patch IVtkTools: (IVtkOCC_Shape::Handle (-->(opencascade::handle<IVtkOCC_Shape> (
 
@@ -960,3 +1007,6 @@
 
 # Return value policies
 +return_policy V3d_View::ChangeRenderingParams-->reference
+
+# Inject trapoline
++patch AIS: py::class_<AIS_InteractiveObject, opencascade-->py::class_<AIS_InteractiveObject, AIS_PyInteractiveObject, opencascade

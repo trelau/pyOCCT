@@ -103,6 +103,12 @@ find_package(Freetype REQUIRED)
 message(STATUS "Searching for GLEW...")
 find_package(GLEW REQUIRED)
 
+# --------------------------------------------------------------------------- #
+# X11
+# --------------------------------------------------------------------------- #
+if(NOT WIN32 AND NOT APPLE)
+    find_package(X11 REQUIRED)
+endif()
 
 # --------------------------------------------------------------------------- #
 # OpenCASCADE
