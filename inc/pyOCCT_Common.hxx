@@ -29,10 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include <Standard_Handle.hxx>
 
-#ifdef BUILD_SMESH
-#include <boost/shared_ptr.hpp>
-#endif
-
 namespace py = pybind11;
 
 // Use opencascade::handle as holder type for Standard_Transient types

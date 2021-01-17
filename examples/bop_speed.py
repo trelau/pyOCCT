@@ -26,12 +26,12 @@ from OCCT.BOPAlgo import BOPAlgo_Options
 from OCCT.BRepAlgoAPI import BRepAlgoAPI_Common
 
 from OCCT.Exchange import ExchangeBasic
-from OCCT.Visualization.WxViewer import ViewerWx
+from OCCT.Visualization.WxViewer import ShapeViewerWx
 
 cheese = ExchangeBasic.read_step('./models/cheese.stp')
 planes = ExchangeBasic.read_step('./models/planes.stp')
 
-v = ViewerWx()
+v = ShapeViewerWx()
 v.add(cheese, planes)
 v.start()
 v.clear()
