@@ -12,6 +12,9 @@ The **pyOCCT** project provides Python bindings to the OpenCASCADE geometry kern
 Together, this technology stack enables rapid CAD/CAE/CAM application development in the popular
 Python programming language.
 
+If you are looking for Python bindings for CAE capabilities, check out
+[pySMESH](https://github.com/trelau/pySMESH). 
+
 ## Enabling technology
 The `pyOCCT` core technology stack includes:
 
