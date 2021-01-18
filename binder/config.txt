@@ -55,7 +55,10 @@
 
 -class PCDM_DOMHeaderParser
 
+-class AIS_DataMapOfSelStat
+
 -class RWObj_MtlReader
+-class RWGltf_GltfOStreamWriter
 
 -class ShapePersistent_BRep
 -class ShapePersistent_Geom
@@ -109,7 +112,35 @@
 -typedef OpenGl_ListOfStructure
 -typedef OpenGl_SetterList
 
+-typedef PCDM_BaseDriverPointer
+
 -typedef Plugin_MapOfFunctions
+
+# All the AIS dimension / relation stuff was moved
+-typedef AIS_DimensionOwner
+-typedef AIS_Dimension
+-typedef AIS_AngleDimension
+-typedef AIS_Relation
+-typedef AIS_Chamf2dDimension
+-typedef AIS_Chamf3dDimension
+-typedef AIS_ConcentricRelation
+-typedef AIS_DiameterDimension
+-typedef AIS_EllipseRadiusDimension
+-typedef AIS_EqualDistanceRelation
+-typedef AIS_EqualRadiusRelation
+-typedef AIS_FixRelation
+-typedef AIS_IdenticRelation
+-typedef AIS_LengthDimension
+-typedef AIS_MaxRadiusDimension
+-typedef AIS_MidPointRelation
+-typedef AIS_MinRadiusDimension
+-typedef AIS_OffsetDimension
+-typedef AIS_ParallelRelation
+-typedef AIS_PerpendicularRelation
+-typedef AIS_RadiusDimension
+-typedef AIS_SymmetricRelation
+-typedef AIS_TangentRelation
+
 
 -typedef SelectMgr_IndexedMapOfOwner
 
@@ -225,6 +256,8 @@
 -function BVH_Set<T, N>::BVH_Set<T, N>
 -function BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>::BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>
 
+-function CDF_DirectoryIterator::CDF_DirectoryIterator
+
 -function CDM_Document::operator<<
 -function CDM_MetaData::operator<<
 
@@ -244,12 +277,15 @@
 -function FilletPoint::hasSolution
 -function FilletPoint::remove
 
+-function Font_FTFont::renderGlyphOutline
 -function Font_FTLibrary::Instance
 
 -function GCPnts_DistFunction::GCPnts_DistFunction(const GCPnts_DistFunction &)
 -function GCPnts_DistFunction2d::GCPnts_DistFunction2d(const GCPnts_DistFunction2d &)
 
 -function Geom2dAPI_Interpolate::ClearTangents
+
+-function Geom2dEvaluator::AdjustDerivative_
 
 -function Geom2dGcc_FunctionTanCuCuCu::Geom2dGcc_FunctionTanCuCuCu(const gp_Circ2d &, const Geom2dAdaptor_Curve &, const gp_Pnt2d &)
 -function Geom2dGcc_FunctionTanCuCuCu::Geom2dGcc_FunctionTanCuCuCu(const gp_Lin2d &, const Geom2dAdaptor_Curve &, const gp_Pnt2d &)
@@ -316,6 +352,13 @@
 
 -function IGESToBRep_TopoSurface::TransferPlaneSurface
 
+-function IVtkOCC_SelectableObject::IVtkOCC_SelectableObject
+-function IVtkOCC_Shape::GetSubShapeId(const IVtk_IShape::Handle &)
+-function IVtkOCC_ViewerSelector::IVtkOCC_ViewerSelector
+-function IVtkOCC_ViewerSelector::Activate
+-function IVtkOCC_ViewerSelector::Deactivate
+-function IVtkOCC_ViewerSelector::Pick
+
 -function Media_BufferPool::GetBuffer
 -function Media_CodecContext::Init
 -function Media_CodecContext::Context
@@ -330,6 +373,9 @@
 -function Media_Frame::Frame
 -function Media_Packet::ChangePacket
 -function Media_Packet::Packet
+
+-function Message_ProgressScope::Message_ProgressScope(const Message_ProgressRange &, const Message_ProgressScope::NullString *, Standard_Real)
+-function Message_ProgressScope::Message_ProgressScope(const Message_ProgressRange &, const Message_ProgressScope::NullString *, Standard_Real, Standard_Boolean)
 
 -function MyDirectPolynomialRoots::MyDirectPolynomialRoots
 
@@ -383,7 +429,7 @@
 -function IVtkTools_ShapeObject::vtkTypeMacro
 -function IVtkTools_ShapePicker::vtkTypeMacro
 
-# IDK
+# IVK
 -function IVtkTools_ShapeObject::GetShapeSource_
 -function IVtkTools_ShapeObject::getKey_
 -function IVtkTools_ShapePicker::GetSelectionModes(const IVtk_IShape::Handle &)
@@ -475,6 +521,9 @@
 -function Resource_Unicode::ConvertUnicodeToANSI_
 -function Resource_Unicode::ConvertUnicodeToFormat_
 
+-function SelectMgr_SelectionImageFiller::CreateFiller_
+-function SelectMgr_TriangularFrustumSet::SelectMgr_TriangularFrustumSet
+
 -function ShapeAnalysis_BoxBndTreeSelector::ShapeAnalysis_BoxBndTreeSelector
 -function ShapeAnalysis_FreeBounds::ConnectEdgesToWires_
 -function ShapeAnalysis_FreeBounds::ConnectWiresToWires_
@@ -524,6 +573,8 @@
 
 -function TopOpeBRepBuild_Builder1::GFillSplitsPVS
 
+-field RWGltf_GltfSharedIStream::Stream
+
 -function VrmlData_IndexedFaceSet::GetNormal
 -function VrmlData_IndexedFaceSet::Polygons
 -function VrmlData_IndexedFaceSet::Polygon
@@ -569,12 +620,12 @@
 -header* AdvApp2Var_Data_f2c.hxx
 -header* AIS_LocalStatus.hxx
 -header* AIS_DataMapOfSelStat.hxx
--header* BRepMesh_CustomBaseMeshAlgo.hxx
+#-header* BRepMesh_CustomBaseMeshAlgo.hxx
 -header* glext.h
 -header* NCollection_Shared.hxx
 
 +header Aspect: xTypes.h
-
++header AIS: AIS_PyInteractiveObject.hxx
 +header BinMXCAFDoc: BinTools_LocationSet.hxx
 
 +header BRepMesh: IMeshData_Wire.hxx
@@ -617,6 +668,7 @@
 
 +header BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>: bind_BVH_BaseTraverse.hxx
 +header BVH_BoxSet<NumType, Dimension, DataType>: bind_BVH_PrimitiveSet.hxx
++header BVH_Box<T, N>: bind_BVH_BaseBox.hxx
 +header BVH_Geometry<T, N>: bind_BVH_ObjectSet.hxx
 +header BVH_ObjectSet<T, N>: bind_BVH_Set.hxx
 +header BVH_PrimitiveSet<T, N>: bind_BVH_Object.hxx
@@ -644,12 +696,16 @@
 +header OpenGl: Precision.hxx
 +header OpenGl: bind_BVH_Geometry.hxx
 +header OpenGl: bind_BVH_Set.hxx
+-header OpenGl: OpenGl_GLESExtensions.hxx
 
 +header PCDM: Storage_BaseDriver.hxx
 +header PCDM: Standard_IStream.hxx
 
 +header ProjLib: Adaptor3d_Surface.hxx
 +header ProjLib: Adaptor3d_Curve.hxx
+
++header Prs3d: Poly_PolygonOnTriangulation.hxx
++header Prs3d: Poly_Polygon3D.hxx
 
 +header PrsMgr: PrsMgr_Presentation.hxx
 
@@ -666,6 +722,8 @@
 +header StdLPersistent: bind_StdObjMgt_Attribute.hxx
 
 +header StdPersistent: bind_StdObjMgt_Attribute.hxx
+
++header StdSelect: V3d_View.hxx
 
 +header TDocStd: TDocStd_XLink.hxx
 
@@ -757,6 +815,7 @@
 -field VrmlData_InBuffer::Input
 
 # Excluded imports ------------------------------------------------------------
+-import AIS: WNT
 -import Geom: GeomEvaluator
 -import Geom2d: Geom2dEvaluator
 -import GeomAdaptor: GeomEvaluator
@@ -770,15 +829,22 @@
 -import XCAFDimTolObjects: XCAFDoc
 
 # Import guards ---------------------------------------------------------------
++iguard AIS: PrsDim
++iguard Aspect: Graphic3d
 +iguard Font: Graphic3d
++iguard Font: StdPrs
 +iguard Graphic3d: Select3D
 +iguard LDOMBasicString: LDOM
 +iguard LDOMString: LDOM
 +iguard LDOMParser: LDOM
 +iguard Media: Graphic3d
 +iguard SelectBasics: Select3D
++iguard SelectMgr: StdSelect
 +iguard Standard: TCollection
++iguard Standard: NCollection
 +iguard StepRepr: StepShape
++iguard Prs3d: StdPrs
++iguard TPrsStd: AIS
 
 # Call guards -----------------------------------------------------------------
 +cguard Font_TextFormatter::SetupAlignment-->Graphic3d
@@ -846,6 +912,7 @@
 
 +before_type BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>-->bind_BVH_BaseTraverse<MetricType>(mod, "BVH_Traverse_Base", py::module_local());
 +before_type BVH_BoxSet<NumType, Dimension, DataType>-->bind_BVH_PrimitiveSet<NumType, Dimension>(mod, "BVH_BoxSet_Base", py::module_local());
++before_type BVH_Box<T, N>-->bind_BVH_BaseBox<T, N, BVH_Box>(mod, name + "_" + typeid(T).name() + "_Base", py::module_local());
 +before_type BVH_Geometry<T, N>-->bind_BVH_ObjectSet<T, N>(mod, "BVH_Geometry_Base", py::module_local());
 +before_type BVH_ObjectSet<T, N>-->bind_BVH_Set<T, N>(mod, "BVH_ObjectSet_Base", py::module_local());
 +before_type BVH_PrimitiveSet<T, N>-->bind_BVH_Object<T, N>(mod, "BVH_PrimitiveSet_Base", py::module_local());
@@ -871,6 +938,9 @@
 # Extra text ------------------------------------------------------------------
 +after_type AIS_Line-->cls_AIS_Line.def("Points", [](AIS_Line &self, opencascade::handle<Geom_Point> & thePStart, opencascade::handle<Geom_Point> & thePEnd) {self.Points(thePStart, thePEnd); return std::tuple<opencascade::handle<Geom_Point>, opencascade::handle<Geom_Point>>(thePStart, thePEnd); }, "Returns the starting point thePStart and the end point thePEnd of the line set by SetPoints.", py::arg("thePStart"), py::arg("thePEnd"));
 
+#+after_type AIS_InteractiveObject-->py::class_<AIS_CustomObject, opencascade::handle<AIS_CustomObject>, AIS_InteractiveObject> cls_AIS_CustomObject(mod, "AIS_CustomObject", "Class to implement custom AIS objects in python.");
++after_type AIS_InteractiveObject-->cls_AIS_InteractiveObject.def(py::init<>());
+
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("Clear", [](BRepAlgoAPI_Algo &self) {return self.Clear(); }, "Clears all warnings and errors, and any data cached by the algorithm. User defined options are not cleared.");
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetRunParallel", [](BRepAlgoAPI_Algo &self, const Standard_Boolean theFlag) { return self.SetRunParallel(theFlag); }, "Set the flag of parallel processing if <theFlag> is true the parallel processing is switched on if <theFlag> is false the parallel processing is switched off", py::arg("theFlag"));
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("RunParallel", [](BRepAlgoAPI_Algo &self) {return self.RunParallel(); }, "Returns the flag of parallel processing");
@@ -882,7 +952,7 @@
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasWarning", [](BRepAlgoAPI_Algo &self, Handle(Standard_Type) &theType) { return self.HasWarning(theType); }, "Returns true if algorithm has generated warning of specified type", py::arg("theType"));
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("ClearWarnings", [](BRepAlgoAPI_Algo &self) { self.ClearWarnings(); }, "Clears the warnings of the algorithm");
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("GetReport", [](BRepAlgoAPI_Algo &self) { const Handle(Message_Report) r = self.GetReport(); return r; }, "Returns report collecting all errors and warnings");
-+after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetProgressIndicator", [](BRepAlgoAPI_Algo &self, const Handle(Message_ProgressIndicator) &pi) {return self.SetProgressIndicator(pi); }, "Set the Progress Indicator object.", py::arg("theObj"));
++after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetProgressIndicator", [](BRepAlgoAPI_Algo &self, const Message_ProgressScope &pi) {return self.SetProgressIndicator(pi); }, "Set the Progress Indicator object.", py::arg("theObj"));
 
 +after_type Geom_Surface-->cls_Geom_Surface.def("U1", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return U1; }, "Returns the parametric bound U1.");
 +after_type Geom_Surface-->cls_Geom_Surface.def("U2", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return U2; }, "Returns the parametric bound U2.");
@@ -911,7 +981,10 @@
 
 +patch bind_BOPTools_PairSelector: std::vector<PairIDs>-->std::vector<typename BOPTools_PairSelector<Dimension>::PairIDs>
 
++patch bind_BVH_BaseBox: template <typename T, int N>-->template <typename T, int N, template <class /*T*/, int /*N*/> class TheDerivedBox>
++patch bind_BVH_BaseBox: BVH_BaseBox<T, N>-->BVH_BaseBox<T, N, TheDerivedBox>
 +patch bind_BVH_Traverse: (const int &)-->(const opencascade::handle<BVH_Tree <NumType, Dimension>>&)
+
 
 +patch IVtkTools: (IVtkOCC_Shape::Handle (-->(opencascade::handle<IVtkOCC_Shape> (
 
@@ -934,3 +1007,6 @@
 
 # Return value policies
 +return_policy V3d_View::ChangeRenderingParams-->reference
+
+# Inject trapoline
++patch AIS: py::class_<AIS_InteractiveObject, opencascade-->py::class_<AIS_InteractiveObject, AIS_PyInteractiveObject, opencascade

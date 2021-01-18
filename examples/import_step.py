@@ -20,13 +20,13 @@
 from OCCT.Graphic3d import Graphic3d_NOM_ALUMINIUM
 from OCCT.STEPControl import STEPControl_Reader
 
-from OCCT.Visualization.WxViewer import ViewerWx
+from OCCT.Visualization.WxViewer import ShapeViewerWx
 
 reader = STEPControl_Reader()
 reader.ReadFile('./models/compressor.step')
 reader.TransferRoots()
 shape = reader.OneShape()
 
-v = ViewerWx()
+v = ShapeViewerWx()
 v.display_shape(shape, rgb=(0.5, 0.5, 0.5), material=Graphic3d_NOM_ALUMINIUM)
 v.start()

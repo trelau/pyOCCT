@@ -2,8 +2,7 @@ mkdir build
 cd build
 
 cmake .. -G "Ninja" ^
-    -DCMAKE_BUILD_TYPE="Release" ^
-    -DPTHREAD_INCLUDE_DIRS:FILEPATH="%LIBRARY_PREFIX%/include"
+    -DCMAKE_BUILD_TYPE="Release"
 if errorlevel 1 exit 1
 
 ninja -j1

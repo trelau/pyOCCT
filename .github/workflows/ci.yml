@@ -51,13 +51,13 @@ jobs:
         shell: pwsh
         run: |
           conda activate binder
-          python binder/run.py -c binder/config.txt -o src/occt
+          python binder/run.py -c binder/config.txt -o src
 
       - name: "Upload bindings"
         uses: actions/upload-artifact@v2
         with:
           name: pyocct_src_${{ matrix.os }}
-          path: src/occt
+          path: src
 
   generate_win:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
@@ -76,7 +76,7 @@ jobs:
 
       - name: "Add conda to PATH"
         shell: bash -l {0}
-        run: echo "::add-path::$CONDA/Scripts"
+        run: echo "$CONDA/Scripts" >> $GITHUB_PATH
 
       - name: "Configure conda"
         shell: bash -l {0}
@@ -95,13 +95,13 @@ jobs:
         shell: bash -l {0}
         run: |
           conda activate binder
-          python binder/run.py -c binder/config.txt -o src/occt
+          python binder/run.py -c binder/config.txt -o src
 
       - name: "Upload bindings"
         uses: actions/upload-artifact@v2
         with:
           name: pyocct_src_${{ matrix.os }}
-          path: src/occt
+          path: src
 
   build_linux:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
@@ -112,7 +112,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ['ubuntu-latest']
-        python-version: ['3.6', '3.7', '3.8']
+        python-version: ['3.6', '3.7', '3.8', '3.9']
     steps:
 
       - name: "Install OpenGL"
@@ -140,7 +140,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: pyocct_src_${{ matrix.os }}
-          path: src/occt
+          path: src
 
       - name: "Run conda build"
         shell: pwsh
@@ -163,7 +163,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ['windows-latest']
-        python-version: ['3.6', '3.7', '3.8']
+        python-version: ['3.6', '3.7', '3.8', '3.9']
     steps:
 
       - name: "Clone pyOCCT"
@@ -171,7 +171,7 @@ jobs:
 
       - name: "Add conda to PATH"
         shell: bash -l {0}
-        run: echo "::add-path::$CONDA/Scripts"
+        run: echo "$CONDA/Scripts" >> $GITHUB_PATH
 
       - name: "Install conda build"
         shell: bash -l {0}
@@ -187,7 +187,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: pyocct_src_${{ matrix.os }}
-          path: src/occt
+          path: src
 
       - name: "Run conda build"
         shell: bash -l {0}
@@ -218,7 +218,7 @@ jobs:
           submodules: 'recursive'
 
       - name: "Add conda to PATH"
-        run: echo "::add-path::$CONDA/bin"
+        run: echo "$CONDA/bin" >> $GITHUB_PATH
 
       - name: "MacOS fix"
         run: sudo chown -R $USER $CONDA
@@ -240,13 +240,13 @@ jobs:
         shell: pwsh
         run: |
           conda activate binder
-          python binder/run.py -c binder/config.txt -o src/occt
+          python binder/run.py -c binder/config.txt -o src
 
       - name: "Upload bindings"
         uses: actions/upload-artifact@v2
         with:
           name: pyocct_src_${{ matrix.os }}
-          path: src/occt
+          path: src
 
 #  build_macos:
 #    if: "!contains(github.event.head_commit.message, 'skip ci')"
@@ -257,14 +257,14 @@ jobs:
 #      fail-fast: false
 #      matrix:
 #        os: ['macos-latest']
-#        python-version: ['3.6', '3.7', '3.8']
+#        python-version: ['3.6', '3.7', '3.8', '3.9']
 #    steps:
 #
 #      - name: "Clone pyOCCT"
 #        uses: actions/checkout@v2
 #
 #      - name: "Add conda to PATH"
-#        run: echo "::add-path::$CONDA/bin"
+#        run: echo "$CONDA/bin" >> $GITHUB_PATH
 #
 #      - name: "MacOS fix"
 #        run: |

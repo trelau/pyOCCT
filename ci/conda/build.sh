@@ -8,10 +8,9 @@ mkdir build
 cd build
 
 cmake .. -G "Ninja" \
-    -DCMAKE_BUILD_TYPE="Release" \
-    -DPTHREAD_INCLUDE_DIRS="$PREFIX"
+    -DCMAKE_BUILD_TYPE="Release"
 
-ninja install
+ninja -j1 install
 
 cd ..
 python setup.py install --prefix="$PREFIX"
