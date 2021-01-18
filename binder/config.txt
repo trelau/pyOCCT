@@ -1006,6 +1006,9 @@
 +patch Font: Font_BRepFont &-->Font_BRepFont_ &
 
 # Return value policies
++return_policy OpenGl_GraphicDriver::ChangeOptions-->reference
++return_policy OpenGl_GraphicDriver::Options-->reference
+
 +return_policy V3d_View::ChangeRenderingParams-->reference
 
 # Inject trapoline
