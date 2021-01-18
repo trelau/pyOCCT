@@ -10,7 +10,7 @@ cd build
 cmake .. -G "Ninja" \
     -DCMAKE_BUILD_TYPE="Release"
 
-ninja install
+ninja -j1 install
 
 cd ..
 python setup.py install --prefix="$PREFIX"
