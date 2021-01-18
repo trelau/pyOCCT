@@ -17,12 +17,15 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+import sys
 import unittest
 
 from OCCT.Aspect import Aspect_DisplayConnection
 from OCCT.OpenGl import OpenGl_GraphicDriver
 
 
+@unittest.skipUnless(sys.platform.startswith('win'),
+                     "OpenGl_GraphicsDriver tests only run on Windows for now.")
 class Test_OpenGl_GraphicsDriver(unittest.TestCase):
     """
     Test for OpenGl_GraphicsDriver.
