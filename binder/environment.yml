@@ -5,5 +5,5 @@ dependencies:
   - python=3.7
   - clangdev
   - python-clang
-  - occt=7.5.0
+  - occt=7.5.1
   - tbb-devel
