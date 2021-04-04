@@ -13,10 +13,7 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
-    - {{ cdt('mesa-libgl-devel') }}  # [linux]
-    - {{ cdt('libxi-devel') }}       # [linux]
-    - {{ cdt('libxext-devel') }}     # [linux]
-    - glew                           # [linux]
+    - glew  # [linux]
 
   host:
     - python
