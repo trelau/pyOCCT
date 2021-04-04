@@ -10,10 +10,12 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}  # [win]
+    - {{ compiler('cxx') }}
     - cmake
     - ninja
-    - glew # [linux]
+    - {{ cdt('mesa-libgl-devel') }}  # [linux]
+    - {{ cdt('libxi-devel') }}       # [linux]
+    - {{ cdt('libxext-devel') }}     # [linux]
 
   host:
     - python
