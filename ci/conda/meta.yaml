@@ -13,9 +13,9 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
-    - { { cdt('mesa-libgl-devel') } }  # [linux]
-    - { { cdt('libxi-devel') } }       # [linux]
-    - { { cdt('libxext-devel') } }     # [linux]
+    - {{ cdt('mesa-libgl-devel') }}  # [linux]
+    - {{ cdt('libxi-devel') }}       # [linux]
+    - {{ cdt('libxext-devel') }}     # [linux]
 
   host:
     - python
