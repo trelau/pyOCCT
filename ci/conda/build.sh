@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 declare -a CMAKE_PLATFORM_FLAGS
-CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
+if [[ ${HOST} =~ .*linux.* ]]; then
+  CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
+fi
 
 # Fail on error
 set -e
@@ -10,10 +12,14 @@ rm -Rf build
 mkdir build
 cd build
 
-cmake .. -G "Ninja" \
-      -DCMAKE_BUILD_TYPE="Release" \
-      -DPYBIND11_FINDPYTHON=ON \
-      ${CMAKE_PLATFORM_FLAGS[@]}
+cmake -G "Ninja" \
+  -DCMAKE_INSTALL_PREFIX="$PREFIX" \
+  -DCMAKE_PREFIX_PATH="$PREFIX" \
+  -DCMAKE_SYSTEM_PREFIX_PATH="$PREFIX" \
+  "${CMAKE_PLATFORM_FLAGS[@]}" \
+  -DCMAKE_BUILD_TYPE="Release" \
+  -DPYBIND11_FINDPYTHON=ON \
+  ..
 
 ninja -j1 install
 
