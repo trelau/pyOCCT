@@ -12,6 +12,7 @@ cd build
 
 cmake -G "Ninja" \
       -DCMAKE_BUILD_TYPE="Release" \
+      -DPYBIND11_FINDPYTHON=ON \
       ${CMAKE_PLATFORM_FLAGS[@]} \
       ..
 
