@@ -6,7 +6,6 @@ cmake -G "Ninja" ^
   -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
   -DCMAKE_SYSTEM_PREFIX_PATH="%LIBRARY_PREFIX%" ^
   -DCMAKE_BUILD_TYPE="Release" ^
-  -DPYBIND11_FINDPYTHON=ON ^
   ..
 
 if errorlevel 1 exit 1

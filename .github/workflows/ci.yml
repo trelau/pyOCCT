@@ -146,7 +146,7 @@ jobs:
         shell: pwsh
         run: |
           mkdir conda
-          conda build  ci/conda -c conda-forge -c trelau --python ${{ matrix.python-version }} --output-folder conda
+          conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
         uses: actions/upload-artifact@v2
@@ -194,7 +194,7 @@ jobs:
         run: |
           mkdir conda
           source activate
-          conda build  ci/conda -c conda-forge -c trelau --python ${{ matrix.python-version }} --output-folder conda
+          conda build  ci/conda -c conda-forge --python ${{ matrix.python-version }} --output-folder conda
 
       - name: "Upload conda package"
         uses: actions/upload-artifact@v2
