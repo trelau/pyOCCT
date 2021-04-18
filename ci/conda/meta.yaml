@@ -18,12 +18,12 @@ requirements:
   host:
     - python
     - pybind11
-    - occt ==7.5.1
+    - occt ==7.5.*
     - tbb-devel
 
   run:
     - python
-    - occt ==7.5.1
+    - occt ==7.5.*
 
 test:
   source_files:
