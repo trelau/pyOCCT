@@ -1,10 +1,9 @@
 mkdir build
 cd build
 
-cmake -G "Ninja" ^
+cmake .. -G "Ninja" ^
       -DCMAKE_BUILD_TYPE="Release"
-      -DPYBIND11_FINDPYTHON=ON ^
-      ..
+      -DPYBIND11_FINDPYTHON=ON
 
 if errorlevel 1 exit 1
 
