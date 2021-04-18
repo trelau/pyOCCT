@@ -66,6 +66,7 @@ endif()
 # --------------------------------------------------------------------------- #
 message(STATUS "Searching for pybind11...")
 find_package(pybind11 REQUIRED)
+message(STATUS "Python libraries to link: ${PYTHON_LIBRARIES}")
 
 
 # --------------------------------------------------------------------------- #
@@ -177,7 +178,8 @@ foreach(SRC ${OCCT_SRCS})
 
     # Add pybind11 module
     pybind11_add_module(${MOD} ${SRC})
-    target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES} pybind11::module)
+    target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
+                                        ${PYTHON_LIBRARIES})
 
     if(${MOD} STREQUAL "OpenGl")
         target_link_libraries(${MOD} PRIVATE ${OPENGL_LIBRARIES})
