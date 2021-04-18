@@ -65,7 +65,7 @@ endif()
 # PYBIND11
 # --------------------------------------------------------------------------- #
 message(STATUS "Searching for pybind11...")
-find_package(Python COMPONENTS Interpreter Development REQUIRED)
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 find_package(pybind11 CONFIG REQUIRED)
 
 
