@@ -6,8 +6,6 @@ cmake -G "Ninja" ^
   -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
   -DCMAKE_SYSTEM_PREFIX_PATH="%LIBRARY_PREFIX%" ^
   -DCMAKE_BUILD_TYPE="Release" ^
-  -DPython3_FIND_STRATEGY=LOCATION ^
-  -DPython3_FIND_REGISTRY=NEVER ^
   ..
 
 if errorlevel 1 exit 1
