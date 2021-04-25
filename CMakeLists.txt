@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.17)
 project(pyOCCT VERSION 7.5.1.0 LANGUAGES C CXX)
 
 
@@ -65,8 +65,8 @@ endif()
 # PYTHON and PYBIND11
 # --------------------------------------------------------------------------- #
 message(STATUS "Searching for Python and pybind11...")
-find_package(Python3 COMPONENTS Interpreter Development)
-find_package(pybind11 CONFIG)
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+find_package(pybind11 CONFIG REQUIRED)
 
 
 # --------------------------------------------------------------------------- #
