@@ -65,7 +65,7 @@ endif()
 # PYTHON and PYBIND11
 # --------------------------------------------------------------------------- #
 message(STATUS "Searching for Python and pybind11...")
-find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+find_package(Python COMPONENTS Interpreter Development REQUIRED)
 find_package(pybind11 CONFIG REQUIRED)
 
 
@@ -179,7 +179,7 @@ foreach(SRC ${OCCT_SRCS})
     # Add pybind11 module
     pybind11_add_module(${MOD} ${SRC})
     target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
-                                        ${Python3_LIBRARIES})
+                                        ${Python_LIBRARIES})
 
     if(${MOD} STREQUAL "OpenGl")
         target_link_libraries(${MOD} PRIVATE ${OPENGL_LIBRARIES})
