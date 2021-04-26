@@ -65,8 +65,8 @@ endif()
 # PYTHON and PYBIND11
 # --------------------------------------------------------------------------- #
 message(STATUS "Searching for Python and pybind11...")
-find_package(Python REQUIRED)
-find_package(pybind11 CONFIG REQUIRED)
+# find_package(Python REQUIRED)
+find_package(pybind11 REQUIRED)
 
 
 # --------------------------------------------------------------------------- #
