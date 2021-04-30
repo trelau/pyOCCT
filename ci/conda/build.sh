@@ -18,7 +18,7 @@ cmake -G "Ninja" \
   -DCMAKE_SYSTEM_PREFIX_PATH="$PREFIX" \
   "${CMAKE_PLATFORM_FLAGS[@]}" \
   -DCMAKE_BUILD_TYPE="Release" \
-  -DPython_FIND_VIRTUALENV=ONLY \
+  -DPython_FIND_VIRTUALENV=FIRST
   ..
 
 ninja -j1 install

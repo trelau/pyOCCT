@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.15...3.20)
 project(pyOCCT VERSION 7.5.1.0 LANGUAGES C CXX)
 
 
