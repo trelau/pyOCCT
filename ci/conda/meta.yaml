@@ -1,6 +1,6 @@
 package:
   name: pyocct
-  version: 7.5.0.0
+  version: 7.5.1.0
 
 source:
   path: ../..
@@ -10,20 +10,22 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}  # [win]
+    - {{ compiler('cxx') }}          #  [win]
     - cmake
     - ninja
-    - glew # [linux]
+    - {{ cdt('mesa-libgl-devel') }}  # [linux]
+    - {{ cdt('libxi-devel') }}       # [linux]
+    - {{ cdt('libxext-devel') }}     # [linux]
 
   host:
     - python
     - pybind11
-    - occt ==7.5.0
+    - occt ==7.5.*
     - tbb-devel
 
   run:
     - python
-    - occt ==7.5.0
+    - occt ==7.5.*
 
 test:
   source_files:

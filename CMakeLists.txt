@@ -17,8 +17,8 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-cmake_minimum_required(VERSION 3.10)
-project(pyOCCT VERSION 7.5.0.0 LANGUAGES C CXX)
+cmake_minimum_required(VERSION 3.15...3.20)
+project(pyOCCT VERSION 7.5.1.0 LANGUAGES C CXX)
 
 
 # --------------------------------------------------------------------------- #
@@ -32,7 +32,7 @@ option(ENABLE_WARNINGS "Disable warning output." OFF)
 # --------------------------------------------------------------------------- #
 set(pyOCCT_MAJOR_VERSION 7)
 set(pyOCCT_MINOR_VERSION 5)
-set(pyOCCT_PATCH_VERSION 0)
+set(pyOCCT_PATCH_VERSION 1)
 set(pyOCCT_TWEAK_VERSION 0)
 
 if(WIN32)
@@ -62,10 +62,11 @@ endif()
 
 
 # --------------------------------------------------------------------------- #
-# PYBIND11
+# PYTHON and PYBIND11
 # --------------------------------------------------------------------------- #
-message(STATUS "Searching for pybind11...")
-find_package(pybind11 REQUIRED)
+message(STATUS "Searching for Python and pybind11...")
+find_package(Python COMPONENTS Interpreter Development REQUIRED)
+find_package(pybind11 CONFIG REQUIRED)
 
 
 # --------------------------------------------------------------------------- #
@@ -117,7 +118,7 @@ endif()
 include_directories(inc)
 if(NOT DEFINED OpenCASCADE_INCLUDE_DIR OR NOT DEFINED OpenCASCADE_LIBRARY_DIR)
     message(STATUS "Searching for OpenCASCADE...")
-    find_package(OpenCASCADE 7.5.0 REQUIRED)
+    find_package(OpenCASCADE 7.5.1 REQUIRED)
 endif()
 
 if(NOT EXISTS ${OpenCASCADE_INCLUDE_DIR})
@@ -178,7 +179,7 @@ foreach(SRC ${OCCT_SRCS})
     # Add pybind11 module
     pybind11_add_module(${MOD} ${SRC})
     target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
-                                        ${PYTHON_LIBRARIES})
+                                        ${Python_LIBRARIES})
 
     if(${MOD} STREQUAL "OpenGl")
         target_link_libraries(${MOD} PRIVATE ${OPENGL_LIBRARIES})
