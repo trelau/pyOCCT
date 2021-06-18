@@ -906,6 +906,12 @@
 +skip OpenGl_TextureFormatSelector<GLuint>
 +skip OpenGl_TextureFormatSelector<GLushort>
 
+# Return value policies -------------------------------------------------------
++return_policy OpenGl_GraphicDriver::ChangeOptions-->reference
++return_policy OpenGl_GraphicDriver::Options-->reference
+
++return_policy V3d_View::ChangeRenderingParams-->reference
+
 # Manual text -----------------------------------------------------------------
 +before_type BOPTools_BoxSet<NumType, Dimension, DataType>-->bind_BVH_BoxSet<NumType, Dimension, DataType>(mod, "BOPTools_BoxSet_Base", py::module_local());
 +before_type BOPTools_BoxSelector<Dimension>-->bind_BVH_Traverse<Standard_Real, Dimension, BVH_BoxSet<Standard_Real, Dimension, Standard_Integer>, Standard_Boolean>(mod, "BOPTools_BoxSelector_Base", py::module_local());
@@ -974,7 +980,7 @@
 # Add exception translator
 +after_type Standard_Failure-->py::register_exception_translator([](std::exception_ptr p) {try {if (p) std::rethrow_exception(p);} catch (const Standard_Failure &e) { PyErr_SetString(PyExc_RuntimeError, e.GetMessageString());}});
 
-# Patches -----------------------------------------------------------------
+# Patches ---------------------------------------------------------------------
 
 # Patch parameter for AIS_ManipulatorObjectSequence::Append
 +patch AIS: (AIS_ManipulatorObjectSequence::*)(const int &)-->(AIS_ManipulatorObjectSequence::*)(const typename AIS_ManipulatorObjectSequence::value_type &)
@@ -985,6 +991,7 @@
 +patch bind_BVH_BaseBox: BVH_BaseBox<T, N>-->BVH_BaseBox<T, N, TheDerivedBox>
 +patch bind_BVH_Traverse: (const int &)-->(const opencascade::handle<BVH_Tree <NumType, Dimension>>&)
 
++patch Geom: (const TColStd_Array2OfReal * (Geom_BSplineSurface::*)() const) &Geom_BSplineSurface::Weights-->[](Geom_BSplineSurface& self) -> py::object {return self.Weights() ? py::cast(*self.Weights()) : py::none(); }
 
 +patch IVtkTools: (IVtkOCC_Shape::Handle (-->(opencascade::handle<IVtkOCC_Shape> (
 
@@ -1005,11 +1012,5 @@
 +patch Font: (TopoDS_Shape (Font_BRepTextBuilder::*)(Font_BRepFont &, const NCollection_String &, const gp_Ax3 &, const Graphic3d_HorizontalTextAlignment, const Graphic3d_VerticalTextAlignment)) &Font_BRepTextBuilder::Perform-->[](Font_BRepTextBuilder &self, Font_BRepFont_ & a0, const NCollection_String & a1, const gp_Ax3 & a2, const Graphic3d_HorizontalTextAlignment a3, const Graphic3d_VerticalTextAlignment a4) -> TopoDS_Shape { return self.Perform(a0, a1, a2, a3, a4); }
 +patch Font: Font_BRepFont &-->Font_BRepFont_ &
 
-# Return value policies
-+return_policy OpenGl_GraphicDriver::ChangeOptions-->reference
-+return_policy OpenGl_GraphicDriver::Options-->reference
-
-+return_policy V3d_View::ChangeRenderingParams-->reference
-
-# Inject trapoline
+# Inject trampoline
 +patch AIS: py::class_<AIS_InteractiveObject, opencascade-->py::class_<AIS_InteractiveObject, AIS_PyInteractiveObject, opencascade
