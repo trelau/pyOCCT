@@ -20,7 +20,9 @@
 import math
 import unittest
 
-from OCCT.Geom import Geom_SphericalSurface
+from OCCT.Geom import Geom_SphericalSurface, Geom_RectangularTrimmedSurface
+from OCCT.GeomConvert import GeomConvert
+from OCCT.TColStd import TColStd_Array2OfReal
 from OCCT.gp import gp_Pnt, gp_Ax3, gp_Dir, gp_Sphere
 
 
@@ -74,6 +76,42 @@ class Test_Geom_Surface(unittest.TestCase):
         Test Geom_Surface::V2.
         """
         self.assertAlmostEqual(self._surf.V2(), 0.5 * math.pi)
+
+
+class Test_Geom_BSplineSurface(unittest.TestCase):
+    """
+    Test for Geom_BSplineSurface class.
+    """
+
+    def test_Weights(self):
+        """
+        Test Geom_BSplineSurface::Weights()
+        """
+
+        s1 = Geom_SphericalSurface(gp_Ax3(), 1.)
+        s2 = Geom_RectangularTrimmedSurface(s1, 0., 1., 0., 1.)
+        s3 = GeomConvert.SurfaceToBSplineSurface_(s2)
+
+        weights = TColStd_Array2OfReal(1, s3.NbUPoles(), 1, s3.NbVPoles())
+        s3.Weights(weights)
+
+        self.assertEqual(weights.Size(), 9)
+        self.assertAlmostEqual(weights.Value(1, 1), 1.0)
+        self.assertAlmostEqual(weights.Value(3, 3), 1.0)
+
+    def test_Weights_const(self):
+        """
+        Test Geom_BSplineSurface::Weights() const
+        """
+        s1 = Geom_SphericalSurface(gp_Ax3(), 1.)
+        s2 = Geom_RectangularTrimmedSurface(s1, 0., 1., 0., 1.)
+        s3 = GeomConvert.SurfaceToBSplineSurface_(s2)
+
+        weights = s3.Weights()
+
+        self.assertEqual(weights.Size(), 9)
+        self.assertAlmostEqual(weights.Value(1, 1), 1.0)
+        self.assertAlmostEqual(weights.Value(3, 3), 1.0)
 
 
 if __name__ == '__main__':
