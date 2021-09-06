@@ -147,9 +147,7 @@ def main():
     occt_mods = gen_includes(occt_include_path, BINDER_ROOT)
 
     # Initialize the main binding generation tool
-    all_includes = os.listdir(occt_include_path)
-    main_includes = [occt_include_path] + other_includes
-    gen = Generator("OCCT", {"OCCT": occt_mods}, all_includes, main_includes)
+    gen = Generator(occt_mods, occt_include_path, *other_includes)
 
     # Output bindings path
     output_path = os.path.abspath(args.output_path)
