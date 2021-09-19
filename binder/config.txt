@@ -1017,3 +1017,4 @@
 
 # Split modules
 +split Graphic3d
++split OpenGl
