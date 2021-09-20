@@ -18,7 +18,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 cmake_minimum_required(VERSION 3.15...3.20)
-project(pyOCCT VERSION 7.5.2.0 LANGUAGES C CXX)
+project(pyOCCT VERSION 7.5.2.1 LANGUAGES C CXX)
 
 
 # --------------------------------------------------------------------------- #
@@ -33,7 +33,7 @@ option(ENABLE_WARNINGS "Disable warning output." OFF)
 set(pyOCCT_MAJOR_VERSION 7)
 set(pyOCCT_MINOR_VERSION 5)
 set(pyOCCT_PATCH_VERSION 2)
-set(pyOCCT_TWEAK_VERSION 0)
+set(pyOCCT_TWEAK_VERSION 1)
 
 if(WIN32)
     set(EXTENSION ".pyd")

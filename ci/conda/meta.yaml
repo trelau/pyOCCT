@@ -1,6 +1,6 @@
 package:
   name: pyocct
-  version: 7.5.2.0
+  version: 7.5.2.1
 
 source:
   path: ../..
