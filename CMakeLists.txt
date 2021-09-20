@@ -151,14 +151,19 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 
-# Treat each .cxx file in src/modules as a module
-file(GLOB OCCT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cxx)
+# Include the file specifying available OCCT modules
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/OCCT_Modules.cmake)
 
-# OCCT modules
-foreach(SRC ${OCCT_SRCS})
+# OCCT
+foreach(MOD ${OCCT_MODULES})
 
-    # Get module name
-    get_filename_component(MOD ${SRC} NAME_WE)
+    # Get source files of module
+    file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}*.cxx)
+
+    if(NOT SRCS)
+        message(STATUS "Skipping module ${MOD} since no sources were found")
+        continue()
+    endif()
 
     # Check for platform-specific modules
     if((WIN32 OR APPLE) AND ${MOD} STREQUAL "Xw")
@@ -177,7 +182,7 @@ foreach(SRC ${OCCT_SRCS})
     endif()
 
     # Add pybind11 module
-    pybind11_add_module(${MOD} ${SRC})
+    pybind11_add_module(${MOD} ${SRCS})
     target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
                                         ${Python_LIBRARIES})
 

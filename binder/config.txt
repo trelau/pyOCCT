@@ -1014,3 +1014,7 @@
 
 # Inject trampoline
 +patch AIS: py::class_<AIS_InteractiveObject, opencascade-->py::class_<AIS_InteractiveObject, AIS_PyInteractiveObject, opencascade
+
+# Split modules
++split Graphic3d
++split OpenGl
