@@ -1,6 +1,6 @@
 package:
   name: pyocct
-  version: 7.5.2.2
+  version: 7.5.3.0
 
 source:
   path: ../..
@@ -20,12 +20,12 @@ requirements:
   host:
     - python
     - pybind11
-    - occt ==7.5.2
+    - occt ==7.5.3
     - tbb-devel
 
   run:
     - python
-    - occt ==7.5.2
+    - occt ==7.5.3
 
 test:
   source_files:
