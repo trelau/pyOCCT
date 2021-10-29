@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
+UNAME=$(uname)
+
 declare -a CMAKE_PLATFORM_FLAGS
-if [[ ${HOST} =~ .*linux.* ]]; then
+
+if [[ $UNAME = 'Darwin' ]]; then
+  export MACOS_DEPLOYMENT_TARGET=10.9
+  CMAKE_PLATFORM_FLAGS+=(-DCMAKE_OSX_SYSROOT="${CONDA_BUILD_SYSROOT}")
+elif [[ $UNAME = 'Linux' ]]; then
   CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
 fi
 
@@ -23,7 +29,7 @@ cmake -G "Ninja" \
   -DPython_FIND_FRAMEWORK=NEVER \
   ..
 
-ninja -j1 install
+ninja -j${CPU_COUNT} install
 
 cd ..
 python setup.py install --prefix="$PREFIX"
