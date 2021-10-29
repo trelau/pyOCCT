@@ -5,7 +5,7 @@ UNAME=$(uname)
 declare -a CMAKE_PLATFORM_FLAGS
 
 if [[ $UNAME = 'Darwin' ]]; then
-  export MACOS_DEPLOYMENT_TARGET=10.9
+  # export MACOS_DEPLOYMENT_TARGET=10.9
   CMAKE_PLATFORM_FLAGS+=(-DCMAKE_OSX_SYSROOT="${CONDA_BUILD_SYSROOT}")
 elif [[ $UNAME = 'Linux' ]]; then
   CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
