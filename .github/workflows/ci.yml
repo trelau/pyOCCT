@@ -266,9 +266,11 @@ jobs:
       - name: "Add conda to PATH"
         run: echo "$CONDA/bin" >> $GITHUB_PATH
  
-      # - name: "MacOS fix"
-      #   run: |
-      #     sudo chown -R $USER $CONDA
+      - name: "MacOS permissions fix"
+        run: |
+          sudo chown -R $USER $CONDA
+
+      # - name: "Download and install SDK"
       #     curl -o  MacOSX10.9.sdk.tar.xz -L https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.9.sdk.tar.xz
       #     tar xf MacOSX10.9.sdk.tar.xz
       #     sudo mv -v MacOSX10.9.sdk /opt/
