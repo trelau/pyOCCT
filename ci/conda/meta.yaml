@@ -10,7 +10,7 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}          # [win or osx]
+    - {{ compiler('cxx') }}          # [win]
     - cmake
     - ninja
     - {{ cdt('mesa-libgl-devel') }}  # [linux]
