@@ -112,21 +112,20 @@ def main():
     vtk_include_path = find_include_path('vtk_doubleconversion.h', conda_prefix)
     tbb_include_path = find_include_path('tbb.h', conda_prefix)
     tbb_include_path = os.path.split(tbb_include_path)[0]
-    type_traits_include_path = find_include_path('type_traits', conda_prefix)
-    stddef_include_path = find_include_path('stddef.h', conda_prefix)
 
     print('Include directories:')
     print('\tOpenCASCADE: {}'.format(occt_include_path))
     print('\tVTK: {}'.format(vtk_include_path))
     print('\tTBB: {}'.format(tbb_include_path))
 
-    clang_include_path = ''
-    if sys.platform.startswith('linux') or sys.platform.startswith('darwin'):
-        clang_include_path = find_include_path('__stddef_max_align_t.h', conda_prefix)
-        print('Found clangdev include directory: {}'.format(clang_include_path))
-
     if not occt_include_path or not os.path.exists(occt_include_path):
         raise NotADirectoryError("OCCT include path does not exist: {}".format(occt_include_path))
+
+    if not vtk_include_path or not os.path.exists(vtk_include_path):
+        raise NotADirectoryError("VTK include path does not exist: {}".format(vtk_include_path))
+
+    if not tbb_include_path or not os.path.exists(tbb_include_path):
+        raise NotADirectoryError("TBB include path does not exist: {}".format(tbb_include_path))
 
     if not os.path.exists(args.pyocct_root):
         raise NotADirectoryError("pyOCCT root path does not exist: {}".format(args.pyocct_root))
@@ -135,9 +134,21 @@ def main():
         raise FileNotFoundError("Configuration file not found: {}".format(args.config_path))
 
     # Force using conda's clangdev includes. This may not be needed on other systems but was
-    # getting errors on linux.
+    # getting errors on Linux and OSX.
+    clang_include_path = ''
+    if sys.platform.startswith('linux') or sys.platform.startswith('darwin'):
+        clang_include_path = find_include_path('__stddef_max_align_t.h', conda_prefix)
+        print('Found clangdev include directory: {}'.format(clang_include_path))
+
     if sys.platform.startswith('linux') and not os.path.exists(clang_include_path):
         raise NotADirectoryError("clangdev not found: {}".format(clang_include_path))
+
+    # Include type_traits and stddef.h for OSX
+    type_traits_include_path = ''
+    stddef_include_path = ''
+    if sys.platform.startswith('darwin'):
+        type_traits_include_path = find_include_path('type_traits', conda_prefix)
+        # stddef_include_path = find_include_path('stddef.h', conda_prefix)
 
     # Gather all the includes for the parser
     other_includes = [i for i in [vtk_include_path, tbb_include_path, clang_include_path,

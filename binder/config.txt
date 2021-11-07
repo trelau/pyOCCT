@@ -11,6 +11,7 @@
 +arg win32: -fms-extensions
 +arg win32: -fms-compatibility-version=19
 +arg win32: -fdelayed-template-parsing
++arg osx: -stdlib=libc++
 # Put these in to skip windows.h include file in some OCCT header files
 +arg any: -D_INC_WINDOWS
 +arg any: -D__WINDOWS_H_INCLUDED
