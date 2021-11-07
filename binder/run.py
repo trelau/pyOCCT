@@ -143,8 +143,9 @@ def main():
     if sys.platform.startswith('darwin'):
         type_traits_include_path = find_include_path('type_traits', conda_prefix)
         print('Include path for type_traits: {}'.format(type_traits_include_path))
-        raise NotADirectoryError(
-            "type_traits include path does not exist: {}".format(type_traits_include_path))
+        if not os.path.exists(type_traits_include_path):
+            raise NotADirectoryError(
+                "type_traits include path does not exist: {}".format(type_traits_include_path))
 
     # Gather all the includes for the parser
     other_includes = [i for i in [vtk_include_path, tbb_include_path, clang_include_path,
