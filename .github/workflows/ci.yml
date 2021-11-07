@@ -236,11 +236,14 @@ jobs:
           conda info -a
           conda list
 
+      - name: "Set SDKROOT"
+        run: echo "SDKROOT=$(xcrun --show-sdk-path)" >> $GITHUB_ENV
+
       - name: "Generate bindings"
         shell: pwsh
         run: |
           conda activate binder
-          SDKROOT=`xcrun --show-sdk-path` python binder/run.py -c binder/config.txt -o src
+          python binder/run.py -c binder/config.txt -o src
 
       - name: "Upload bindings"
         uses: actions/upload-artifact@v2
