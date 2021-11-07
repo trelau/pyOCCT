@@ -119,7 +119,7 @@ def main():
     print('\tTBB: {}'.format(tbb_include_path))
 
     clang_include_path = ''
-    if sys.platform.startswith('linux'):
+    if sys.platform.startswith('linux') or sys.platform.startswith('darwin'):
         clang_include_path = find_include_path('__stddef_max_align_t.h', conda_prefix)
         print('Found clangdev include directory: {}'.format(clang_include_path))
 
