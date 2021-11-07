@@ -22,12 +22,6 @@ project(pyOCCT VERSION 7.5.3.0 LANGUAGES C CXX)
 
 
 # --------------------------------------------------------------------------- #
-# OPTIONS
-# --------------------------------------------------------------------------- #
-option(ENABLE_WARNINGS "Disable warning output." OFF)
-
-
-# --------------------------------------------------------------------------- #
 # SETTINGS
 # --------------------------------------------------------------------------- #
 set(pyOCCT_MAJOR_VERSION 7)
@@ -35,30 +29,26 @@ set(pyOCCT_MINOR_VERSION 5)
 set(pyOCCT_PATCH_VERSION 3)
 set(pyOCCT_TWEAK_VERSION 0)
 
+# Set CXX standard
+set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ version selection")
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Windows
 if(WIN32)
-    set(EXTENSION ".pyd")
-else(WIN32)
-    set(EXTENSION ".so")
+    add_definitions(-DWNT -DWIN32 -D_WINDOWS -DCSFDB -DHAVE_CONFIG_H)
+    add_definitions("/wd4244 /wd4251 /wd4275 /wd4290")
 endif(WIN32)
 
-# Known warnings
-if(NOT ENABLE_WARNINGS)
-    if(WIN32)
-        set(WARNINGS "/wd4996 /wd4800 /wd4267 /wd4275 /wd4251 /wd4805 /wd4290 /wd4005 /wd4180 /wd4244 /wd4146 /wd4172")
-    else(WIN32)
-        set(WARNINGS "-Wall -Wno-deprecated-declarations -Wno-strict-aliasing")
-    endif(WIN32)
-else(NOT ENABLE_WARNINGS)
-    set(WARNINGS)
-endif(NOT ENABLE_WARNINGS)
+# Unix
+if(UNIX)
+    add_definitions(-DHAVE_CONFIG_H -DCSFDB)
+endif(UNIX)
 
-# if(NOT MSVC)
-#     # TODO: Figure out how to handle methods that return functions
-#     message(STATUS "Flags: ${CMAKE_CXX_FLAGS}")
-#     message(STATUS "Linker flags: ${CMAKE_MODULE_LINKER_FLAGS}")
-#     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
-#     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,-z,defs")
-# endif()
+#Apple
+if(APPLE)
+    add_definitions(-stdlib=libc++)
+endif()
 
 
 # --------------------------------------------------------------------------- #
@@ -185,13 +175,27 @@ foreach(MOD ${OCCT_MODULES})
     pybind11_add_module(${MOD} ${SRCS})
     target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
                                         ${Python_LIBRARIES})
+    target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    set_target_properties(${MOD} PROPERTIES SUFFIX ${PYTHON_MODULE_EXTENSION})
+
+    if(UNIX)
+        set_target_properties(${MOD} PROPERTIES
+            COMPILE_FLAGS "-fpermissive -fvisibility=hidden -fvisibility-inlines-hidden")
+    endif()
+
+    if(UNIX AND NOT APPLE)
+        target_link_options( {{ name }} PRIVATE "LINKER:--allow-multiple-definition")
+    endif()
+
+    if(APPLE)
+        target_link_libraries( {{ name }} PRIVATE "-undefined dynamic_lookup")
+    endif()
 
     if(${MOD} STREQUAL "OpenGl")
         target_link_libraries(${MOD} PRIVATE ${OPENGL_LIBRARIES})
     endif()
 
-    set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
-    target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
-    install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
+    install(FILES ${OUTPUT_PATH}/${MOD}${PYTHON_MODULE_EXTENSION}
             DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
+
 endforeach()
