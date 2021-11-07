@@ -44,9 +44,7 @@ def gen_includes(occt_include_path, output_path):
 
     # Header files to ignore
     ignored_includes = [
-        'step.tab.hxx',
-        'OSD_WNT.hxx',
-        'WNT_Dword.hxx'
+        'step.tab.hxx'
     ]
 
     occt_mods = set()
