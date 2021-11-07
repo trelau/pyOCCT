@@ -3,16 +3,20 @@
 # Clang compiler arguments ----------------------------------------------------
 +arg any: -x
 +arg any: c++
-+arg any: -std=c++17
 +arg any: -D__CODE_GENERATOR__
 +arg any: -Wno-deprecated-declarations
 +arg any: -ferror-limit=0
++arg win32: -std=c++11
 +arg win32: -fms-compatibility
 +arg win32: -fms-extensions
 +arg win32: -fms-compatibility-version=19
 +arg win32: -fdelayed-template-parsing
-+arg linux: -D_INC_WINDOWS
-+arg linux: -D__WINDOWS_H_INCLUDED
++arg linux: -std=c++11
+# +arg linux: -D_INC_WINDOWS
+# +arg linux: -D__WINDOWS_H_INCLUDED
++arg osx: -stdlib=libc++
++arg osx: -std=c++11
+
 
 # Immutable types -------------------------------------------------------------
 +immutable Standard_Boolean
