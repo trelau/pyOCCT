@@ -52,13 +52,13 @@ else(NOT ENABLE_WARNINGS)
     set(WARNINGS)
 endif(NOT ENABLE_WARNINGS)
 
-if(NOT MSVC)
-    # TODO: Figure out how to handle methods that return functions
-    message(STATUS "Flags: ${CMAKE_CXX_FLAGS}")
-    message(STATUS "Linker flags: ${CMAKE_MODULE_LINKER_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,-z,defs")
-endif()
+# if(NOT MSVC)
+#     # TODO: Figure out how to handle methods that return functions
+#     message(STATUS "Flags: ${CMAKE_CXX_FLAGS}")
+#     message(STATUS "Linker flags: ${CMAKE_MODULE_LINKER_FLAGS}")
+#     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
+#     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,-z,defs")
+# endif()
 
 
 # --------------------------------------------------------------------------- #
