@@ -236,6 +236,9 @@ jobs:
           conda info -a
           conda list
 
+      - name: "Set SDKROOT"
+        run: echo "SDKROOT=$(xcrun --show-sdk-path)" >> $GITHUB_ENV
+
       - name: "Generate bindings"
         shell: pwsh
         run: |
