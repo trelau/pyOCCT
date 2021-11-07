@@ -184,11 +184,11 @@ foreach(MOD ${OCCT_MODULES})
     endif()
 
     if(UNIX AND NOT APPLE)
-        target_link_options( {{ name }} PRIVATE "LINKER:--allow-multiple-definition")
+        target_link_options(${MOD} PRIVATE "LINKER:--allow-multiple-definition")
     endif()
 
     if(APPLE)
-        target_link_libraries( {{ name }} PRIVATE "-undefined dynamic_lookup")
+        target_link_libraries(${MOD} PRIVATE "-undefined dynamic_lookup")
     endif()
 
     if(${MOD} STREQUAL "OpenGl")
