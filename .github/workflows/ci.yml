@@ -240,7 +240,7 @@ jobs:
         shell: pwsh
         run: |
           conda activate binder
-          python binder/run.py -c binder/config.txt -o src
+          SDKROOT=`xcrun --show-sdk-path` python binder/run.py -c binder/config.txt -o src
 
       - name: "Upload bindings"
         uses: actions/upload-artifact@v2
