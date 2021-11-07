@@ -3,22 +3,17 @@
 # Clang compiler arguments ----------------------------------------------------
 +arg any: -x
 +arg any: c++
++arg any: -std=c++11
 +arg any: -D__CODE_GENERATOR__
 +arg any: -Wno-deprecated-declarations
 +arg any: -ferror-limit=0
-+arg win32: -std=c++11
 +arg win32: -fms-compatibility
 +arg win32: -fms-extensions
 +arg win32: -fms-compatibility-version=19
 +arg win32: -fdelayed-template-parsing
-+arg linux: -std=c++11
-+arg osx: -stdlib=libc++
-+arg osx: -std=c++11
 # Put these in to skip windows.h include file in some OCCT header files
-+arg linux: -D_INC_WINDOWS
-+arg linux: -D__WINDOWS_H_INCLUDED
-+arg osx: -D_INC_WINDOWS
-+arg osx: -D__WINDOWS_H_INCLUDED
++arg any: -D_INC_WINDOWS
++arg any: -D__WINDOWS_H_INCLUDED
 
 
 # Immutable types -------------------------------------------------------------

@@ -66,9 +66,9 @@ def gen_includes(occt_include_path, output_path):
 
     # all_includes.h
     with open(os.path.join(output_path, 'all_includes.h'), 'w') as fout:
-        fout.write("#ifdef _WIN32\n")
-        fout.write('    #include <Windows.h>\n')
-        fout.write("#endif\n")
+        # fout.write("#ifdef _WIN32\n")
+        # fout.write('    #include <Windows.h>\n')
+        # fout.write("#endif\n")
 
         for header in all_includes:
             fout.write('#include <{}>\n'.format(header))
