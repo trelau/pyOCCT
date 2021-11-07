@@ -112,11 +112,13 @@ def main():
     vtk_include_path = find_include_path('vtk_doubleconversion.h', conda_prefix)
     tbb_include_path = find_include_path('tbb.h', conda_prefix)
     tbb_include_path = os.path.split(tbb_include_path)[0]
+    type_traits_include_path = find_include_path('type_traits', conda_prefix)
 
     print('Include directories:')
     print('\tOpenCASCADE: {}'.format(occt_include_path))
     print('\tVTK: {}'.format(vtk_include_path))
     print('\tTBB: {}'.format(tbb_include_path))
+    print('\ttype_traits: {}'.format(type_traits_include_path))
 
     clang_include_path = ''
     if sys.platform.startswith('linux') or sys.platform.startswith('darwin'):
@@ -138,7 +140,7 @@ def main():
         raise NotADirectoryError("clangdev not found: {}".format(clang_include_path))
 
     # Gather all the includes for the parser
-    other_includes = [i for i in [vtk_include_path, tbb_include_path, clang_include_path] if i]
+    other_includes = [i for i in [vtk_include_path, tbb_include_path, clang_include_path, type_traits_include_path] if i]
 
     # Add extra includes for missing OCCT headers that cause issues during parsing
     other_includes.append(os.path.join(BINDER_ROOT, 'extra_includes'))
