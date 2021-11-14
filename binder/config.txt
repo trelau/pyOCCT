@@ -516,6 +516,7 @@
 
 -function OSD::RealToCString_
 -function OSD_Path::LocateExecFile
+-function OSD_SharedLibrary::DlSymb
 
 -function OpenGl_GlCore11::glGetPointerv
 -function OpenGl_Material::Init
