@@ -37,7 +37,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Windows
 if(WIN32)
     add_definitions(-DWNT -DWIN32 -D_WINDOWS -DCSFDB -DHAVE_CONFIG_H)
-    add_definitions("/wd4244 /wd4251 /wd4275 /wd4290")
+    add_definitions("/wd4244 /wd4251 /wd4275 /wd4290 /wd4503 /wd4996")
 endif(WIN32)
 
 # Unix
@@ -180,7 +180,7 @@ foreach(MOD ${OCCT_MODULES})
 
     if(UNIX)
         set_target_properties(${MOD} PROPERTIES
-            COMPILE_FLAGS "-fpermissive -fvisibility=hidden -fvisibility-inlines-hidden")
+            COMPILE_FLAGS "-fpermissive -fvisibility=hidden -fvisibility-inlines-hidden -Wno-deprecated-declarations")
     endif()
 
     if(UNIX AND NOT APPLE)
