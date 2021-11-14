@@ -560,6 +560,8 @@
 # Undefined symbol on Linux
 -function ShapeFix_Edge::Context
 
+-function Standard_CLocaleSentry::GetCLocale_
+
 -function StdPersistent_DataXtd_Constraint::Import
 -function StdPersistent_DataXtd_PatternStd::Import
 -function StdPersistent_TopLoc::Translate_
