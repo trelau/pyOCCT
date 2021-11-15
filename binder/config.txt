@@ -599,8 +599,6 @@
 
 -function TopOpeBRepBuild_Builder1::GFillSplitsPVS
 
--field RWGltf_GltfSharedIStream::Stream
-
 -function VrmlData_IndexedFaceSet::GetNormal
 -function VrmlData_IndexedFaceSet::Polygons
 -function VrmlData_IndexedFaceSet::Polygon
@@ -816,6 +814,7 @@
 -field Graphic3d_CStructure::IsForHighlight
 -field Graphic3d_CStructure::IsMutable
 -field Graphic3d_CStructure::Is2dText
+-field Graphic3d_GraduatedTrihedron::CubicAxesCallback
 
 -field OpenGl_Context::core11
 -field OpenGl_Context::core11fwd
