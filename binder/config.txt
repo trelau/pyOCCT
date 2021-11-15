@@ -1045,4 +1045,5 @@
 +split OpenGl
 
 # Before modules -----------------------------------------------------------------------------------
++before_module OpenGl-->struct NSOpenGLContext{};
 +before_module V3d-->struct NSOpenGLContext{};
