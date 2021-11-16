@@ -63,6 +63,7 @@
 -class Graphic3d_BvhCStructureSetTrsfPers
 -class Graphic3d_Layer
 
+-class OpenGl_GlFunctions
 -class OpenGl_GraduatedTrihedron
 -class OpenGl_LayerList
 -class OpenGl_RaytraceGeometry
