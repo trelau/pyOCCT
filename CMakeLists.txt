@@ -31,8 +31,8 @@ option(ENABLE_WARNINGS "Disable warning output." OFF)
 # SETTINGS
 # --------------------------------------------------------------------------- #
 set(pyOCCT_MAJOR_VERSION 7)
-set(pyOCCT_MINOR_VERSION 5)
-set(pyOCCT_PATCH_VERSION 3)
+set(pyOCCT_MINOR_VERSION 6)
+set(pyOCCT_PATCH_VERSION 0)
 set(pyOCCT_TWEAK_VERSION 0)
 
 if(WIN32)
@@ -108,6 +108,7 @@ find_package(GLEW REQUIRED)
 # X11
 # --------------------------------------------------------------------------- #
 if(NOT WIN32 AND NOT APPLE)
+    add_definitions (-DHAVE_XLIB)
     find_package(X11 REQUIRED)
 endif()
 
@@ -118,7 +119,7 @@ endif()
 include_directories(inc)
 if(NOT DEFINED OpenCASCADE_INCLUDE_DIR OR NOT DEFINED OpenCASCADE_LIBRARY_DIR)
     message(STATUS "Searching for OpenCASCADE...")
-    find_package(OpenCASCADE 7.5.3 REQUIRED)
+    find_package(OpenCASCADE 7.6.0 REQUIRED)
 endif()
 
 if(NOT EXISTS ${OpenCASCADE_INCLUDE_DIR})

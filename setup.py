@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='OCCT',
-    version='7.5.3.0',
+    version='7.6.0.0',
     packages=['OCCT', 'OCCT.Exchange', 'OCCT.Visualization'],
     package_data={'OCCT': ['*.so', '*.pyd', '*.dll', 'Visualization/_resources/*']},
     author='Trevor Laughlin',

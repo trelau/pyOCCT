@@ -13,6 +13,7 @@
 +arg win32: -fdelayed-template-parsing
 +arg linux: -D_INC_WINDOWS
 +arg linux: -D__WINDOWS_H_INCLUDED
++arg linux: -DHAVE_XLIB
 
 # Immutable types -------------------------------------------------------------
 +immutable Standard_Boolean
@@ -40,6 +41,9 @@
 -class Graphic3d_BvhCStructureSetTrsfPers
 -class Graphic3d_Layer
 
+-class Message_ProgressScope
+-class Message_LazyProgressScope
+
 -class OpenGl_GraduatedTrihedron
 -class OpenGl_LayerList
 -class OpenGl_RaytraceGeometry
@@ -52,6 +56,10 @@
 -class OpenGl_Workspace
 -class OpenGl_VariableSetterSelector
 -class OpenGl_LineAttributes
+
+-class OSD_IStreamBuffer
+-class OSD_OStreamBuffer
+-class OSD_IOStreamBuffer
 
 -class PCDM_DOMHeaderParser
 
@@ -504,7 +512,8 @@
 -function OpenGl_Workspace::BufferDump
 -function OpenGl_Workspace::ResetAppliedAspect
 -function OpenGl_Group::GlStruct
-
+-function OpenGl_DepthPeeling::DepthPeelFbosOit
+-function OpenGl_DepthPeeling::FrontBackColorFbosOit
 -function PCDM::FileDriverType_
 -function PCDM_DOMHeaderParser::SetStartElementName
 -function PCDM_DOMHeaderParser::SetEndElementName
@@ -550,6 +559,9 @@
 -function StepData_FreeFormEntity::StepData_FreeFormEntity
 -function StepData_StepReaderData::ReadEnumParam
 -function StepData_UndefinedEntity::Super
+
+-function StepFile_ReadData::GetArgDescription
+-function StepFile_ReadData::GetRecordDescription
 
 -function StepFEA_SymmetricTensor43d::SetFeaIsotropicSymmetricTensor43d
 
@@ -624,6 +636,9 @@
 -header* glext.h
 -header* NCollection_Shared.hxx
 
+-header ProjLib: ProjLib_HCompProjectedCurve.hxx
+-header ProjLib: ProjLib_HProjectedCurve.hxx
+
 +header Aspect: xTypes.h
 +header AIS: AIS_PyInteractiveObject.hxx
 +header BinMXCAFDoc: BinTools_LocationSet.hxx
@@ -644,9 +659,6 @@
 +header BRepBlend: math_Matrix.hxx
 +header BRepBlend: gp_Lin.hxx
 +header BRepBlend: Blend_Point.hxx
-+header BRepBlend: Adaptor3d_HSurface.hxx
-+header BRepBlend: Adaptor3d_HCurve.hxx
-+header BRepBlend: Adaptor2d_HCurve2d.hxx
 +header BRepBlend: gp_Ax1.hxx
 +header BRepBlend: gp_Circ.hxx
 +header BRepBlend: Law_Function.hxx
@@ -654,7 +666,9 @@
 +header BRepBuilderAPI: gp_XY.hxx
 +header BRepBuilderAPI: gp_XYZ.hxx
 
++header BRepCheck: bind_NCollection_Shared.hxx
 +header BRepFill: TopTools_HArray1OfShape.hxx
++header BRepFill: gp_Pln.hxx
 
 +header BRepGProp: BRepGProp_Face.hxx
 +header BRepGProp: BRepGProp_Domain.hxx
@@ -665,6 +679,7 @@
 +header BRepOffsetAPI: TopoDS_Edge.hxx
 +header BRepOffsetAPI: TopoDS_Face.hxx
 +header BRepOffsetAPI: BRepTools_ReShape.hxx
++header BlendFunc: Adaptor2d_Curve2d.hxx
 
 +header BVH_Traverse<NumType, Dimension, BVHSetType, MetricType>: bind_BVH_BaseTraverse.hxx
 +header BVH_BoxSet<NumType, Dimension, DataType>: bind_BVH_PrimitiveSet.hxx
@@ -673,19 +688,24 @@
 +header BVH_ObjectSet<T, N>: bind_BVH_Set.hxx
 +header BVH_PrimitiveSet<T, N>: bind_BVH_Object.hxx
 +header BVH_Triangulation<T, N>: bind_BVH_PrimitiveSet.hxx
-
++header CPnts: Adaptor2d_Curve2d.hxx
 +header Font: bind_Font_BRepFont.hxx
 
 +header Graphic3d: bind_BVH_Set.hxx
 +header Graphic3d: Precision.hxx
++header GeomLib: Geom2d_BezierCurve.hxx
 
 +header HLRAlgo: gp_XYZ.hxx
++header HLRTopoBRep: Adaptor2d_Curve2d.hxx
 
 +header IMeshTools: IMeshData_Face.hxx
 
 +header IntPatch: Intf_Polygon2d.hxx
 
 +header IntPolyh: IntPolyh_Triangle.hxx
+
+# Already there but order is wrong?
++header IntAna: gp_Sphere.hxx
 
 +header MMgt: Standard_Type.hxx
 
@@ -701,6 +721,7 @@
 +header PCDM: Storage_BaseDriver.hxx
 +header PCDM: Standard_IStream.hxx
 
++header Poly: bind_NCollection_AliasedArray.hxx
 +header ProjLib: Adaptor3d_Surface.hxx
 +header ProjLib: Adaptor3d_Curve.hxx
 
@@ -708,6 +729,7 @@
 +header Prs3d: Poly_Polygon3D.hxx
 
 +header PrsMgr: PrsMgr_Presentation.hxx
++header RWGltf: bind_NCollection_Shared.hxx
 
 +header SelectMgr: bind_SelectMgr_Frustum.hxx
 
@@ -718,6 +740,7 @@
 -header Standard: NCollection_SparseArrayBase.hxx
 -header Standard: NCollection_SparseArrayBase.hxx
 -header Standard: Storage_Schema.hxx
++header Standard: bind_NCollection_Shared.hxx
 
 +header StdLPersistent: bind_StdObjMgt_Attribute.hxx
 
@@ -759,12 +782,16 @@
 # Python names ----------------------------------------------------------------
 +pname AIS_PointCloud::DisplayMode-->enumDisplayMode
 +pname NCollection_Lerp<gp_Trsf>-->gp_TrsfNLerp
++pname GCPnts_TCurveTypes<Adaptor3d_Curve>-->GCPnts_TCurveTypes3d
++pname GCPnts_TCurveTypes<Adaptor2d_Curve2d>-->GCPnts_TCurveTypes2d
 
 # nodelete option -------------------------------------------------------------
 +nodelete TDF_LabelNode
 +nodelete Poly_CoherentTriPtr
 +nodelete NCollection_SeqNode
 +nodelete NCollection_ListNode
+
+
 
 # Excluded base classes -------------------------------------------------------
 -base BRepExtrema_OverlapTool: BVH_PairTraverse<Standard_Real, 3>
@@ -815,6 +842,7 @@
 -field VrmlData_InBuffer::Input
 
 # Excluded imports ------------------------------------------------------------
+-import Aspect: WNT
 -import AIS: WNT
 -import Geom: GeomEvaluator
 -import Geom2d: Geom2dEvaluator
@@ -929,6 +957,8 @@
 +before_type OpenGl_BVHClipPrimitiveTrsfPersSet-->bind_BVH_Set<Standard_Real, 3>(mod, "BVH_Set_Standard_Real3", py::module_local());
 +before_type OpenGl_RaytraceGeometry-->bind_BVH_Geometry<Standard_ShortReal, 3>(mod, "BVH_Geometry_Standard_ShortReal3", py::module_local());
 
++before_type Poly_ArrayOfNodes-->bind_NCollection_AliasedArray<16>(mod, "NCollection_AliasedArray16", py::module_local(false));
+
 +before_type SelectMgr_RectangularFrustum-->bind_SelectMgr_Frustum<4>(mod, "Select_Mgr_Frustum4", py::module_local());
 +before_type SelectMgr_TriangularFrustum-->bind_SelectMgr_Frustum<3>(mod, "Select_Mgr_Frustum3", py::module_local());
 
@@ -958,7 +988,7 @@
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("HasWarning", [](BRepAlgoAPI_Algo &self, Handle(Standard_Type) &theType) { return self.HasWarning(theType); }, "Returns true if algorithm has generated warning of specified type", py::arg("theType"));
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("ClearWarnings", [](BRepAlgoAPI_Algo &self) { self.ClearWarnings(); }, "Clears the warnings of the algorithm");
 +after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("GetReport", [](BRepAlgoAPI_Algo &self) { const Handle(Message_Report) r = self.GetReport(); return r; }, "Returns report collecting all errors and warnings");
-+after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetProgressIndicator", [](BRepAlgoAPI_Algo &self, const Message_ProgressScope &pi) {return self.SetProgressIndicator(pi); }, "Set the Progress Indicator object.", py::arg("theObj"));
+#+after_type BRepAlgoAPI_Algo-->cls_BRepAlgoAPI_Algo.def("SetProgressIndicator", [](BRepAlgoAPI_Algo &self, const Message_ProgressScope &pi) {return self.SetProgressIndicator(pi); }, "Set the Progress Indicator object.", py::arg("theObj"));
 
 +after_type Geom_Surface-->cls_Geom_Surface.def("U1", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return U1; }, "Returns the parametric bound U1.");
 +after_type Geom_Surface-->cls_Geom_Surface.def("U2", [](Geom_Surface &self) { Standard_Real U1; Standard_Real U2; Standard_Real V1; Standard_Real V2; self.Bounds(U1, U2, V1, V2); return U2; }, "Returns the parametric bound U2.");
@@ -976,6 +1006,7 @@
 +after_type TopoDS_Shape-->cls_TopoDS_Shape.def("__hash__", [](TopoDS_Shape &self) {return self.HashCode(999999); });
 
 +after_type XCAFDoc_ShapeTool-->cls_XCAFDoc_ShapeTool.def("FindSubShape", [](XCAFDoc_ShapeTool &self, const TDF_Label &shapeL, const TopoDS_Shape &sub) { TDF_Label L; Standard_Boolean status = self.FindSubShape(shapeL, sub, L); return std::tuple<Standard_Boolean, TDF_Label>(status, L); }, "Finds a label for subshape of shape stored on label shapeL Returns Null label if it is not found", py::arg("shapeL"), py::arg("sub"));
++after_type XCAFDoc_VisMaterial-->bind_NCollection_DataMap<opencascade::handle<XCAFDoc_VisMaterial>, opencascade::handle<XCAFDoc_VisMaterial>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient>> >(mod, "XCAFDoc_VisMaterialDataMap", py::module_local(false));
 
 # Add exception translator
 +after_type Standard_Failure-->py::register_exception_translator([](std::exception_ptr p) {try {if (p) std::rethrow_exception(p);} catch (const Standard_Failure &e) { PyErr_SetString(PyExc_RuntimeError, e.GetMessageString());}});
@@ -990,6 +1021,7 @@
 +patch bind_BVH_BaseBox: template <typename T, int N>-->template <typename T, int N, template <class /*T*/, int /*N*/> class TheDerivedBox>
 +patch bind_BVH_BaseBox: BVH_BaseBox<T, N>-->BVH_BaseBox<T, N, TheDerivedBox>
 +patch bind_BVH_Traverse: (const int &)-->(const opencascade::handle<BVH_Tree <NumType, Dimension>>&)
++patch bind_SelectMgr_Frustum: cls_SelectMgr_Frustum.def(py::init<>());-->//cls_SelectMgr_Frustum.def(py::init<>());
 
 +patch Geom: (const TColStd_Array2OfReal * (Geom_BSplineSurface::*)() const) &Geom_BSplineSurface::Weights-->[](Geom_BSplineSurface& self) -> py::object {return self.Weights() ? py::cast(*self.Weights()) : py::none(); }
 

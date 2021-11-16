@@ -24,6 +24,8 @@ def find_include_path(name, path):
     :return: The full path to the directory of the given header file.
     """
     for root, dirs, files in os.walk(path):
+        if "pkgs" in root:
+            continue  # Skip conda's cached package downloads
         if name in files:
             return root
 
