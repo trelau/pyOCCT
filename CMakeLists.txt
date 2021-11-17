@@ -18,7 +18,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 cmake_minimum_required(VERSION 3.15...3.20)
-project(pyOCCT VERSION 7.5.3.0 LANGUAGES C CXX)
+project(pyOCCT VERSION 7.6.0.0 LANGUAGES C CXX)
 
 
 # --------------------------------------------------------------------------- #
@@ -154,6 +154,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 
 # Include the file specifying available OCCT modules
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/OCCT_Modules.cmake)
+list(APPEND OCCT_MODULES "StepKinematics")
 
 # OCCT
 foreach(MOD ${OCCT_MODULES})

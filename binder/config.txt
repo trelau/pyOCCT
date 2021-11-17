@@ -57,9 +57,9 @@
 -class OpenGl_VariableSetterSelector
 -class OpenGl_LineAttributes
 
--class OSD_IStreamBuffer
--class OSD_OStreamBuffer
--class OSD_IOStreamBuffer
+-class std::basic_istream<char>
+-class std::basic_ostream<char>
+-class std::basic_iostream<char>
 
 -class PCDM_DOMHeaderParser
 
@@ -730,6 +730,7 @@
 
 +header PrsMgr: PrsMgr_Presentation.hxx
 +header RWGltf: bind_NCollection_Shared.hxx
++header RWGltf: bind_NCollection_IndexedMap.hxx
 
 +header SelectMgr: bind_SelectMgr_Frustum.hxx
 
@@ -859,6 +860,7 @@
 # Import guards ---------------------------------------------------------------
 +iguard AIS: PrsDim
 +iguard Aspect: Graphic3d
++iguard CDM: PCDM
 +iguard Font: Graphic3d
 +iguard Font: StdPrs
 +iguard Graphic3d: Select3D
@@ -867,6 +869,7 @@
 +iguard LDOMParser: LDOM
 +iguard Media: Graphic3d
 +iguard SelectBasics: Select3D
++iguard SelectBasics: SelectMgr
 +iguard SelectMgr: StdSelect
 +iguard Standard: TCollection
 +iguard Standard: NCollection
@@ -954,10 +957,13 @@
 
 +before_type Graphic3d_BvhCStructureSetTrsfPers-->bind_BVH_Set<Standard_Real, 3>(mod, "BVH_Set_Standard_Real3", py::module_local());
 
+
++before_type RWGltf_GltfSceneNodeMap-->bind_NCollection_IndexedMap<XCAFPrs_DocumentNode, XCAFPrs_DocumentNode>(mod,  "XCAFPrs_DocumentNode_IndexedMap", py::module_local());
+
 +before_type OpenGl_BVHClipPrimitiveTrsfPersSet-->bind_BVH_Set<Standard_Real, 3>(mod, "BVH_Set_Standard_Real3", py::module_local());
 +before_type OpenGl_RaytraceGeometry-->bind_BVH_Geometry<Standard_ShortReal, 3>(mod, "BVH_Geometry_Standard_ShortReal3", py::module_local());
 
-+before_type Poly_ArrayOfNodes-->bind_NCollection_AliasedArray<16>(mod, "NCollection_AliasedArray16", py::module_local(false));
++before_type Poly_ArrayOfNodes-->bind_NCollection_AliasedArray<16>(mod, "NCollection_AliasedArray16", py::module_local());
 
 +before_type SelectMgr_RectangularFrustum-->bind_SelectMgr_Frustum<4>(mod, "Select_Mgr_Frustum4", py::module_local());
 +before_type SelectMgr_TriangularFrustum-->bind_SelectMgr_Frustum<3>(mod, "Select_Mgr_Frustum3", py::module_local());
