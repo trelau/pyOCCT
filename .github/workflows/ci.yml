@@ -24,7 +24,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get -q -y install libglu1-mesa-dev libgl1-mesa-dev libxi-dev libglfw3-dev libgles2-mesa-dev
-      
+
       - name: "Prepare VM"
         run: |
           sudo rm -Rf /home/linuxbrew/
@@ -112,17 +112,17 @@ jobs:
       fail-fast: false
       matrix:
         os: ['ubuntu-latest']
-        python-version: ['3.6', '3.7', '3.8', '3.9']
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
     steps:
 
       - name: "Install OpenGL"
         run: |
           sudo apt-get update
           sudo apt-get -q -y install libglu1-mesa-dev libgl1-mesa-dev libxi-dev libglfw3-dev libgles2-mesa-dev
-      
+
       - name: "Prepare VM"
         run: sudo rm -Rf /home/linuxbrew/
-      
+
       - name: "Clone pyOCCT"
         uses: actions/checkout@v2
 
@@ -163,7 +163,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ['windows-latest']
-        python-version: ['3.6', '3.7', '3.8', '3.9']
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
     steps:
 
       - name: "Clone pyOCCT"
