@@ -635,6 +635,10 @@
 -header ProjLib: ProjLib_HCompProjectedCurve.hxx
 -header ProjLib: ProjLib_HProjectedCurve.hxx
 
+-header OpenGl: OpenGl_BufferCompatT.hxx
+-header OpenGl: OpenGl_VertexBufferCompat.hxx
+-header OpenGl: bind_OpenGl_BufferCompatT.hxx
+
 +header Aspect: xTypes.h
 +header AIS: AIS_PyInteractiveObject.hxx
 +header BinMXCAFDoc: BinTools_LocationSet.hxx
