@@ -275,6 +275,7 @@ LIST(APPEND OCCT_MODULES
     StepFEA
     StepFile
     StepGeom
+    StepKinematics
     StepRepr
     StepSelect
     STEPSelections

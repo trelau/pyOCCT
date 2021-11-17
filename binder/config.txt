@@ -57,10 +57,6 @@
 -class OpenGl_VariableSetterSelector
 -class OpenGl_LineAttributes
 
--class std::basic_istream<char>
--class std::basic_ostream<char>
--class std::basic_iostream<char>
-
 -class PCDM_DOMHeaderParser
 
 -class AIS_DataMapOfSelStat
@@ -1052,6 +1048,9 @@
 
 # Inject trampoline
 +patch AIS: py::class_<AIS_InteractiveObject, opencascade-->py::class_<AIS_InteractiveObject, AIS_PyInteractiveObject, opencascade
+
+# Disable
++patch OSD: bind_OSD_StreamBuffer-->// bind_OSD_StreamBuffer
 
 # Split modules
 +split Graphic3d

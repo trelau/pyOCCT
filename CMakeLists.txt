@@ -154,7 +154,6 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 
 # Include the file specifying available OCCT modules
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/OCCT_Modules.cmake)
-list(APPEND OCCT_MODULES "StepKinematics")
 
 # OCCT
 foreach(MOD ${OCCT_MODULES})
