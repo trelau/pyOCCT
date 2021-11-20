@@ -572,7 +572,7 @@
 -function StdObject_Location::Import
 
 -function StdSelect_BRepOwner::Set
-#-function StdStorage_TypeData::Instantiator
+-function StdStorage_TypeData::Instantiator
 
 -function StepData_FreeFormEntity::StepData_FreeFormEntity
 -function StepData_StepReaderData::ReadEnumParam
