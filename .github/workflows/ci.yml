@@ -252,7 +252,7 @@ jobs:
           path: src
 
   build_macos:
-    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    if: "!contains(github.event.head_commit.message, 'skip ci') && contains(github.event.head_commit.message, 'build macos')"
     name: Build (${{ matrix.python-version }}, ${{ matrix.os }})
     needs: generate_macos
     runs-on: ${{ matrix.os }}
