@@ -66,9 +66,9 @@ def gen_includes(occt_include_path, output_path):
 
     # all_includes.h
     with open(os.path.join(output_path, 'all_includes.h'), 'w') as fout:
-        fout.write("#ifdef _WIN32\n")
-        fout.write('    #include <Windows.h>\n')
-        fout.write("#endif\n")
+        # fout.write("#ifdef _WIN32\n")
+        # fout.write('    #include <Windows.h>\n')
+        # fout.write("#endif\n")
 
         for header in all_includes:
             fout.write('#include <{}>\n'.format(header))
@@ -108,23 +108,29 @@ def main():
 
     # Attempt to find include directories by searching for a known header file. Will likely
     # need to make this more robust.
+    clang_include_path = find_include_path('__stddef_max_align_t.h', conda_prefix)
     occt_include_path = find_include_path('Standard.hxx', conda_prefix)
     vtk_include_path = find_include_path('vtk_doubleconversion.h', conda_prefix)
     tbb_include_path = find_include_path('tbb.h', conda_prefix)
     tbb_include_path = os.path.split(tbb_include_path)[0]
 
     print('Include directories:')
+    print('Clang: {}'.format(clang_include_path))
     print('\tOpenCASCADE: {}'.format(occt_include_path))
     print('\tVTK: {}'.format(vtk_include_path))
     print('\tTBB: {}'.format(tbb_include_path))
 
-    clang_include_path = ''
-    if sys.platform.startswith('linux'):
-        clang_include_path = find_include_path('__stddef_max_align_t.h', conda_prefix)
-        print('Found clangdev include directory: {}'.format(clang_include_path))
+    if not clang_include_path or not os.path.exists(clang_include_path):
+        raise NotADirectoryError("Clang include path does not exist: {}".format(clang_include_path))
 
     if not occt_include_path or not os.path.exists(occt_include_path):
         raise NotADirectoryError("OCCT include path does not exist: {}".format(occt_include_path))
+
+    if not vtk_include_path or not os.path.exists(vtk_include_path):
+        raise NotADirectoryError("VTK include path does not exist: {}".format(vtk_include_path))
+
+    if not tbb_include_path or not os.path.exists(tbb_include_path):
+        raise NotADirectoryError("TBB include path does not exist: {}".format(tbb_include_path))
 
     if not os.path.exists(args.pyocct_root):
         raise NotADirectoryError("pyOCCT root path does not exist: {}".format(args.pyocct_root))
@@ -132,13 +138,18 @@ def main():
     if not os.path.exists(args.config_path):
         raise FileNotFoundError("Configuration file not found: {}".format(args.config_path))
 
-    # Force using conda's clangdev includes. This may not be needed on other systems but was
-    # getting errors on linux.
-    if sys.platform.startswith('linux') and not os.path.exists(clang_include_path):
-        raise NotADirectoryError("clangdev not found: {}".format(clang_include_path))
+    # Include type_traits for OSX
+    type_traits_include_path = ''
+    if sys.platform.startswith('darwin'):
+        type_traits_include_path = find_include_path('type_traits', conda_prefix)
+        print('Include path for type_traits: {}'.format(type_traits_include_path))
+        if not os.path.exists(type_traits_include_path):
+            raise NotADirectoryError(
+                "type_traits include path does not exist: {}".format(type_traits_include_path))
 
     # Gather all the includes for the parser
-    other_includes = [i for i in [vtk_include_path, tbb_include_path, clang_include_path] if i]
+    other_includes = [i for i in [vtk_include_path, tbb_include_path, clang_include_path,
+                                  type_traits_include_path] if i]
 
     # Add extra includes for missing OCCT headers that cause issues during parsing
     other_includes.append(os.path.join(BINDER_ROOT, 'extra_includes'))

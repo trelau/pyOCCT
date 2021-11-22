@@ -7,12 +7,35 @@
 +arg any: -D__CODE_GENERATOR__
 +arg any: -Wno-deprecated-declarations
 +arg any: -ferror-limit=0
++arg any: -DCSFDB
++arg any: -DHAVE_CONFIG_H
+
+# Windows
 +arg win32: -fms-compatibility
 +arg win32: -fms-extensions
 +arg win32: -fms-compatibility-version=19
 +arg win32: -fdelayed-template-parsing
++arg win32: -DWNT
++arg win32: -DWIN32
++arg win32: -D_WINDOWS
+
+# Linux
++arg linux: -fpermissive
++arg linux: -fvisibility=hidden
++arg linux: -fvisibility-inlines-hidden
+# Put these in to skip windows.h include file in some OCCT header files
 +arg linux: -D_INC_WINDOWS
 +arg linux: -D__WINDOWS_H_INCLUDED
+
+# OSX
++arg osx: -stdlib=libc++
++arg osx: -fpermissive
++arg osx: -fvisibility=hidden
++arg osx: -fvisibility-inlines-hidden
+# Put these in to skip windows.h include file in some OCCT header files
++arg osx: -D_INC_WINDOWS
++arg osx: -D__WINDOWS_H_INCLUDED
+
 
 # Immutable types -------------------------------------------------------------
 +immutable Standard_Boolean
@@ -40,6 +63,7 @@
 -class Graphic3d_BvhCStructureSetTrsfPers
 -class Graphic3d_Layer
 
+-class OpenGl_GlFunctions
 -class OpenGl_GraduatedTrihedron
 -class OpenGl_LayerList
 -class OpenGl_RaytraceGeometry
@@ -76,6 +100,8 @@
 -class Storage_Bucket
 -class Storage_BucketIterator
 -class Storage_BucketOfPersistent
+
+-class TDF_DerivedAttribute
 
 # Excluded typedefs -----------------------------------------------------------
 -typedef BinMDF_TypeIdMap
@@ -493,6 +519,7 @@
 
 -function OSD::RealToCString_
 -function OSD_Path::LocateExecFile
+-function OSD_SharedLibrary::DlSymb
 
 -function OpenGl_GlCore11::glGetPointerv
 -function OpenGl_Material::Init
@@ -536,6 +563,8 @@
 # Undefined symbol on Linux
 -function ShapeFix_Edge::Context
 
+-function Standard_CLocaleSentry::GetCLocale_
+
 -function StdPersistent_DataXtd_Constraint::Import
 -function StdPersistent_DataXtd_PatternStd::Import
 -function StdPersistent_TopLoc::Translate_
@@ -545,7 +574,7 @@
 -function StdObject_Location::Import
 
 -function StdSelect_BRepOwner::Set
-#-function StdStorage_TypeData::Instantiator
+-function StdStorage_TypeData::Instantiator
 
 -function StepData_FreeFormEntity::StepData_FreeFormEntity
 -function StepData_StepReaderData::ReadEnumParam
@@ -572,8 +601,6 @@
 -function TransferBRep::BRepCheck_
 
 -function TopOpeBRepBuild_Builder1::GFillSplitsPVS
-
--field RWGltf_GltfSharedIStream::Stream
 
 -function VrmlData_IndexedFaceSet::GetNormal
 -function VrmlData_IndexedFaceSet::Polygons
@@ -790,6 +817,7 @@
 -field Graphic3d_CStructure::IsForHighlight
 -field Graphic3d_CStructure::IsMutable
 -field Graphic3d_CStructure::Is2dText
+-field Graphic3d_GraduatedTrihedron::CubicAxesCallback
 
 -field OpenGl_Context::core11
 -field OpenGl_Context::core11fwd
@@ -1018,3 +1046,7 @@
 # Split modules
 +split Graphic3d
 +split OpenGl
+
+# Before modules -----------------------------------------------------------------------------------
++before_module OpenGl-->struct NSOpenGLContext{};
++before_module V3d-->struct NSOpenGLContext{};

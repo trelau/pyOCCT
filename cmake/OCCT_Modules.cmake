@@ -259,7 +259,6 @@ LIST(APPEND OCCT_MODULES
     StdPrs
     StdSelect
     StdStorage
-    step
     StepAP203
     StepAP209
     StepAP214
